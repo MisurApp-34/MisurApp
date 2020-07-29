@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">MisurApp</string>
+    <string name="app_name" translatable="false">MisurApp</string>
+    <string name="menu" translatable="false">Menu</string>
+    <string name="impostazioni">Impostazioni</string>
+    <string name="favorite">Preferiti</string>
+    <string name="storicogenerale">Storico Generale</string>
+    <string name="drawer_open">Apri Menu Navigazione</string>
+    <string name="drawer_close">Chiudi Menu Navigazione</string>
+    <string name="about">Chi Siamo</string>
+    <string name="info" translatable="false">Info</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="add">Aggiungi</string>
+    <string name="add_favorite_mid">Non hai impostato strumenti preferiti, aggiungine uno ora</string>
+    <string name="position_tools">Strumenti di Posizione</string>
+    <string name="ambient_tools">Strumenti Ambientali</string>
+    <string name="movement_tools">Strumenti di Movimento</string>
 </resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/FragmentStoricoGenerale"
+            android:icon="@drawable/genericdata"
+            android:title="@string/storicogenerale" />
+        <item
+            android:id="@+id/FragmentImpostazioni"
+            android:icon="@drawable/settings"
+            android:title="@string/impostazioni" />
+    </group>
+    <item android:title="@string/info">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/FragmentAbout"
+                    android:icon="@drawable/about"
+                    android:title="@string/about" />
+            </group>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="impostazioni">Settings</string>
+    <string name="favorite">Favorites</string>
+    <string name="storicogenerale">Generic Data</string>
+    <string name="drawer_open">Open Navigation Drawer</string>
+    <string name="drawer_close">Close Navigation Drawer</string>
+    <string name="about">About Us</string>
+    <string name="add">Add</string>
+    <string name="add_favorite_mid">You don\'t have any favorite tool, add one now!</string>
+    <string name="position_tools">Location Tools</string>
+    <string name="ambient_tools">Ambient Tools</string>
+    <string name="movement_tools">Motion Tools</string>
+</resources>
