@@ -11,4 +11,11 @@
     <string name="position_tools">Location Tools</string>
     <string name="ambient_tools">Ambient Tools</string>
     <string name="movement_tools">Motion Tools</string>
+    <string name="add_favour">Add favourite</string>
+    <string name="details_instrument">Tool detail</string>
+    <string name="unit_of_measure">Unit of measurement</string>
+    <string name="instrument_det">Tool detail</string>
+    <string name="save_measure">Save measurement</string>
+    <string name="historical_measure">Historical measurement</string>
+    <string name="measure">Measurement</string>
 </resources>
