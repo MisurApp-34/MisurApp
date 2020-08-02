@@ -16,7 +16,7 @@
     <string name="positiontools">STRUMENTI DI POSIZIONE</string>
     <string name="temperature">Temperatura</string>
     <string name="temperature_setting">Unità misura temperatura</string>
-
+    <string name="search" translatable="false">Ricerca</string>
 
     <string name="pressuresetting">Pressione</string>
     <string name="pressure_setting">Unità misura pressione</string>
