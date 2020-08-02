@@ -1,4 +1,34 @@
 <resources>
+    <string name="altitude" translatable="false">Altitudine</string>
+    <string name="coordinate">Coordinate GPS</string>
+    <string name="level" translatable="false">Livella</string>
+    <string name="pressure">Pressione</string>
+    <string name="photometer">Intenistà Luminosa</string>
+    <string name="phonometer">Intenistà Sonora</string>
+    <string name="compass">Bussola</string>
+    <string name="magneticfield">Campo Magnetico</string>
+    <string name="distance">Sensore Prossimità</string>
+    <string name="acceleration">Accelerazione dispositivo</string>
+    <string name="gravity">Accelerazione gravità</string>
+    <string name="speed">Velocità</string>
+    <string name="movimenttools">STRUMENTI DI MOVIMENTO</string>
+    <string name="ambientaltools">STRUMENTI AMBIENTALI</string>
+    <string name="positiontools">STRUMENTI DI POSIZIONE</string>
+    <string name="temperature">Temperatura</string>
+    <string name="temperature_setting">Unità misura temperatura</string>
+
+
+    <string name="pressuresetting">Pressione</string>
+    <string name="pressure_setting">Unità misura pressione</string>
+
+
+    <string name="speedsetting">Velocità</string>
+    <string name="speed_setting">Unità misura velocità</string>
+
+
+    <string name="language_setting">Imposta lingua</string>
+    <string name="language">Lingua</string>
+
     <string name="app_name" translatable="false">MisurApp</string>
     <string name="menu" translatable="false">Menu</string>
     <string name="impostazioni">Impostazioni</string>
@@ -22,4 +52,5 @@
     <string name="save_measure">Salva Misurazione</string>
     <string name="historical_measure">Storico Misurazioni</string>
     <string name="measure">Misura:</string>
+
 </resources>

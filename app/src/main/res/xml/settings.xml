@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/language">
+        <ListPreference
+            android:defaultValue="false"
+            android:entries="@array/language_entries"
+            android:entryValues="@array/language_values"
+            android:key="languages"
+            android:title="@string/language_setting"></ListPreference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/temperature">
+        <ListPreference
+            android:defaultValue="false"
+            android:entries="@array/temperature_entries"
+            android:entryValues="@array/temperature_values"
+            android:key="temperature"
+            android:title="@string/temperature_setting"></ListPreference>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/pressuresetting">
+        <ListPreference
+            android:defaultValue="false"
+            android:entries="@array/pressure_entries"
+            android:entryValues="@array/pressure_values"
+            android:key="pressure"
+            android:title="@string/pressure_setting"></ListPreference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/speedsetting">
+        <ListPreference
+            android:defaultValue="false"
+            android:entries="@array/speed_entries"
+            android:entryValues="@array/speed_values"
+            android:key="speed"
+            android:title="@string/speed_setting"></ListPreference>
+
+    </PreferenceCategory>
+</PreferenceScreen>

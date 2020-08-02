@@ -18,4 +18,33 @@
     <string name="save_measure">Save measurement</string>
     <string name="historical_measure">Historical measurement</string>
     <string name="measure">Measurement</string>
+    <string name="app_name">MisurApp</string>
+    <string name="altitude" translatable="false">Altitude</string>
+    <string name="coordinate">Coordinate GPS</string>
+    <string name="level" translatable="false">Bubble Level</string>
+    <string name="pressure">Pressure</string>
+    <string name="photometer">Light Intensity</string>
+    <string name="phonometer">Sound Intensity</string>
+    <string name="compass">Compass</string>
+    <string name="magneticfield">Magnetic Field</string>
+    <string name="distance">Proxyimity Sensor</string>
+    <string name="language_setting">Language settings</string>
+    <string name="language">Language</string>
+
+    <string name="acceleration">Device Acceleration</string>
+    <string name="gravity">Gravity Acceleration</string>
+    <string name="speed">Speed</string>
+    <string name="movimenttools">MOVIMENT TOOLS</string>
+    <string name="ambientaltools">AMBIENTAL TOOLS</string>
+    <string name="positiontools">POSITION TOOLS</string>
+
+    <string name="temperature">Temperature</string>
+    <string name="temperature_setting">Unit of temperature measurement</string>
+
+    <string name="pressuresetting">Pressure</string>
+    <string name="pressure_setting">Unit of pressure measurement</string>
+
+    <string name="speedsetting">Speed</string>
+    <string name="speed_setting">Unit of speed measurement</string>
+
 </resources>

@@ -76,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Activity Strumenti Ambientali da collegare - Sostituire il Toast con il pezzo di codice commentato modificando eventuali nomi di classe
-                Toast.makeText(MainActivity.this,"Activity Strumenti ambientali \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
-                /*
+              //  Toast.makeText(MainActivity.this,"Activity Strumenti ambientali \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+
                 Intent Ambient;
-                Ambient = new Intent(MainActivity.this, Ambient.class);
+                Ambient = new Intent(MainActivity.this, AmbientalTools.class);
                 startActivity(Ambient);
-                 */
+
             }
         });
 
@@ -89,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Activity Strumenti di Movimento da collegare - Sostituire il Toast con il pezzo di codice commentato modificando eventuali nomi di classe
-                Toast.makeText(MainActivity.this,"Activity Strumenti di Movimento \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
-                /*
+                //oast.makeText(MainActivity.this,"Activity Strumenti di Movimento \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+
                 Intent Movement;
-                Movement = new Intent(MainActivity.this, Movement.class);
+                Movement = new Intent(MainActivity.this, MovimentTools.class);
                 startActivity(Movement);
-                 */
+
             }
         });
 
@@ -102,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Activity Strumenti di Posizione da collegare - Sostituire il Toast con il pezzo di codice commentato modificando eventuali nomi di classe
-                Toast.makeText(MainActivity.this,"Activity Strumenti di Posizione \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
-                /*
+                //Toast.makeText(MainActivity.this,"Activity Strumenti di Posizione \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+
                 Intent Position;
-                Position = new Intent(MainActivity.this, Position.class);
+                Position = new Intent(MainActivity.this, PositionTools.class);
                 startActivity(Position);
-                 */
+
             }
         });
 
