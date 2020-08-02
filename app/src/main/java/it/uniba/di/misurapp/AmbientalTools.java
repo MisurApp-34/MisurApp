@@ -1,10 +1,9 @@
 package it.uniba.di.misurapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,11 +12,12 @@ import androidx.cardview.widget.CardView;
 
 public class AmbientalTools extends AppCompatActivity
 {
+    Context context;
     @Override
     public void onCreate(Bundle bundle)
     {
         super.onCreate(bundle);
-
+context=this;
         // set activity layout
         setContentView(R.layout.ambiental_tools);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -51,11 +51,8 @@ public class AmbientalTools extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                  /*  // definisco l'intenzione
-                    Intent Level = new Intent(Tools.this,Level.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Level);
-                                   */}
+                 Intent MagneticField = new Intent(context , MagneticField.class);
+                startActivity(MagneticField);}
         });
 
 
@@ -78,11 +75,10 @@ public class AmbientalTools extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                  /*  // definisco l'intenzione
-                    Intent Proxyimity = new Intent(Tools.this,Proxyimity.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Proxyimity);
-                                   */}
+
+               // Intent SoundIntensity = new Intent(context , MagneticField.class);
+                //startActivity(SoundIntensity);
+            }
         });
 
         CardView card_barometer = (CardView) findViewById(R.id.card_barometer); // creating a CardView and assigning a value.

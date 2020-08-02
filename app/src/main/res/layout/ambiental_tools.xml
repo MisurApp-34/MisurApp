@@ -37,7 +37,7 @@
 
 
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
 
 
         <!-- ROw 1 -->
@@ -45,7 +45,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="8dp"
             android:layout_weight="1"
 
             android:layout_columnWeight="1"
@@ -92,14 +91,16 @@
         <!-- colonna 2 -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_magnetometor"
+            android:layout_weight="1"
 
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginBottom="16dp"
 
+            android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:foreground="?android:attr/selectableItemBackground"
@@ -188,14 +189,15 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="8dp"
+            android:layout_marginLeft="16dp"
             android:foreground="?android:attr/selectableItemBackground"
 
             android:clickable="true"
             android:focusable="true"
             app:cardBackgroundColor="#FFFFFF"
+            android:layout_marginRight="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
             >
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -213,10 +215,10 @@
                     android:layout_width="wrap_content"
                     android:text="@string/phonometer"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="12sp"
                     android:autoSizeMaxTextSize="100sp"
+                    android:textColor="@android:color/black"
                     android:textStyle="normal"
                     android:layout_height="wrap_content" />
             </LinearLayout>

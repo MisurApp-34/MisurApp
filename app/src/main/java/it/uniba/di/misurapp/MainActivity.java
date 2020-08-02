@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
         cardviewambient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Activity Strumenti Ambientali da collegare - Sostituire il Toast con il pezzo di codice commentato modificando eventuali nomi di classe
-              //  Toast.makeText(MainActivity.this,"Activity Strumenti ambientali \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+
 
                 Intent Ambient;
                 Ambient = new Intent(MainActivity.this, AmbientalTools.class);
@@ -88,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
         cardviewmovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Activity Strumenti di Movimento da collegare - Sostituire il Toast con il pezzo di codice commentato modificando eventuali nomi di classe
-                //oast.makeText(MainActivity.this,"Activity Strumenti di Movimento \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+
 
                 Intent Movement;
                 Movement = new Intent(MainActivity.this, MovimentTools.class);
@@ -101,8 +99,7 @@ public class MainActivity extends AppCompatActivity {
         cardviewposition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Activity Strumenti di Posizione da collegare - Sostituire il Toast con il pezzo di codice commentato modificando eventuali nomi di classe
-                //Toast.makeText(MainActivity.this,"Activity Strumenti di Posizione \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+               
 
                 Intent Position;
                 Position = new Intent(MainActivity.this, PositionTools.class);

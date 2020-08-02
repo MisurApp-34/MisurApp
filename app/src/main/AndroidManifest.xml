@@ -3,6 +3,7 @@
     package="it.uniba.di.misurapp">
 
     <application
+
         android:logo="@mipmap/ic_launcher"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,37 +13,23 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
             </intent-filter>
         </activity>
         <activity android:name=".Favorite"/>
 
+        <activity android:name=".MagneticField"/>
 
-        <activity android:name=".PositionTools">
-            <intent-filter>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Settings">
-            <intent-filter>
+        <activity android:name=".PositionTools" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".AmbientalTools">
-            <intent-filter>
+        <activity android:name=".Settings"/>
+        <activity android:name=".AmbientalTools"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MovimentTools">
-            <intent-filter>
+        <activity android:name=".MovimentTools"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

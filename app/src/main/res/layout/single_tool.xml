@@ -47,17 +47,26 @@
                     android:alignmentMode="alignMargins"
                     tools:ignore="UselessParent">
 
-                    <ImageView
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chart1"
                         android:layout_width="match_parent"
-                        android:layout_height="110dp"
-                        android:layout_rowWeight="2" />
+                        android:layout_height="wrap_content"
+                        tools:layout_editor_absoluteY="0dp"
+                        android:layout_rowWeight="3"
+
+                        tools:layout_editor_absoluteX="8dp"
+                        tools:ignore="MissingClass" />
 
 
                     <TextView
+                        android:id="@+id/measure"
                         android:layout_width="match_parent"
-                        android:layout_rowWeight="1"
+                        android:layout_rowWeight="0.7"
+                        android:layout_marginTop="30dp"
                         android:text="@string/measure"
+                        android:textStyle="bold"
                         android:textAlignment="center">
+
                     </TextView>
 
                     <LinearLayout
@@ -80,21 +89,26 @@
 
                             <TextView
                                 android:id="@+id/unit_measu"
-                                android:layout_width="334dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_weight="2"
+                                android:layout_gravity="center"
+                                android:maxLines="1"
                                 android:text="@string/instrument_det"
-                                android:textSize="14sp"
                                 tools:ignore="NestedWeights" />
 
                             <TextView
                                 android:id="@+id/details"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:layout_weight="3"
-                                android:textSize="24sp" />
+                                android:layout_weight="2"
+                                android:maxLines="1"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/black"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="9sp"
+                                android:autoSizeMaxTextSize="100sp"/>
 
                         </LinearLayout>
 
@@ -140,16 +154,31 @@
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/historical"
                 android:padding="14dp"
-                android:text="@string/save_measure">
+                android:maxLines="2"
+
+                android:text="@string/save_measure"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="100sp">
 
             </Button>
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="100sp"
+
                 android:layout_columnWeight="1"
                 android:background="@drawable/historical"
                 android:padding="14dp"
+                android:maxLines="2"
+
                 android:text="@string/historical_measure">
 
             </Button>

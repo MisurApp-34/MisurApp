@@ -152,10 +152,9 @@ android:background="@drawable/bg"
                 android:layout_gravity="center_horizontal|center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:minHeight="46dp"
-                    android:minWidth="46dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="46dp"
+
+                    android:layout_height="46dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"

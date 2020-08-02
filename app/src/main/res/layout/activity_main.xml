@@ -44,7 +44,10 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+
+
+                >
 
                 <!--TODO Cambiare l'icona degli strumenti ambientali-->
                 <ImageView
