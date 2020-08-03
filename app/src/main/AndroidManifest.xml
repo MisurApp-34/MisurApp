@@ -34,6 +34,8 @@
 
 
         <activity android:name=".PositionTools" />
+        <activity android:name=".ProximityTool" />
+
 
         
 
