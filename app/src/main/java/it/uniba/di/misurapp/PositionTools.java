@@ -1,5 +1,6 @@
 package it.uniba.di.misurapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -75,11 +76,11 @@ public class PositionTools extends AppCompatActivity
                 @Override
                 public void onClick(View v)
                 {
-                  /*  // definisco l'intenzione
-                    Intent Proxyimity = new Intent(Tools.this,Proxyimity.class);
+
+                    Intent Proxyimity = new Intent(PositionTools.this,ProximityTool.class);
                     // passo all'attivazione dell'activity Pagina.java
                     startActivity(Proxyimity);
-                                   */}
+                                   }
             });
 
 

@@ -24,6 +24,8 @@
 
 
         <activity android:name=".PositionTools" />
+        <activity android:name=".ProximityTool" />
+
 
         <activity android:name=".Settings"/>
         <activity android:name=".AmbientalTools"/>
