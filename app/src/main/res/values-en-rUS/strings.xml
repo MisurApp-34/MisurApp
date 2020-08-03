@@ -30,8 +30,8 @@
     <string name="distance">Proxyimity Sensor</string>
     <string name="language_setting">Language settings</string>
     <string name="language">Language</string>
-    <string name="magnetometer">Magnetometer</string>
-
+    <string name="magneticfield_details">Magnetometer</string>
+    <string name="pressure_details">Barometer</string>
     <string name="acceleration">Device Acceleration</string>
     <string name="gravity">Gravity Acceleration</string>
     <string name="speed">Speed</string>

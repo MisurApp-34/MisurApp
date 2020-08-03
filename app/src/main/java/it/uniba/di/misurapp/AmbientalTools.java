@@ -3,6 +3,7 @@ package it.uniba.di.misurapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,8 +77,8 @@ context=this;
             public void onClick(View v)
             {
 
-               // Intent SoundIntensity = new Intent(context , MagneticField.class);
-                //startActivity(SoundIntensity);
+                Intent SoundIntensity = new Intent(context , SoundIntensity.class);
+                startActivity(SoundIntensity);
             }
         });
 
@@ -87,11 +88,8 @@ context=this;
             @Override
             public void onClick(View v)
             {
-                  /*  // definisco l'intenzione
-                    Intent Proxyimity = new Intent(Tools.this,Proxyimity.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Proxyimity);
-                                   */}
+                Intent PressureTool = new Intent(context , PressureTool.class);
+                startActivity(PressureTool);}
         });
 
 

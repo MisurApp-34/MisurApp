@@ -1,9 +1,12 @@
 package it.uniba.di.misurapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.util.DisplayMetrics;
@@ -20,6 +23,8 @@ public class Settings extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
@@ -85,18 +90,17 @@ public class Settings extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-            switch (newValue.toString()) {
-                case "Bar":
-                    pressure_unit="Bar";
-                    break;
+            SharedPreferences settings = getSharedPreferences("settings", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("pressure",newValue.toString());
+            editor.commit();
 
-                case "Pascal":
-                    pressure_unit="Pascal";
-                    break;
-            }
+
             return false;
         }
     };
+
+
 
     Preference.OnPreferenceChangeListener speedChangeListener = new Preference.OnPreferenceChangeListener() {
 

@@ -33,12 +33,13 @@
 
     <string-array name="pressure_entries">
         <item>Pascal</item>
-        <item>Bar</item>
+        <item>hPa</item>
+
     </string-array>
 
     <string-array name="pressure_values">
         <item>Pascal</item>
-        <item>Bar</item>
+        <item>hPa</item>
     </string-array>
 
 

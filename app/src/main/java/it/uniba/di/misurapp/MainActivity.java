@@ -2,6 +2,7 @@ package it.uniba.di.misurapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         NavigationView nvDrawer;
         ActionBarDrawerToggle drawerToggle;
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         cardviewposition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               
+
 
                 Intent Position;
                 Position = new Intent(MainActivity.this, PositionTools.class);
@@ -131,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"Activity Storico Generale \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.FragmentImpostazioni:
-                // TODO Fragment/Activity Impostazioni
-                Toast.makeText(this,"Activity Impostazioni \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+                Intent Settings = new Intent(this , Settings.class);
+                startActivity(Settings);
                 break;
             case R.id.FragmentAbout:
                 // TODO Fragment/Activity About

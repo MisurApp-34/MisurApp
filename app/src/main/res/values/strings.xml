@@ -44,7 +44,9 @@
     <string name="position_tools">Strumenti di Posizione</string>
     <string name="ambient_tools">Strumenti Ambientali</string>
     <string name="movement_tools">Strumenti di Movimento</string>
-    <string name="magnetometer">Magnetometro</string>
+    <string name="magneticfield_details">Magnetometro</string>
+    <string name="pressure_details">Barometro</string>
+
 
     <string name="add_favour">Aggiungi ai preferiti</string>
     <string name="details_instrument">Dettagli stumento:</string>
@@ -53,5 +55,8 @@
     <string name="save_measure">Salva Misurazione</string>
     <string name="historical_measure">Storico Misurazioni</string>
     <string name="measure">Misura:</string>
+
+
+
 
 </resources>

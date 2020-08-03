@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="it.uniba.di.misurapp">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
+
 
     <application
 
@@ -20,10 +27,16 @@
         </activity>
         <activity android:name=".Favorite"/>
 
+
+        <activity android:name=".PressureTool"/>
+
         <activity android:name=".MagneticField"/>
 
 
         <activity android:name=".PositionTools" />
+
+        
+
 
         <activity android:name=".Settings"/>
         <activity android:name=".AmbientalTools"/>

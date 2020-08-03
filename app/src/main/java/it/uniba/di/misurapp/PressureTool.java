@@ -1,6 +1,7 @@
 package it.uniba.di.misurapp;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -28,15 +29,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
-/**
- * This class implements the SensorEventListener interface. When the application creates the MQTT
- * connection, it registers listeners for the accelerometer and magnetometer sensors.
- * Output from these sensors is used to publish accel event messages.
- */
-public class MagneticField extends AppCompatActivity implements SensorEventListener {
+
+public class PressureTool extends AppCompatActivity implements SensorEventListener {
     private TextView value;
     private LineChart mChart;
     private Thread thread;
@@ -48,7 +43,6 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //setto layout
         setContentView(R.layout.single_tool);
 
@@ -61,7 +55,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         try {
-            getSupportActionBar().setTitle(R.string.magneticfield);
+            getSupportActionBar().setTitle(R.string.pressure);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -71,7 +65,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         //associo il chart del layout alla variabile LineChart
-        mChart = (LineChart) findViewById(R.id.chart1);
+        mChart = findViewById(R.id.chart1);
 
         // disabilito label descrizione chart
         mChart.getDescription().setEnabled(false);
@@ -141,16 +135,14 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
 
-
+        //
         sensorManager.registerListener(this,
-                sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-                SensorManager.SENSOR_DELAY_NORMAL);
-
+                sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE),
+                SensorManager.SENSOR_DELAY_UI);
 
     }
 
@@ -165,54 +157,62 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
 
     }
 
-
     // temporizzo la stampa
     Handler mHandler = new Handler();
-    double magnitude;// intialize it
+    double pressione;// intialize it
     Runnable run = new Runnable() {
 
         @Override
         public void run() {
 
-            value.setText(DECIMAL_FORMATTER.format(magnitude) + " \u00B5Tesla");
+            value.setText(String.format("%.1f hPa", pressione));
             mHandler.removeCallbacks(run);
 
         }
     };
 
     @Override
-    public void onSensorChanged(final SensorEvent event) {
+    public void onSensorChanged(SensorEvent event) {
+        SharedPreferences settings = getSharedPreferences("settings", 0);
+        if ((settings.getString("pressure", "").toString()).equals("hPa")) {
 
-        //se l'evento generato è di tipo  MAGNETIC_FIELD
-        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            // prendo i valori generati dai singoli assi
+            if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
+                // prendo i valori generati dai singoli assi
+                pressione = event.values[0];
+                if (first == 1) {
+                    value.setText(String.format("%.1f hPa", pressione));
+                    first++;
+                } else {
+                    //avvio handler ogni due secondi -- guardare sopra questo metodo
+                    mHandler.postDelayed(run, 2000);
+                }
 
-            float magX = event.values[0];
-            float magY = event.values[1];
-            float magZ = event.values[2];
-            //determino il valore del campo magnetico utilizzando le misure di tutti i tre assi
-            magnitude = Math.sqrt((magX * magX) + (magY * magY) + (magZ * magZ));
-            //definisco il numero  di cifre decimali del valore da stampare
-            DECIMAL_FORMATTER = new DecimalFormat("#.0");
-            //imposto testo nella textview
-            if (first == 1) {
-                value.setText(DECIMAL_FORMATTER.format(magnitude) + " \u00B5Tesla");
-                first++;
-            } else {
-                //avvio handler ogni due secondi -- guardare sopra questo metodo
-                mHandler.postDelayed(run, 2000);
+                TextView details = findViewById(R.id.details);
+                details.setText(R.string.pressure_details);
+
+                //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
+                if (plotData) {
+                    addEntry(event);
+                    plotData = false;
+                }
             }
+        } else {
+            if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
+                // prendo i valori generati dai singoli assi
+                float[] values = event.values;
+                value.setText(String.format("%.1f Pascal", values[0] * 100));
 
-            TextView details = findViewById(R.id.details);
+                TextView details = findViewById(R.id.details);
+                details.setText(R.string.pressure_details);
 
-            details.setText(R.string.magneticfield_details);
-
-            //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
-            if (plotData) {
-                addEntry(event);
-                plotData = false;
+                //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
+                if (plotData) {
+                    addEntry(event);
+                    plotData = false;
+                }
             }
         }
+
     }
 
 
@@ -262,13 +262,20 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                 set = createSet();
                 data.addDataSet(set);
             }
+            float[] values = event.values;
 
+
+            SharedPreferences settings = getSharedPreferences("settings", 0);
+            if ((settings.getString("pressure", "").toString()).equals("hPa")) {
+
+                data.addEntry(new Entry(set.getEntryCount(), (float) round(values[0], 1)), 0);
+
+            } else {
+                data.addEntry(new Entry(set.getEntryCount(), (float) round(values[0] * 100, 0)), 0);
+
+            }
             //prelevo le tre misure sui tre assi, inviate con l'oggetto event
-            float magX = event.values[0];
-            float magY = event.values[1];
-            float magZ = event.values[2];
-            float magnitude = (float) Math.sqrt((magX * magX) + (magY * magY) + (magZ * magZ));
-            data.addEntry(new Entry(set.getEntryCount(), magnitude), 0);
+
             data.notifyDataChanged();
 
             // mostra il cambiamento dei dati presenti nel chart
@@ -281,6 +288,11 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
             mChart.moveViewToX(data.getEntryCount());
 
         }
+    }
+
+    //troncamento numeri decimali
+    public static double round(double value, int scale) {
+        return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
     }
 
     //creo il tracciato nel grafico
