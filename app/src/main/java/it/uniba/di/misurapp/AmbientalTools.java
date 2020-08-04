@@ -92,6 +92,16 @@ context=this;
                 startActivity(PressureTool);}
         });
 
+        CardView card_thermometer = (CardView) findViewById(R.id.card_thermometer); // creating a CardView and assigning a value.
+
+        card_thermometer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                /*Intent PressureTool = new Intent(context , PressureTool.class);
+                startActivity(PressureTool);*/
+            }
+        });
 
     }
 
