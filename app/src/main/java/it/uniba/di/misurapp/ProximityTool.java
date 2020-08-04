@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-public class ProximityTool extends AppCompatActivity{
+public class ProximityTool extends AppCompatActivity implements  SensorEventListener{
     TextView ProximitySensor, data;
     SensorManager mySensorManager;
     Sensor myProximitySensor;
@@ -56,9 +57,7 @@ public class ProximityTool extends AppCompatActivity{
         } else {
 
             ProximitySensor.setText(R.string.proximity_details);
-            mySensorManager.registerListener(proximitySensorEventListener,
-                    myProximitySensor,
-                    SensorManager.SENSOR_DELAY_NORMAL);
+
         }
 
         //associo il chart del layout alla variabile LineChart
@@ -132,41 +131,39 @@ public class ProximityTool extends AppCompatActivity{
     }
 
 
-    SensorEventListener proximitySensorEventListener
-            = new SensorEventListener() {
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            // TODO Auto-generated method stub
-        }
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            // TODO Auto-generated method stub
-            if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-                if (event.values[0] == 0) {
 
-                    data.setText((Double.toString(event.values[0]))+"cm");
-                   // data.setText(R.string.near);
-                } else {
-                   // data.setText(R.string.far);
-                    data.setText((Double.toString(event.values[0]))+"cm");
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // TODO Auto-generated method stub
+    }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // TODO Auto-generated method stub
+        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            if (event.values[0] == 0) {
 
-                }
+                data.setText((Double.toString(event.values[0]))+"cm");
+                // data.setText(R.string.near);
+            } else {
+                // data.setText(R.string.far);
+                data.setText((Double.toString(event.values[0]))+"cm");
 
-                //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
-                if (plotData) {
-                    addEntry(event);
-                    plotData = false;
-                }
+            }
+
+            //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
+            if (plotData) {
+                addEntry(event);
+                plotData = false;
             }
         }
-    };
+    }
     @Override
     protected void onPause() {
         super.onPause();
         if (thread != null) {
             thread.interrupt();
         }
-        mySensorManager.unregisterListener((SensorEventListener) this);
+        mySensorManager.unregisterListener(this);
 
     }
 
@@ -244,4 +241,14 @@ public class ProximityTool extends AppCompatActivity{
         return true;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //
+        mySensorManager.registerListener(this, mySensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                SensorManager.SENSOR_DELAY_UI);
+
+    }
 }
