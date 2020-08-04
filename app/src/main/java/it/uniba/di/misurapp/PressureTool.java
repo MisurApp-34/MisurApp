@@ -61,7 +61,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
         }
 
 
-//inventario dei sensori disponibili nel nostro dispositivo.
+        //inventario dei sensori disponibili nel nostro dispositivo.
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         //associo il chart del layout alla variabile LineChart
@@ -135,6 +135,8 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
     }
 
+
+    //registro listner sensori
     @Override
     protected void onResume() {
         super.onResume();
@@ -146,7 +148,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
     }
 
-
+    //interrompo thread e de-registro
     @Override
     protected void onPause() {
         super.onPause();
@@ -173,12 +175,16 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        //importo preferenze dalle impostazioni per visualizzare dati in hPa o  Pascal
         SharedPreferences settings = getSharedPreferences("settings", 0);
         if ((settings.getString("pressure", "").toString()).equals("hPa")) {
 
             if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
                 // prendo i valori generati dai singoli assi
                 pressione = event.values[0];
+
+                //controllo su variabile globale per procedere all'avvio dell'activity subito con la stampa del valore senza attendere 2 secondi
                 if (first == 1) {
                     value.setText(String.format("%.1f hPa", pressione));
                     first++;
@@ -220,12 +226,25 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    //creo il tracciato nel grafico
+
+    private LineDataSet createSet() {
+
+
+        LineDataSet set = new LineDataSet(null, "");
+        set.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        set.setLineWidth(1f);
+        set.setColor(Color.BLUE);
+        set.setHighlightEnabled(true);
+        set.setDrawValues(true);
+        set.setDrawCircles(true);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setCubicIntensity(0.2f);
+        return set;
     }
 
+
+    //gestisco thread per la stampa sul grafico
     private void feedMultiple() {
 
         if (thread != null) {
@@ -250,6 +269,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
         thread.start();
     }
 
+    //inserisco dati sul grafico
     private void addEntry(SensorEvent event) {
 
         LineData data = mChart.getData();
@@ -262,16 +282,19 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                 set = createSet();
                 data.addDataSet(set);
             }
+            //prelevo valori dall'evento
             float[] values = event.values;
 
 
+
+            //catturo preferenza dalle impostazioni circa l'unità di misura
             SharedPreferences settings = getSharedPreferences("settings", 0);
             if ((settings.getString("pressure", "").toString()).equals("hPa")) {
 
                 data.addEntry(new Entry(set.getEntryCount(), (float) round(values[0], 1)), 0);
 
             } else {
-                data.addEntry(new Entry(set.getEntryCount(), (float) round(values[0] * 100, 0)), 0);
+                data.addEntry(new Entry(set.getEntryCount(), (float) round(values[0] * 100, 1)), 0);
 
             }
             //prelevo le tre misure sui tre assi, inviate con l'oggetto event
@@ -295,19 +318,10 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
         return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
     }
 
-    //creo il tracciato nel grafico
-    private LineDataSet createSet() {
-
-
-        LineDataSet set = new LineDataSet(null, "");
-        set.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        set.setLineWidth(1f);
-        set.setColor(Color.BLUE);
-        set.setHighlightEnabled(true);
-        set.setDrawValues(true);
-        set.setDrawCircles(true);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        set.setCubicIntensity(0.2f);
-        return set;
+  // pulsante indietro
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

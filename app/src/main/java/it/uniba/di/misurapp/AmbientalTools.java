@@ -77,8 +77,8 @@ context=this;
             public void onClick(View v)
             {
 
-             /*   Intent SoundIntensity = new Intent(context , SoundIntensity.class);
-                startActivity(SoundIntensity); */
+              Intent SoundIntensity = new Intent(context , SoundIntensity.class);
+                startActivity(SoundIntensity);
             }
         });
 

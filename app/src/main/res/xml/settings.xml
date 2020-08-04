@@ -27,7 +27,7 @@
 
     <PreferenceCategory android:title="@string/pressuresetting">
         <ListPreference
-            android:defaultValue="2"
+            android:defaultValue="1"
             android:entries="@array/pressure_entries"
             android:entryValues="@array/pressure_values"
             android:key="pressure"

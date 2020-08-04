@@ -55,7 +55,9 @@
                         android:layout_rowWeight="3"
 
                         tools:layout_editor_absoluteX="8dp"
-                        tools:ignore="MissingClass" />
+                        tools:ignore="MissingClass"
+
+                        />
 
 
                     <TextView

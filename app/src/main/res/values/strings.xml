@@ -47,6 +47,9 @@
     <string name="magneticfield_details">Magnetometro</string>
     <string name="proximity_details">Prossimità</string>
     <string name="pressure_details">Barometro</string>
+    <string name="decibel_details">Microfono</string>
+    <string name="sound_intensity">Intensità sonora</string>
+<string name="initialization">Inizializzazione</string>
     <string name="near">Vicino</string>
     <string name="far">Lontano</string>
     <string name="nosensor">Nessun sensore di prossimità</string>
@@ -63,7 +66,15 @@
     <string name="save_measure">Salva Misurazione</string>
     <string name="historical_measure">Storico Misurazioni</string>
     <string name="measure">Misura:</string>
-<string name="thermometer">Temperatura dispositivo</string>
+    <string name="decibel_level_1">Calma, silenzio</string>
+    <string name="decibel_level_2">Possibile deconcentrazione</string>
+    <string name="decibel_level_3">Interferenza nelle conversazioni, fastidio</string>
+    <string name="decibel_level_4">Molto fastidio</string>
+    <string name="decibel_level_5">Dolore</string>
+
+
+
+    <string name="thermometer">Temperatura dispositivo</string>
 
 
 

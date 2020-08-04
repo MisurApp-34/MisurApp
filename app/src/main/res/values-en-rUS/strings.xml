@@ -54,7 +54,14 @@
     <string name="far">Far</string>
     <string name="nosensor">No proximity tool</string>
     <string name="centimeter">cm</string>
-
+    <string name = "decibel_level_1"> Calm, silence </string>
+    <string name = "decibel_level_2"> Possible deconcentration </string>
+    <string name = "decibel_level_3"> Interference in conversations, annoyance </string>
+    <string name = "decibel_level_4"> Very annoying </string>
+    <string name = "decibel_level_5"> Pain </string>
+    <string name="decibel_details">Microphone</string>
+    <string name="sound_intensity">Sound intensity</string>
+    <string name="initialization">Initialization</string>
 
 
 </resources>

@@ -32,9 +32,9 @@
 
         <activity android:name=".MagneticField"/>
 
-
         <activity android:name=".PositionTools" />
         <activity android:name=".ProximityTool" />
+        <activity android:name=".SoundIntensity" />
 
 
         
