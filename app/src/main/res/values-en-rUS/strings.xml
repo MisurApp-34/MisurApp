@@ -49,4 +49,12 @@
     <string name="speed_setting">Unit of speed measurement</string>
     <string name="thermometer">Device temperature</string>
 
+    <string name="proximity_details">Proximity</string>
+    <string name="near">Near</string>
+    <string name="far">Far</string>
+    <string name="nosensor">No proximity tool</string>
+    <string name="centimeter">cm</string>
+
+
+
 </resources>
