@@ -47,5 +47,6 @@
 
     <string name="speedsetting">Speed</string>
     <string name="speed_setting">Unit of speed measurement</string>
+    <string name="thermometer">Device temperature</string>
 
 </resources>

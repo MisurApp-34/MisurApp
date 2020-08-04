@@ -77,7 +77,7 @@ context=this;
             public void onClick(View v)
             {
 
-                Intent SoundIntensity = new Intent(context , SoundIntensity.class);
+                Intent SoundIntensity = new Intent(context , SoundIntensityDef.class);
                 startActivity(SoundIntensity);
             }
         });
@@ -90,6 +90,19 @@ context=this;
             {
                 Intent PressureTool = new Intent(context , PressureTool.class);
                 startActivity(PressureTool);}
+        });
+
+        CardView card_thermometer = (CardView) findViewById(R.id.card_thermometer); // creating a CardView and assigning a value.
+
+        card_photometer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                    /*Intent thermometer = new Intent(context,Gps.class);
+                    // passo all'attivazione dell'activity Pagina.java
+                    startActivity(Gps);
+                                   */}
         });
 
 
