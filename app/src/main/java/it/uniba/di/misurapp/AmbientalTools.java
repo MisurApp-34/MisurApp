@@ -63,11 +63,9 @@ public class AmbientalTools extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                  /*  // definisco l'intenzione
-                    Intent Gps = new Intent(Tools.this,Gps.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Gps);
-                                   */}
+                Intent photometer_tool = new Intent(context , LightTool.class);
+                startActivity(photometer_tool);
+            }
         });
 
         CardView card_phonometer = (CardView) findViewById(R.id.card_phonometer); // creating a CardView and assigning a value.

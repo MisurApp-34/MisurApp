@@ -7,9 +7,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
-
-
     <application
 
         android:logo="@mipmap/ic_launcher"
@@ -37,6 +34,7 @@
         <activity android:name=".AmbientalTools"/>
         <activity android:name=".MovimentTools"/>
         <activity android:name=".AccelerometerTool"/>
+        <activity android:name=".LightTool"/>
 
     </application>
 

@@ -287,7 +287,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
     //creo il tracciato nel grafico
     private LineDataSet createSet() {
-        
+
         LineDataSet set = new LineDataSet(null, "");
         set.setAxisDependency(YAxis.AxisDependency.RIGHT);
         set.setLineWidth(1f);
