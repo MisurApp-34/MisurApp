@@ -64,6 +64,7 @@
     <string name="initialization">Initialization</string>
     <string name="missing_sensor">Attention! \n Missing sensor</string>
     <string name="attention">Attention! \n Abnormal temperature level</string>
+    <string name="accelerometer">Accelerometer</string>
 
 
 </resources>

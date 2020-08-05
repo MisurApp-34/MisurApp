@@ -18,7 +18,7 @@ public class AmbientalTools extends AppCompatActivity
     public void onCreate(Bundle bundle)
     {
         super.onCreate(bundle);
-context=this;
+        context=this;
         // set activity layout
         setContentView(R.layout.ambiental_tools);
         Toolbar toolbar = findViewById(R.id.toolbar);

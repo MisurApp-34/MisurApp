@@ -27,25 +27,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".Favorite"/>
-
-
         <activity android:name=".PressureTool"/>
-
         <activity android:name=".MagneticField"/>
-
         <activity android:name=".PositionTools" />
         <activity android:name=".ProximityTool" />
         <activity android:name=".SoundIntensity" />
         <activity android:name=".TemperatureTool" />
-
-
-        
-
-
         <activity android:name=".Settings"/>
         <activity android:name=".AmbientalTools"/>
-
         <activity android:name=".MovimentTools"/>
+        <activity android:name=".AccelerometerTool"/>
 
     </application>
 

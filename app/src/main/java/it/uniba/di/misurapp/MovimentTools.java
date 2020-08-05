@@ -1,5 +1,6 @@
 package it.uniba.di.misurapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,12 +21,12 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MovimentTools extends AppCompatActivity
 {
-
+    Context context;
     @Override
     public void onCreate(Bundle bundle)
     {
         super.onCreate(bundle);
-
+        context=this;
         // set activity layout
         setContentView(R.layout.moviment_tools);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -74,13 +75,10 @@ public class MovimentTools extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                  /*  // definisco l'intenzione
-                    Intent Gps = new Intent(Tools.this,Gps.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Gps);
-                                   */}
+                Intent accelerometer_tool = new Intent(context , AccelerometerTool.class);
+                startActivity(accelerometer_tool);
+            }
         });
-
 
 
 
