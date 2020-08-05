@@ -72,15 +72,12 @@ public class Settings extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-            switch (newValue.toString()) {
-                case "Celsius":
-                   temperature_unit="Celsius";
-                    break;
+            SharedPreferences settings = getSharedPreferences("settings", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("temperature",newValue.toString());
+            editor.commit();
 
-                case "Fahrenheit":
-                    temperature_unit="Fahrenheit";
-                    break;
-            }
+
             return false;
         }
     };

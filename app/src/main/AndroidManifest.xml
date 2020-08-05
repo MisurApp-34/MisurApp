@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
 
@@ -35,6 +36,7 @@
         <activity android:name=".PositionTools" />
         <activity android:name=".ProximityTool" />
         <activity android:name=".SoundIntensity" />
+        <activity android:name=".TemperatureTool" />
 
 
         

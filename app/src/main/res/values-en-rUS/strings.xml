@@ -62,6 +62,8 @@
     <string name="decibel_details">Microphone</string>
     <string name="sound_intensity">Sound intensity</string>
     <string name="initialization">Initialization</string>
+    <string name="missing_sensor">Attention! \n Missing sensor</string>
+    <string name="attention">Attention! \n Abnormal temperature level</string>
 
 
 </resources>

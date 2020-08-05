@@ -14,7 +14,7 @@
     <string name="movimenttools">STRUMENTI DI MOVIMENTO</string>
     <string name="ambientaltools">STRUMENTI AMBIENTALI</string>
     <string name="positiontools">STRUMENTI DI POSIZIONE</string>
-    <string name="temperature">Temperatura</string>
+    <string name="temperature">Termometro</string>
     <string name="temperature_setting">Unità misura temperatura</string>
     <string name="search" translatable="false">Ricerca</string>
 
@@ -75,7 +75,8 @@
 
 
     <string name="thermometer">Temperatura dispositivo</string>
-
+    <string name="attention">Attenzione! \n Livello di temperatura anomalo</string>
+    <string name="missing_sensor">Attenzione! \n Sensore non presente</string>
 
 
 </resources>

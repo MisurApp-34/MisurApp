@@ -98,8 +98,8 @@ context=this;
             @Override
             public void onClick(View v)
             {
-                /*Intent PressureTool = new Intent(context , PressureTool.class);
-                startActivity(PressureTool);*/
+                Intent thermometer_temperature_tool = new Intent(context , TemperatureTool.class);
+                startActivity(thermometer_temperature_tool);
             }
         });
 
