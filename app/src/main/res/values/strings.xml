@@ -46,6 +46,10 @@
     <string name="movement_tools">Strumenti di Movimento</string>
     <string name="magneticfield_details">Magnetometro</string>
     <string name="proximity_details">Prossimità</string>
+    <string name="acceleration_details">Accelerazione di gravità</string>
+    <string name="gravity_details">Accelerazione gravitazionale</string>
+
+
     <string name="pressure_details">Barometro</string>
     <string name="decibel_details">Microfono</string>
     <string name="sound_intensity">Intensità sonora</string>

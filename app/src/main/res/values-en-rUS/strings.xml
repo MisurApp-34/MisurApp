@@ -38,6 +38,8 @@
     <string name="movimenttools">MOVIMENT TOOLS</string>
     <string name="ambientaltools">AMBIENTAL TOOLS</string>
     <string name="positiontools">POSITION TOOLS</string>
+    <string name="acceleration_details">Gravity acceleration</string>
+    <string name="gravity_details">Gravity acceleration</string>
 
     <string name="temperature">Temperature</string>
     <string name="temperature_setting">Unit of temperature measurement</string>

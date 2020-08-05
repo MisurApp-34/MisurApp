@@ -48,11 +48,9 @@ public class MovimentTools extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                  /*  // definisco l'intenzione
-                    Intent Altitude = new Intent(Tools.this,Altitude.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Altitude);
-                                   */}
+                Intent gravity_tool = new Intent(context , GravityTool.class);
+                startActivity(gravity_tool);
+                                   }
 
         });
         CardView card_speed = (CardView) findViewById(R.id.card_speed); // creating a CardView and assigning a value.
