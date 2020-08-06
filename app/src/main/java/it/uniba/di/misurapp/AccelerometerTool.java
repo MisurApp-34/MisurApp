@@ -1,5 +1,7 @@
 package it.uniba.di.misurapp;
 
+import android.annotation.SuppressLint;
+import android.content.AsyncQueryHandler;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -28,11 +30,6 @@ import java.text.DecimalFormat;
 
 public class AccelerometerTool extends AppCompatActivity implements SensorEventListener {
 
-    //variabili per l'impostazione del tempo di visualizzazione della misura
-    private int  first =1;
-    Handler mHandler = new Handler();
-    Runnable run;
-
     private TextView value;
     private LineChart mChart;
     private Thread thread;
@@ -40,20 +37,16 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
 
-
-    private float lastAcc = 0.0f; //accelerazione precedentemente misurata dopo il primo movimento
+    private TextView xText, yText, zText;
     private float acceleration = 0.0f; //forza di accelerazione di inzio
-    private float totAcc = 0.0f; //differenza delle due misurazioni per misurare l'intensità di squotimento
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setto layout
-        setContentView(R.layout.single_tool);
+        setContentView(R.layout.single_tool2);
 
         //gravità terrestre, ovvero lo stato di quiete
-        lastAcc=SensorManager.GRAVITY_EARTH;
         acceleration=SensorManager.GRAVITY_EARTH;
         // variabile in cui verrà memorizzata la misura del sensore
         value = (TextView) findViewById(R.id.measure);
@@ -68,6 +61,11 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        // Assign TextView
+        xText = (TextView)findViewById(R.id.measureX);
+        yText = (TextView)findViewById(R.id.measureY);
+        zText = (TextView)findViewById(R.id.measureZ);
 
         //inventario dei sensori disponibili nel nostro dispositivo.
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -126,7 +124,6 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
         mChart.getXAxis().setDrawGridLines(false);
         mChart.setDrawBorders(false);
 
-
         feedMultiple();
 
         // recupero il valore selezionato nel grafico, per poter eventualmente salvarlo.
@@ -141,16 +138,6 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
             }
         });
-
-        //gestore per la temporizzazione della vsualizzazione della misura rilevata dallo strumento
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                value.setText(DECIMAL_FORMATTER.format(totAcc) + " m/s²");
-                new Handler().postDelayed(this, 1000);
-                mHandler.removeCallbacks(run);
-            }
-        }, 1000);
 
     }
 
@@ -178,28 +165,10 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
         //se l'evento generato è di tipo  TYPE_ACCELEROMETER
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            // prendo i valori generati dai singoli assi
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
-            //determino il valore dell'accelerazione utilizzando le misure di tutti i tre assi
-            lastAcc = acceleration;
-            acceleration = (x * x) + (y * y) + (z * z);
-            float diff = acceleration - lastAcc;
-            totAcc = diff*acceleration;
-
-            //definisco il numero  di cifre decimali del valore da stampare
-            DECIMAL_FORMATTER = new DecimalFormat("#.0");
-
-            if (first == 1) {
-                value.setText(DECIMAL_FORMATTER.format(totAcc) + "m/s²");
-                first++;
-            } else {
-                //avvio handler ogni due secondi -- guardare sopra questo metodo
-                mHandler.postDelayed(run, 1000);
-            }
-            //imposto testo nella textview
-            //value.setText(DECIMAL_FORMATTER.format(totAcc) + "m/s²");
+                // stampo i valori generati dai singoli assi in ogni textView
+                xText.setText("X: " + round(event.values[0],2)+ " m/s²");
+                yText.setText("Y: " + round(event.values[1],2)+ " m/s²");
+                zText.setText("Z: " +  round(event.values[2],2)+ " m/s²");
 
             TextView details = findViewById(R.id.details);
             details.setText(R.string.accelerometer);
@@ -264,11 +233,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
-            //determino il valore dell'accelerazione utilizzando le misure di tutti i tre assi
-            lastAcc = acceleration;
             acceleration = (x * x) + (y * y) + (z * z);
-            float diff = acceleration - lastAcc;
-            totAcc = diff*acceleration;
 
             data.addEntry(new Entry(set.getEntryCount(), acceleration), 0);
             data.notifyDataChanged();
@@ -281,7 +246,6 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
             // muovi l'ultimo elemento
             mChart.moveViewToX(data.getEntryCount());
-
         }
     }
 
@@ -298,5 +262,9 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.2f);
         return set;
+    }
+//funzione per l'arrontondamento delle cifre decimali definite in scale
+    public static double round(double value, int scale) {
+        return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
     }
 }

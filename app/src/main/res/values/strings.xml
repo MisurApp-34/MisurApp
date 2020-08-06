@@ -82,6 +82,7 @@
     <string name="attention">Attenzione! \n Livello di temperatura anomalo</string>
     <string name="missing_sensor">Attenzione! \n Sensore non presente</string>
     <string name="accelerometer"> Accelerometro</string>
+    <string name="light">Fotometro</string>
 
 
 </resources>

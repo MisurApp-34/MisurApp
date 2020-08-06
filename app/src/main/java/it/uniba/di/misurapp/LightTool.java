@@ -13,13 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.text.DecimalFormat;
 
@@ -28,7 +24,6 @@ public class LightTool extends AppCompatActivity {
     private int  first =1;
     Handler mHandler = new Handler();
     Runnable run;
-    public static DecimalFormat DECIMAL_FORMATTER;
 
     private SensorManager sensorManager;
     private Sensor lightSensor;
@@ -55,6 +50,17 @@ public class LightTool extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
+        //importo toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        try {
+            getSupportActionBar().setTitle(R.string.photometer);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
         if (lightSensor == null) {
             Toast.makeText(this, "The device has no light sensor !", Toast.LENGTH_SHORT).show();
             finish();
@@ -66,6 +72,8 @@ public class LightTool extends AppCompatActivity {
         lightEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
+                TextView details = findViewById(R.id.details);
+                details.setText(R.string.light);
                 value = sensorEvent.values[0];
                 val.setText(value + " lx");
 
@@ -80,7 +88,7 @@ public class LightTool extends AppCompatActivity {
                     first++;
                 } else {
                     //avvio handler ogni due secondi -- guardare sopra questo metodo
-                    mHandler.postDelayed(run, 3000);
+                    mHandler.postDelayed(run, 2000);
                 }
 
             }
@@ -90,16 +98,16 @@ public class LightTool extends AppCompatActivity {
 
             }
         };
-
+        //gestore per la temporizzazione della vsualizzazione della misura rilevata dallo strumento
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 val.setText(value + " lx");
                 root.setBackgroundColor(Color.rgb(newValue, newValue, newValue));
-                new Handler().postDelayed(this, 3000);
+                new Handler().postDelayed(this, 2000);
                 mHandler.removeCallbacks(run);
             }
-        }, 3000);
+        }, 2000);
     }
 
     @Override

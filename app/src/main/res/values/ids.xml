@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="measureX" type="id" />
+    <item name="measureY" type="id" />
+    <item name="measureZ" type="id" />
+</resources>
