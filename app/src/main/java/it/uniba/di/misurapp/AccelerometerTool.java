@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +27,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-import java.text.DecimalFormat;
-
 public class AccelerometerTool extends AppCompatActivity implements SensorEventListener {
 
     private TextView value;
@@ -35,19 +34,15 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     private Thread thread;
     private boolean plotData = true;
     private SensorManager sensorManager;
-    public static DecimalFormat DECIMAL_FORMATTER;
 
     private TextView xText, yText, zText;
-    private float acceleration = 0.0f; //forza di accelerazione di inzio
+    private float acceleration = Sensor.TYPE_LINEAR_ACCELERATION; //forza di accelerazione di inzio
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setto layout
         setContentView(R.layout.single_tool2);
-
-        //gravità terrestre, ovvero lo stato di quiete
-        acceleration=SensorManager.GRAVITY_EARTH;
         // variabile in cui verrà memorizzata la misura del sensore
         value = (TextView) findViewById(R.id.measure);
 
@@ -146,7 +141,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
         super.onResume();
 
         sensorManager.registerListener(this,
-                sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
                 SensorManager.SENSOR_DELAY_UI);
     }
 
@@ -164,11 +159,15 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     public void onSensorChanged(SensorEvent event) {
 
         //se l'evento generato è di tipo  TYPE_ACCELEROMETER
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                // stampo i valori generati dai singoli assi in ogni textView
-                xText.setText("X: " + round(event.values[0],2)+ " m/s²");
-                yText.setText("Y: " + round(event.values[1],2)+ " m/s²");
-                zText.setText("Z: " +  round(event.values[2],2)+ " m/s²");
+        if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+
+            // stampo i valori generati dai singoli assi in ogni textView
+            xText.setText("X: " + round(x,2)+ " m/s²");
+            yText.setText("Y: " + round(y,2)+ " m/s²");
+            zText.setText("Z: " +  round(z,2)+ " m/s²");
 
             TextView details = findViewById(R.id.details);
             details.setText(R.string.accelerometer);
@@ -180,7 +179,6 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
             }
         }
     }
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -233,9 +231,8 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
-            acceleration = (x * x) + (y * y) + (z * z);
 
-            data.addEntry(new Entry(set.getEntryCount(), acceleration), 0);
+            data.addEntry(new Entry(set.getEntryCount(), (float) Math.sqrt((x*x)+(y*y)+(z*z))), 0);
             data.notifyDataChanged();
 
             // mostra il cambiamento dei dati presenti nel chart
@@ -246,6 +243,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
             // muovi l'ultimo elemento
             mChart.moveViewToX(data.getEntryCount());
+
         }
     }
 
