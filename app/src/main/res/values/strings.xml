@@ -49,7 +49,7 @@
     <string name="acceleration_details">Accelerazione di gravità</string>
     <string name="gravity_details">Accelerazione gravitazionale</string>
 
-
+    <string name="compass_instrument">Magnetometro - Accelerometro</string>
     <string name="pressure_details">Barometro</string>
     <string name="decibel_details">Microfono</string>
     <string name="sound_intensity">Intensità sonora</string>
@@ -59,7 +59,9 @@
     <string name="nosensor">Nessun sensore di prossimità</string>
     <string name="centimeter">cm</string>
 
+    <string name="degrees">Gradi</string>
 
+    <string name="compass_details">Bussola</string>
 
 
 

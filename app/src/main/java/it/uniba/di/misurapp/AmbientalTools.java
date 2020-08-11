@@ -39,11 +39,8 @@ public class AmbientalTools extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                  /*  // definisco l'intenzione
-                    Intent Altitude = new Intent(Tools.this,Altitude.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Altitude);
-                                   */}
+                Intent CompassTool = new Intent(context , CompassTool.class);
+                startActivity(CompassTool);}
 
         });
         CardView card_magnetometor = (CardView) findViewById(R.id.card_magnetometor); // creating a CardView and assigning a value.

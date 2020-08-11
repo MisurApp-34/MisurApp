@@ -40,6 +40,9 @@
     <string name="positiontools">POSITION TOOLS</string>
     <string name="acceleration_details">Gravity acceleration</string>
     <string name="gravity_details">Gravity acceleration</string>
+    <string name="degrees">Degrees</string>
+    <string name="compass_details">Compass</string>
+    <string name="compass_instrument">Magnetometer - Accelerometer</string>
 
     <string name="temperature">Temperature</string>
     <string name="temperature_setting">Unit of temperature measurement</string>
