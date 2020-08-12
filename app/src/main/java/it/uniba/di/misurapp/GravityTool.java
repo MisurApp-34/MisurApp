@@ -45,6 +45,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
     int first = 1;
+    double acceleration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,21 +195,10 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
         //se l'evento generato è di tipo  MAGNETIC_FIELD
         if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
-            // prendo i valori generati dai singoli assi
 
-            double max1= Math.max(event.values[0],event.values[1]);
-            gravity= Math.max(max1,event.values[2]);
-
-            //definisco il numero  di cifre decimali del valore da stampare
             DECIMAL_FORMATTER = new DecimalFormat("#.00");
-            //imposto testo nella textview
-            if (first == 1) {
-                value.setText(DECIMAL_FORMATTER.format(gravity) + " m/s2");
-                first++;
-            } else {
-                //avvio handler ogni due secondi -- guardare sopra questo metodo
-                mHandler.postDelayed(run, 2000);
-            }
+            acceleration = magnitude(event.values);
+            value.setText(DECIMAL_FORMATTER.format(acceleration) +"m/s2\n");
 
             TextView details = findViewById(R.id.details);
 
@@ -216,7 +206,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
             //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
             if (plotData) {
-                addEntry(event);
+                addEntry(acceleration);
                 plotData = false;
             }
         }
@@ -257,7 +247,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         thread.start();
     }
 
-    private void addEntry(SensorEvent event) {
+    private void addEntry(double event) {
 
         LineData data = mChart.getData();
 
@@ -270,10 +260,8 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                 data.addDataSet(set);
             }
 
-            //prelevo le tre misure sui tre assi, inviate con l'oggetto event
-            double max1= Math.max(event.values[0],event.values[1]);
-            gravity= Math.max(max1,event.values[2]);
-            data.addEntry(new Entry(set.getEntryCount(), (float) gravity), 0);
+
+            data.addEntry(new Entry(set.getEntryCount(), (float) event), 0);
             data.notifyDataChanged();
 
             // mostra il cambiamento dei dati presenti nel chart
@@ -286,6 +274,11 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
             mChart.moveViewToX(data.getEntryCount());
 
         }
+    }
+
+
+    double magnitude(float[] v) {
+        return Math.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
     }
 
     //creo il tracciato nel grafico
@@ -303,4 +296,5 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         set.setCubicIntensity(0.2f);
         return set;
     }
+
 }

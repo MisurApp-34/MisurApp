@@ -48,6 +48,7 @@
     <string name="proximity_details">Prossimità</string>
     <string name="acceleration_details">Accelerazione di gravità</string>
     <string name="gravity_details">Accelerazione gravitazionale</string>
+    <string name="level_details">Angolazione</string>
 
 
     <string name="pressure_details">Barometro</string>
@@ -56,7 +57,7 @@
 <string name="initialization">Inizializzazione</string>
     <string name="near">Vicino</string>
     <string name="far">Lontano</string>
-    <string name="nosensor">Nessun sensore di prossimità</string>
+    <string name="nosensor">Nessun sensore </string>
     <string name="centimeter">cm</string>
 
 

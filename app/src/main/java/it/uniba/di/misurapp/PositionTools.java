@@ -49,11 +49,10 @@ public class PositionTools extends AppCompatActivity
                 @Override
                 public void onClick(View v)
                 {
-                  /*  // definisco l'intenzione
-                    Intent Level = new Intent(Tools.this,Level.class);
+                    Intent Level = new Intent(PositionTools.this,LevelTool.class);
                     // passo all'attivazione dell'activity Pagina.java
                     startActivity(Level);
-                                   */}
+                                   }
             });
 
 

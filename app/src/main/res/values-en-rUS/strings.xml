@@ -40,6 +40,7 @@
     <string name="positiontools">POSITION TOOLS</string>
     <string name="acceleration_details">Gravity acceleration</string>
     <string name="gravity_details">Gravity acceleration</string>
+    <string name="level_details">Angle</string>
 
     <string name="temperature">Temperature</string>
     <string name="temperature_setting">Unit of temperature measurement</string>
@@ -54,7 +55,7 @@
     <string name="proximity_details">Proximity</string>
     <string name="near">Near</string>
     <string name="far">Far</string>
-    <string name="nosensor">No proximity tool</string>
+    <string name="nosensor">No tool</string>
     <string name="centimeter">cm</string>
     <string name = "decibel_level_1"> Calm, silence </string>
     <string name = "decibel_level_2"> Possible deconcentration </string>

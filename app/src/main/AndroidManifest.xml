@@ -36,6 +36,7 @@
         <activity android:name=".AccelerometerTool"/>
         <activity android:name=".LightTool"/>
         <activity android:name=".GravityTool"/>
+        <activity android:name=".LevelTool"/>
 
     </application>
 
