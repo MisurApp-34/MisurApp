@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import it.uniba.di.misurapp.location_tools.Altimeter;
+
 
 public class PositionTools extends AppCompatActivity
     {
@@ -34,25 +36,22 @@ public class PositionTools extends AppCompatActivity
 
             card_altitude.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
-                  /*  // definisco l'intenzione
-                    Intent Altitude = new Intent(Tools.this,Altitude.class);
-                    // passo all'attivazione dell'activity Pagina.java
+                public void onClick(View v) {
+                    // Activity Altimetro
+                    Intent Altitude = new Intent(PositionTools.this, Altimeter.class);
                     startActivity(Altitude);
-                                   */}
+                }
 
             });
             CardView card_level = (CardView) findViewById(R.id.card_level); // creating a CardView and assigning a value.
 
             card_level.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
-                    Intent Level = new Intent(PositionTools.this,LevelTool.class);
+                public void onClick(View v) {
+                //    Intent Level = new Intent(PositionTools.this,LevelTool.class);
                     // passo all'attivazione dell'activity Pagina.java
-                    startActivity(Level);
-                                   }
+                //    startActivity(Level);
+                }
             });
 
 

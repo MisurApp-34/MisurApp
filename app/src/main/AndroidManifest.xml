@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <application
 
@@ -25,7 +29,7 @@
         </activity>
         <activity android:name=".Favorite"/>
         <activity android:name=".CompassTool"/>
-
+        <activity android:name=".location_tools.Altimeter"/>
         <activity android:name=".PressureTool"/>
         <activity android:name=".MagneticField"/>
         <activity android:name=".PositionTools" />
@@ -38,8 +42,12 @@
         <activity android:name=".AccelerometerTool"/>
         <activity android:name=".LightTool"/>
         <activity android:name=".GravityTool"/>
-        <activity android:name=".LevelTool"/>
+        <!--<activity android:name=".LevelTool"/>-->
 
+        <service android:name=".location_tools.LocationService"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
     </application>
 
 </manifest>

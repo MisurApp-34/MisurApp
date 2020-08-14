@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "397918922129",
+    "firebase_url": "https://misurapp.firebaseio.com",
+    "project_id": "misurapp",
+    "storage_bucket": "misurapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397918922129:android:84b8f0818e8d17b2092630",
+        "android_client_info": {
+          "package_name": "it.uniba.di.misurapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397918922129-tdfuurrhaarsra985p9kf5kerqu30pmh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnH598wO9PomZf6R1ye4L4J752LBBjlCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397918922129-tdfuurrhaarsra985p9kf5kerqu30pmh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,7 @@
 <resources>
-    <string name="altitude" translatable="false">Altitudine</string>
+    <string name="altitude">Altitudine</string>
     <string name="coordinate">Coordinate GPS</string>
-    <string name="level" translatable="false">Livella</string>
+    <string name="level">Livella</string>
     <string name="pressure">Pressione</string>
     <string name="photometer">Intenistà Luminosa</string>
     <string name="phonometer">Intenistà Sonora</string>
@@ -86,6 +86,12 @@
     <string name="missing_sensor">Attenzione! \n Sensore non presente</string>
     <string name="accelerometer"> Accelerometro</string>
     <string name="light">Fotometro</string>
+
+    <string name="alert_gps_off">GPS non attivo!</string>
+    <string name="getting_location">Ricerca posizione</string>
+    <string name="gps" translatable="false">GPS</string>
+    <string name="meters">Metri</string>
+    <string name="feet">Piedi</string>
 
 
 </resources>
