@@ -1,0 +1,22 @@
+<resources>
+    <!--
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=1C:C2:4D:DD:37:28:5C:C6:20:9D:50:72:C9:E4:1D:E9:C6:E5:37:04%3Bit.uniba.di.misurapp.location_tools
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    it.uniba.di.misurapp.location_tools
+
+    SHA-1 certificate fingerprint:
+    1C:C2:4D:DD:37:28:5C:C6:20:9D:50:72:C9:E4:1D:E9:C6:E5:37:04
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBihQ-tDx7Q-45ytYYt-OryOG2XTXjaI6M</string>
+</resources>

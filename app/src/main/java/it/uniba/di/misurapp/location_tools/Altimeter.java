@@ -42,7 +42,7 @@ public class Altimeter extends AppCompatActivity {
 
     LocationManager locationManager;
     static long startTime, endTime;
-    static int p=0;
+    static int p=1;
 
     // servizio LocationService
     LocationService myService;
@@ -58,6 +58,7 @@ public class Altimeter extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_tool);
+        p=0;
 
         TextView details = findViewById(R.id.details);
         details.setText(R.string.gps);

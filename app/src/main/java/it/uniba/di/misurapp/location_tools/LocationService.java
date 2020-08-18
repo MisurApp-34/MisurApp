@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,6 +24,7 @@ import com.google.android.gms.location.LocationServices;
 import it.uniba.di.misurapp.R;
 
 import static it.uniba.di.misurapp.location_tools.Altimeter.*;
+import static it.uniba.di.misurapp.location_tools.MapActivity.getCoordinates;
 
 public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -30,7 +33,9 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     double currentHeight =0;
+    double currentLat,currentLon = 0;
     private final IBinder mBinder = new LocalBinder();
+    Timer timer;
 
     /**
      * Bind servizio con classe
@@ -87,7 +92,18 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         if (location.hasAltitude()) {
             currentHeight = location.getAltitude();
         }
-        updateUI();
+        currentLat = location.getLatitude();
+        currentLon = location.getLongitude();
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (currentLat!=0.0 && currentLon!=0.0) {
+                    updateUI();
+                }
+            }
+        },0,5000);
     }
 
     /**
@@ -103,6 +119,10 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             append = append + " " + unitofmeasurement;
             measure.setText(append);
             //Altimeter.measure.setText(new DecimalFormat("#.#").format((currentHeight*3.28))+" F");
+        }
+        if (MapActivity.p == 0){
+            MapActivity.endTime = System.currentTimeMillis();
+            getCoordinates(currentLat,currentLon);
         }
     }
 

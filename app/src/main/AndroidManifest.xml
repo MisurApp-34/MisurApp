@@ -1,53 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="it.uniba.di.misurapp">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
-
-        android:logo="@mipmap/ic_launcher"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:logo="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".location_tools.MapActivity"
+            android:label="@string/title_activity_map"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.MAIN" />
 
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".Favorite"/>
-        <activity android:name=".CompassTool"/>
-        <activity android:name=".location_tools.Altimeter"/>
-        <activity android:name=".PressureTool"/>
-        <activity android:name=".MagneticField"/>
+        <activity android:name=".Favorite" />
+        <activity android:name=".CompassTool" />
+        <activity android:name=".location_tools.Altimeter" />
+        <activity android:name=".PressureTool" />
+        <activity android:name=".MagneticField" />
         <activity android:name=".PositionTools" />
         <activity android:name=".ProximityTool" />
         <activity android:name=".SoundIntensity" />
         <activity android:name=".TemperatureTool" />
-        <activity android:name=".Settings"/>
-        <activity android:name=".AmbientalTools"/>
-        <activity android:name=".MovimentTools"/>
-        <activity android:name=".AccelerometerTool"/>
-        <activity android:name=".LightTool"/>
-        <activity android:name=".GravityTool"/>
-        <!--<activity android:name=".LevelTool"/>-->
+        <activity android:name=".Settings" />
+        <activity android:name=".AmbientalTools" />
+        <activity android:name=".MovimentTools" />
+        <activity android:name=".AccelerometerTool" />
+        <activity android:name=".LightTool" />
+        <activity android:name=".GravityTool" />
+        <!-- <activity android:name=".LevelTool"/> -->
 
-        <service android:name=".location_tools.LocationService"/>
+        <service android:name=".location_tools.LocationService" />
+
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
