@@ -78,6 +78,7 @@
     <string name="gps_coordinates">GPS Coordinates</string>
     <string name="title_activity_map">Map</string>
     <string name="currentlocation">Current Location</string>
+    <string name="gyroscope">Gyroscope</string>
 
 
 </resources>

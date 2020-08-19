@@ -65,6 +65,9 @@ public class Speed extends AppCompatActivity {
         mContext = this;
         p=0;
 
+        TextView details = findViewById(R.id.details);
+        details.setText(R.string.gps);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.speed);

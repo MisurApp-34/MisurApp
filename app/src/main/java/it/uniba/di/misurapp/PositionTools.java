@@ -50,9 +50,9 @@ public class PositionTools extends AppCompatActivity
             card_level.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                //    Intent Level = new Intent(PositionTools.this,LevelTool.class);
-                    // passo all'attivazione dell'activity Pagina.java
-                //    startActivity(Level);
+                    // Activity Livella
+                    Intent Level = new Intent(PositionTools.this,SpiritLevel.class);
+                    startActivity(Level);
                 }
             });
 
