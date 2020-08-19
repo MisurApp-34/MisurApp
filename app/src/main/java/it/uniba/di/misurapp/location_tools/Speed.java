@@ -37,26 +37,23 @@ import java.util.TimerTask;
 
 import it.uniba.di.misurapp.R;
 
-public class Altimeter extends AppCompatActivity {
+public class Speed extends AppCompatActivity {
 
-    // variabile per la gestione del Bind
     static boolean status;
+    LocationManager locationManager;
 
+    static double speed;
+    static long startTime, endTime;
+    static int p = 1;
+
+    private static boolean gps_off;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
 
-    LocationManager locationManager;
-    static long startTime, endTime;
-    static int p=1;
-
-    private static boolean gps_off;
-
-    // servizio LocationService
-    LocationService myService;
     Timer timer;
-    private LineChart mChart;
     private Thread thread;
-    static double altitudevalue;
+    LocationService myService;
+    private LineChart mChart;
 
     @SuppressLint("StaticFieldLeak")
     static TextView measure;
@@ -68,17 +65,13 @@ public class Altimeter extends AppCompatActivity {
         mContext = this;
         p=0;
 
-        TextView details = findViewById(R.id.details);
-        details.setText(R.string.gps);
-
-        measure = findViewById(R.id.measure);
-
-        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.altitude);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.speed);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        measure = findViewById(R.id.measure);
 
         mChart = (LineChart) findViewById(R.id.chart1);
 
@@ -105,8 +98,8 @@ public class Altimeter extends AppCompatActivity {
                     timer.cancel();
                     bindService();
                 } else {
-                    measure.setText(R.string.alert_gps_off);
                     gps_off = true;
+                    measure.setText(R.string.alert_gps_off);
                 }
             }
         },0,5000);
@@ -231,28 +224,15 @@ public class Altimeter extends AppCompatActivity {
         startTime = System.currentTimeMillis();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        status = false;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        status = false;
-        return super.onSupportNavigateUp();
-    }
-
     /**
-     * Interfaccia con LocationService per ottenere il valore dell'Altitudine
-     * @param currHeight Double contenente il valore dell'altitudine
+     * Interfaccia con LocationService.java per la cattura della velocità instantenea in metri al seconodo
+     * @param currSpeed velocità instantanea calcolata mediante GPS
      */
-    public static void updateValue(double currHeight){
-        altitudevalue = currHeight;
-        if (!gps_off) {
-            String append = new DecimalFormat("#.#").format((altitudevalue));
-            String unitofmeasurement = getContext().getResources().getString(R.string.meters);
+    public static void getSpeed(double currSpeed){
+        speed = currSpeed;
+        if (!gps_off){
+            String append = new DecimalFormat("#.#").format((speed));
+            String unitofmeasurement = getContext().getResources().getString(R.string.meters_per_second);
             append = append + " " + unitofmeasurement;
             measure.setText(append);
         }
@@ -301,8 +281,9 @@ public class Altimeter extends AppCompatActivity {
                 set = createSet();
                 data.addDataSet(set);
             }
-            float altitude = (float) altitudevalue;
-            data.addEntry(new Entry(set.getEntryCount(), altitude), 0);
+            //double Actspeed = (double) speed;
+            float speed_float = (float) speed;
+            data.addEntry(new Entry(set.getEntryCount(), speed_float), 0);
             data.notifyDataChanged();
             mChart.notifyDataSetChanged();
             mChart.setVisibleXRangeMaximum(10);
@@ -325,5 +306,16 @@ public class Altimeter extends AppCompatActivity {
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.2f);
         return set;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

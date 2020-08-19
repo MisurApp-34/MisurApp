@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,8 @@ import com.google.android.gms.location.LocationServices;
 import it.uniba.di.misurapp.R;
 
 import static it.uniba.di.misurapp.location_tools.Altimeter.*;
-import static it.uniba.di.misurapp.location_tools.MapActivity.getCoordinates;
+import static it.uniba.di.misurapp.location_tools.MapActivity.*;
+import static it.uniba.di.misurapp.location_tools.Speed.*;
 
 public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -33,7 +35,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     double currentHeight =0;
-    double currentLat,currentLon = 0;
+    double currentLat,currentLon,currentSpeed = 0;
     private final IBinder mBinder = new LocalBinder();
     Timer timer;
 
@@ -94,6 +96,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         }
         currentLat = location.getLatitude();
         currentLon = location.getLongitude();
+        currentSpeed = location.getSpeed();
+
         timer = new Timer();
 
         timer.schedule(new TimerTask() {
@@ -112,17 +116,16 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     private void updateUI() {
         if(Altimeter.p ==0){
             Altimeter.endTime = System.currentTimeMillis();
-            String append = new DecimalFormat("#.#").format((currentHeight));
-            currentHeight = Double.parseDouble(append);
             updateValue(currentHeight);
-            String unitofmeasurement = getResources().getString(R.string.meters);
-            append = append + " " + unitofmeasurement;
-            measure.setText(append);
             //Altimeter.measure.setText(new DecimalFormat("#.#").format((currentHeight*3.28))+" F");
         }
         if (MapActivity.p == 0){
             MapActivity.endTime = System.currentTimeMillis();
             getCoordinates(currentLat,currentLon);
+        }
+        if (Speed.p == 0){
+            Speed.endTime = System.currentTimeMillis();
+            getSpeed(currentSpeed);
         }
     }
 

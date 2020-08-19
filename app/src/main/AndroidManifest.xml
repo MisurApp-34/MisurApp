@@ -37,6 +37,7 @@
         <activity android:name=".Favorite" />
         <activity android:name=".CompassTool" />
         <activity android:name=".location_tools.Altimeter" />
+        <activity android:name=".location_tools.Speed" />
         <activity android:name=".PressureTool" />
         <activity android:name=".MagneticField" />
         <activity android:name=".PositionTools" />

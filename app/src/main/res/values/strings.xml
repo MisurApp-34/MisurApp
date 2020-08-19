@@ -93,6 +93,7 @@
     <string name="gps_coordinates">Coordinate GPS</string>
     <string name="title_activity_map">Mappa</string>
     <string name="currentlocation">Posizione Attuale</string>
+    <string name="meters_per_second" translatable="false">m/s</string>
 
 
 </resources>
