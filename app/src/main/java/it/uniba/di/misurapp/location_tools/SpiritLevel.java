@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 import it.uniba.di.misurapp.R;
@@ -25,6 +26,8 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
     int DEGREE = 90;
     LevelView levelView;
     private TextView XYZ_tv;
+    public static DecimalFormat DECIMAL_FORMATTER;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +81,14 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         if (sensorType == Sensor.TYPE_ORIENTATION) {
             float[] values = event.values;
             yAngle = values[2]; // ASSE X
-            zAngle = values[2]; // ASSE Y
             xAngle = values[1]; // ASSE Z
-            String append = " X : " + (int) xAngle + "\n" + " Y : " + (int) yAngle + "\n";
+            DECIMAL_FORMATTER = new DecimalFormat("#.0");
+
+            float sqrt= (float) Math.sqrt((xAngle*xAngle) + (yAngle*yAngle));
+            String append =(DECIMAL_FORMATTER.format(sqrt) + "°");
             XYZ_tv.setText(append);
-            levelView.yAngle = values[1]; // TODO Fix direzione bolla
-            levelView.zAngle = values[2];
+            levelView.yAngle = values[2]; // TODO Fix direzione bolla
+            levelView.xAngle = values[1];
         }
     }
 
