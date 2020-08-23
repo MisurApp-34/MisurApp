@@ -1,8 +1,8 @@
 package it.uniba.di.misurapp;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     Intent Favorite;
-
+    DatabaseManager DBHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        //avvio metodo onCreate della classe DatabaseManager per creare le tabelle nel caso in cui non dovessero esistere.
+        DatabaseManager helper = new DatabaseManager(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
 
         NavigationView nvDrawer;
         ActionBarDrawerToggle drawerToggle;

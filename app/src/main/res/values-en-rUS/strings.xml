@@ -46,6 +46,11 @@
     <string name="pressuresetting">Pressure</string>
     <string name="pressure_setting">Unit of pressure measurement</string>
 
+    <string name="uploaddata_message_ok">Data Successfully Inserted!</string>
+    <string name="uploaddata_message_error">Something went wrong</string>
+
+    <string name="name_saving">Saving name</string>
+    <string name="insert_name">Insert measure saving name</string>
     <string name="speedsetting">Speed</string>
     <string name="speed_setting">Unit of speed measurement</string>
     <string name="thermometer">Device temperature</string>

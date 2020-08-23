@@ -157,7 +157,7 @@
                 android:background="@drawable/historical"
                 android:padding="14dp"
                 android:maxLines="2"
-
+android:id="@+id/add"
                 android:text="@string/save_measure"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"

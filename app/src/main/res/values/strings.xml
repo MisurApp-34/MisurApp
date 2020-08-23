@@ -20,7 +20,10 @@
 
     <string name="pressuresetting">Pressione</string>
     <string name="pressure_setting">Unità misura pressione</string>
-
+<string name="name_saving">Nome salvataggio</string>
+    <string name="insert_name">Inserisci nome salvataggio misura</string>
+    <string name="uploaddata_message_ok">Caricamento avvenuto con successo</string>
+    <string name="uploaddata_message_error">Errore nel caricamento, riprova</string>
 
     <string name="speedsetting">Velocità</string>
     <string name="speed_setting">Unità misura velocità</string>
