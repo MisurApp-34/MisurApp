@@ -1,19 +1,33 @@
 package it.uniba.di.misurapp;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.database.DatabaseUtils.*;
+
 public class DatabaseManager extends SQLiteOpenHelper {
 
+    public static int columns;
+    public static int rows;
+
+    @SuppressLint("SdCardPath")
+    private static final String DATABASE_PATH = "/data/data/it.uniba.di.misurapp/databases/";
+    SQLiteDatabase DataBase;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MisurApp";
     public static final String DETECTION_TABLE = "Strumenti";
@@ -78,11 +92,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO "+DETECTION_TABLE+" (name_tool, preference ) VALUES ('Gravità', 0)");
         db.execSQL("INSERT INTO "+DETECTION_TABLE+" (name_tool, preference ) VALUES ('Velocità', 0)");
         db.execSQL("INSERT INTO "+DETECTION_TABLE+" (name_tool, preference ) VALUES ('Accelerazione', 0)");
-
-
-
-
-
     }
 
     @Override
@@ -93,6 +102,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
     public boolean addData( String saving_name, String name_tool, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -136,13 +146,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
         contentValues.put(NAME_TOOL, name_tool);
         contentValues.put(VALUE, value);
 
-
-
-
-
         //inserisco nel db le informazioni
         long result = db.insert(DETECTION_TABLE1, null, contentValues);
-db.close();
+        db.close();
         //if date as inserted incorrectly it will return -1
         if (result == -1) {
             return false;
@@ -151,5 +157,46 @@ db.close();
         }
     }
 
+    /**
+     * Permette di aprire il db in lettura
+     * @throws SQLException per eventuali problemi con il database
+     */
+    public void openDataBase() throws SQLException {
+        String path = DATABASE_PATH + DATABASE_NAME;
+        DataBase = SQLiteDatabase.openDatabase(path,null, SQLiteDatabase.OPEN_READONLY);
+    }
 
+    /**
+     * Query per recuperare tutti i valori generici
+     * @return array con doppio indice con valori del database
+     */
+    public String[][] getData(){
+
+        // query di selezione
+        String selectquery = "SELECT * FROM " + DETECTION_TABLE1;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Cursore per recuperare i dati da database
+        Cursor cursor = db.rawQuery(selectquery,null);
+        cursor.moveToFirst();
+
+        // Creazione matrice dinamica
+        columns = cursor.getColumnCount();
+        rows = cursor.getCount();
+        String[][] data = new String[columns][rows];
+
+        int i=0;
+        // Lettura da database e inserimento nella matrice dinamica
+        if (cursor.moveToFirst()){
+            do {
+                for (int f=0; f < cursor.getColumnCount(); f++){
+                    data[f][i] = cursor.getString(f);
+                }
+                i++;
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return data;
+    }
 }

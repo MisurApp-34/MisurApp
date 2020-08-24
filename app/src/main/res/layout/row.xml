@@ -2,83 +2,76 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:amdroid="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="16dp">
 
-        <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/image" />
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/tool_icon"
+        android:src="@mipmap/ic_launcher" />
+
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
 
         <GridLayout
             android:rowCount="1"
             android:columnCount="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content">
 
-            >
             <TextView
                 android:id="@+id/textViewSave"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="match_parent"
                 android:layout_columnWeight="1"
-                android:text="Titolo"
-
-                android:textColor="#000"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 android:layout_margin="5dp"
-
-                />
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/trash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                android:visibility="visible"
-                android:src="@drawable/trash"
-                android:layout_gravity="center_vertical|right"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical|end"
                 android:clickable="true"
+                android:contentDescription="@string/trash"
                 android:focusable="true"
-                android:contentDescription="TODO"/>
+                android:src="@drawable/trash"
+                android:visibility="visible" />
 
         </GridLayout>
 
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@color/textcolor" />
 
+            <TextView
+                android:id="@+id/textViewValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@color/textcolor" />
 
-        <TextView
-            android:id="@+id/textViewDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="data:"
-            android:textColor="#a9a9a9"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:layout_margin="5dp"
-            />
-
-        <TextView
-            android:id="@+id/textViewValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="valore:"
-            android:textColor="#a9a9a9"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:layout_margin="5dp"
-            />
-
-
-
-    </LinearLayout>
+            <TextView
+                android:id="@+id/ToolName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@color/textcolor" />
+        </LinearLayout>
 </LinearLayout>

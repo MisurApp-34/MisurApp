@@ -81,36 +81,27 @@ public class MainActivity extends AppCompatActivity {
         cardviewambient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent Ambient;
                 Ambient = new Intent(MainActivity.this, AmbientalTools.class);
                 startActivity(Ambient);
-
             }
         });
 
         cardviewmovement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent Movement;
                 Movement = new Intent(MainActivity.this, MovimentTools.class);
                 startActivity(Movement);
-
             }
         });
 
         cardviewposition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent Position;
                 Position = new Intent(MainActivity.this, PositionTools.class);
                 startActivity(Position);
-
             }
         });
 
@@ -133,8 +124,9 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem){
         switch (menuItem.getItemId()){
             case R.id.FragmentStoricoGenerale:
-                // TODO Fragment/Activity storico Generale
-                Toast.makeText(this,"Activity Storico Generale \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+                Intent GenericData;
+                GenericData = new Intent(MainActivity.this,ToolSave.class);
+                startActivity(GenericData);
                 break;
             case R.id.FragmentImpostazioni:
                 Intent Settings = new Intent(this , Settings.class);

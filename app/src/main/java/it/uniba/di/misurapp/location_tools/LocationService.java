@@ -7,12 +7,10 @@ import android.location.Location;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,8 +19,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-
-import it.uniba.di.misurapp.R;
 
 import static it.uniba.di.misurapp.location_tools.Altimeter.*;
 import static it.uniba.di.misurapp.location_tools.MapActivity.*;
@@ -117,7 +113,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         if(Altimeter.p ==0){
             Altimeter.endTime = System.currentTimeMillis();
             updateValue(currentHeight);
-            //Altimeter.measure.setText(new DecimalFormat("#.#").format((currentHeight*3.28))+" F");
         }
         if (MapActivity.p == 0){
             MapActivity.endTime = System.currentTimeMillis();

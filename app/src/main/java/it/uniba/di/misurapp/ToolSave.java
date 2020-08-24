@@ -1,93 +1,95 @@
 package it.uniba.di.misurapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.view.*;
 import android.widget.ImageView;
 import android.widget.ListView;
+import androidx.appcompat.widget.Toolbar;
+import java.util.Objects;
 
-import androidx.appcompat.widget.SearchView;
-
-import java.util.ArrayList;
-import java.util.List;
+import static java.lang.Integer.parseInt;
 
 public class ToolSave extends AppCompatActivity {
 
-    ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save_list);
 
+        // Apertura db in lettura
+        DatabaseManager dbmanager = new DatabaseManager(this);
+        dbmanager.openDataBase();
+
+        // Cattura dati presenti nel database
+        String[][] text = dbmanager.getData();
+        dbmanager.close();
+
+        // Setup toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.save);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // Vista lista
         ListView listView = findViewById(R.id.my_list);
-        String mTitle[]={"Salvataggio 1","Salvataggio 2","Salvataggio 3","Salvataggio 4","Slvataggio 5","Salvataggio 6","Salvataggio 7","Salvataggio 8","Salvataggio 9"};
-        String mDate[]= {"Data 1","Data 2","Data 3","Data 4","Data 5","Data 6","Data 7","Data 8","Data 9"};
-        String mvalue[]= {"valore 1","valore 2","valore 3","valore 4","valore 5","valore 6","valore 7","valore 8","valore 9"};
-        int images [] = {R.drawable.ic_launcher_background,R.drawable.ic_launcher_background,R.drawable.ic_launcher_background,R.drawable.ic_launcher_background,R.drawable.ic_launcher_background,R.drawable.ic_launcher_background,R.drawable.ic_launcher_background,R.drawable.ic_launcher_background,R.drawable.ic_launcher_background};
+
+        // Creazione array dinamici
+        String[] mTitle = new String[DatabaseManager.rows];
+        String[] mDate = new String[DatabaseManager.rows];
+        String[] mToolname = new String[DatabaseManager.rows];
+        String[] mvalue = new String[DatabaseManager.rows];
+        int[] images = new int[DatabaseManager.rows];
         ImageView trash = (ImageView) findViewById(R.id.trash);
 
-        //set our images and other things are set in array
+        // Lettura della matrice e assegnazione valori ai rispettivi array
+        for (int i = 0; i < DatabaseManager.rows; i++) {
+            mTitle[i] = text[1][i];
+            mDate[i] = text[3][i];
+            mToolname[i] = text[4][i];
+            mvalue[i] = text[5][i];
+            int append = parseInt(text[2][i]);
+            images[i] = getIcon(append);
+        }
 
-
-        List<String> mylist = new ArrayList<>();
-        mylist.add("Ciao");
-        mylist.add("Addio");
-        mylist.add("Prova");
-        mylist.add("Buongiorno");
-        mylist.add("Buonanotte");
-        mylist.add("Casa");
-        mylist.add("Cane");
-        mylist.add("Gatto");
-        mylist.add("Leone");
-
-
-        ToolSaveAdapter adapter = new ToolSaveAdapter(this, mTitle, mDate, mvalue, images);
-
+        // Inflate adapter
+        ToolSaveAdapter adapter = new ToolSaveAdapter(this, mTitle, mDate, mvalue, mToolname, images, trash);
         listView.setAdapter(adapter);
-
-      /*  trash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(StrumentSave.this,"Activity Strumenti ambientali \n DA COLLEGARE",Toast.LENGTH_SHORT).show();            }
-        });
-
-       */
-
-
-       /*  QUESTA E' LA VECCHIA LISTA!!
-
-       arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mylist);
-        listView.setAdapter(arrayAdapter);
-
-        */
     }
 
-
-
-
-    //QUESTA BARRA DI RICERCA NON FUNZIONA E FA RIFERIMENTO ALLA VECCHIA LISTA
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.search_icon);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Cerca");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                arrayAdapter.getFilter().filter(s);
-                return true;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    /**
+     * Metodo per inserire nella lista dei salvataggi le icone dei vari strumenti utilizzati
+     * @param i indice relativo all'id dello strumento
+     * @return int relativo al drawable legato all'indice strumento
+     */
+    public int getIcon(int i){
+        switch (i){
+            case 1 :  return R.drawable.compass;
+            case 2 :  return R.drawable.magnetic_fild;
+            case 3 :  return R.drawable.light;
+            case 4 :  return R.drawable.sound;
+            case 5 :  return R.drawable.barometor;
+            case 6 :  return R.drawable.thermometer;
+            case 7 :  return R.drawable.altitude;
+            case 8 :  return R.drawable.gps;
+            case 9 :  return R.drawable.level;
+            case 10 : return R.drawable.proxyimity;
+            case 11 : return R.drawable.gravity;
+            case 12 : return R.drawable.speedometer;
+            case 13 : return R.drawable.accelerometer;
+            default : return 0;
+        }
+    }
 }

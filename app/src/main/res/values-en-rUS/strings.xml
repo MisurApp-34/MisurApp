@@ -84,6 +84,9 @@
     <string name="title_activity_map">Map</string>
     <string name="currentlocation">Current Location</string>
     <string name="gyroscope">Gyroscope</string>
+    <string name="save">Saves</string>
+    <string name="tool_icon">Tool Icon</string>
+    <string name="trash">Trash</string>
 
 
 </resources>

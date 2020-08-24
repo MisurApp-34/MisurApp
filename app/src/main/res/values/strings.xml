@@ -20,7 +20,7 @@
 
     <string name="pressuresetting">Pressione</string>
     <string name="pressure_setting">Unità misura pressione</string>
-<string name="name_saving">Nome salvataggio</string>
+    <string name="name_saving">Nome salvataggio</string>
     <string name="insert_name">Inserisci nome salvataggio misura</string>
     <string name="uploaddata_message_ok">Caricamento avvenuto con successo</string>
     <string name="uploaddata_message_error">Errore nel caricamento, riprova</string>
@@ -98,5 +98,8 @@
     <string name="currentlocation">Posizione Attuale</string>
     <string name="meters_per_second" translatable="false">m/s</string>
     <string name="gyroscope">Giroscopio</string>
+    <string name="save">Salvataggi</string>
+    <string name="trash">Cestino</string>
+    <string name="tool_icon">Icona Tool</string>
 
 </resources>
