@@ -4,17 +4,25 @@ import java.io.IOException;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.app.Activity;
 
 import android.os.Handler;
+import android.text.Editable;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -26,10 +34,17 @@ public class SoundIntensity extends AppCompatActivity {
     TextView mStatusView;
     MediaRecorder mRecorder;
     Thread runner;
-
+    double value;
     private LineChart mChart;
 
     final Handler mHandler = new Handler();
+    DatabaseManager helper;
+    //pulsante aggiunta dati database
+    private Button buttonAdd;
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
 
 
     //ogni thread esegue il metodo run ogni 300ms
@@ -46,6 +61,14 @@ public class SoundIntensity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.single_tool);
+        //oggetto helper database
+        helper = new DatabaseManager(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+
+
+        buttonAdd = findViewById(R.id.add);
+
         mStatusView = (TextView) findViewById(R.id.measure);
         mChart = findViewById(R.id.chart1);
         mChart.setNoDataText("");
@@ -97,6 +120,58 @@ public class SoundIntensity extends AppCompatActivity {
 
             startRecorder();
 
+
+            buttonAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //dialog text acquisizione nome salvataggio
+                    final EditText input = new EditText(SoundIntensity.this);
+
+                    //apertura dialog inserimento nome salvataggio
+                    new AlertDialog.Builder(SoundIntensity.this)
+                            .setTitle(getResources().getString(R.string.name_saving))
+                            .setMessage(getResources().getString(R.string.insert_name))
+                            .setView(input)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+
+                                    //acquisisco nome
+                                    Editable nome = input.getText();
+
+                                    //salvo valore in variabile
+                                    String value1 = String.valueOf(value);
+
+                                    //imposto nome tool
+                                    String name_tool ="Intensità sonora";
+
+                                    //converto editable in stringa
+                                    String saving_name= nome.toString();
+
+
+                                    //aggiungo al db
+                                    if (value1.length() != 0) {
+
+                                        boolean insertData = helper.addData( saving_name, name_tool, value1);
+
+                                        if (insertData) {
+                                            toastMessage(getResources().getString(R.string.uploaddata_message_ok));
+                                        } else {
+                                            toastMessage(getResources().getString(R.string.uploaddata_message_error));
+                                        }
+                                    }                               }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    // Do nothing.
+                                }
+                            }).show();
+
+
+                }
+            });
+
+
         }
     }
 
@@ -144,7 +219,7 @@ public class SoundIntensity extends AppCompatActivity {
     public void updateTv() {
         Resources res = getResources();
         //calcolo valore decibel captato dal microfono
-        double value = 20 * Math.log10((double) Math.abs(getAmplitude()));
+        value = 20 * Math.log10((double) Math.abs(getAmplitude()));
         //arrotondo valore
         value = round(value, 1);
 

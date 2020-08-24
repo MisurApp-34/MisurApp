@@ -1,19 +1,28 @@
 package it.uniba.di.misurapp.location_tools;
 
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
 
+import it.uniba.di.misurapp.DatabaseManager;
 import it.uniba.di.misurapp.R;
 import it.uniba.di.misurapp.location_tools.spirit_level_view.LevelView;
 
@@ -24,9 +33,18 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
     float zAngle ;
     float xAngle ;
     int DEGREE = 90;
+    float sqrt;
     LevelView levelView;
     private TextView XYZ_tv;
     public static DecimalFormat DECIMAL_FORMATTER;
+    DatabaseManager helper;
+    //pulsante aggiunta dati database
+    private Button buttonAdd;
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
+
 
 
     @Override
@@ -35,6 +53,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
 
         // Vista
         setContentView(R.layout.single_tool_level);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         levelView = (LevelView) findViewById(R.id.Direction_View);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -43,6 +62,13 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         TextView details = (TextView) findViewById (R.id.details);
         details.setText(R.string.gyroscope);
 
+        //oggetto helper database
+        helper = new DatabaseManager(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+
+
+        buttonAdd = findViewById(R.id.add);
         // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,9 +110,61 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
             xAngle = values[1]; // ASSE Z
             DECIMAL_FORMATTER = new DecimalFormat("#.0");
 
-            float sqrt= (float) Math.sqrt((xAngle*xAngle) + (yAngle*yAngle));
+            sqrt= (float) Math.sqrt((xAngle*xAngle) + (yAngle*yAngle));
             String append =(DECIMAL_FORMATTER.format(sqrt) + "°");
             XYZ_tv.setText(append);
+
+
+            buttonAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //dialog text acquisizione nome salvataggio
+                    final EditText input = new EditText(SpiritLevel.this);
+
+                    //apertura dialog inserimento nome salvataggio
+                    new AlertDialog.Builder(SpiritLevel.this)
+                            .setTitle(getResources().getString(R.string.name_saving))
+                            .setMessage(getResources().getString(R.string.insert_name))
+                            .setView(input)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+
+                                    //acquisisco nome
+                                    Editable nome = input.getText();
+
+                                    //salvo valore in variabile
+                                    String value1 = String.valueOf(sqrt);
+
+                                    //imposto nome tool
+                                    String name_tool ="Livella";
+
+                                    //converto editable in stringa
+                                    String saving_name= nome.toString();
+
+
+                                    //aggiungo al db
+                                    if (value1.length() != 0) {
+
+                                        boolean insertData = helper.addData( saving_name, name_tool, value1);
+
+                                        if (insertData) {
+                                            toastMessage(getResources().getString(R.string.uploaddata_message_ok));
+                                        } else {
+                                            toastMessage(getResources().getString(R.string.uploaddata_message_error));
+                                        }
+                                    }                               }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    // Do nothing.
+                                }
+                            }).show();
+
+
+                }
+            });
+
             levelView.yAngle = values[2]; // TODO Fix direzione bolla
             levelView.xAngle = values[1];
         }

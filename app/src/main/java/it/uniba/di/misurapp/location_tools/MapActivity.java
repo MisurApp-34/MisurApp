@@ -1,20 +1,27 @@
 package it.uniba.di.misurapp.location_tools;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.text.Editable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +35,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import it.uniba.di.misurapp.DatabaseManager;
 import it.uniba.di.misurapp.R;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -40,6 +48,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LocationService myService;
     static long startTime, endTime;
     static int p = 1;
+    DatabaseManager helper;
+    //pulsante aggiunta dati database
+    private Button buttonAdd;
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
 
 
     @Override
@@ -47,6 +62,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         p=0;
+
+        //oggetto helper database
+        helper = new DatabaseManager(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+
+
+        buttonAdd = findViewById(R.id.add);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -97,6 +120,60 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 gpsloop();
             }
         },0,5000);
+
+
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //dialog text acquisizione nome salvataggio
+                final EditText input = new EditText(MapActivity.this);
+
+                //apertura dialog inserimento nome salvataggio
+                new AlertDialog.Builder(MapActivity.this)
+                        .setTitle(getResources().getString(R.string.name_saving))
+                        .setMessage(getResources().getString(R.string.insert_name))
+                        .setView(input)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                //acquisisco nome
+                                Editable nome = input.getText();
+
+
+                                //salvo valore in variabile
+                                String value1 = "Latitudine: "+latitude+" Longitudine: "+longitude;
+
+                                //imposto nome tool
+                                String name_tool ="Gps";
+
+                                //converto editable in stringa
+                                String saving_name= nome.toString();
+
+
+                                //aggiungo al db
+                                if (value1.length() != 0) {
+
+                                    boolean insertData = helper.addData( saving_name, name_tool, value1);
+
+                                    if (insertData) {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_ok));
+                                    } else {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_error));
+                                    }
+                                }                               }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Do nothing.
+                            }
+                        }).show();
+
+
+            }
+        });
+
     }
 
     /**

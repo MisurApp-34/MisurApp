@@ -1,8 +1,10 @@
 package it.uniba.di.misurapp;
 
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,8 +12,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -40,13 +48,26 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
     int first = 1;
+    DatabaseManager helper;
+    //pulsante aggiunta dati database
+    private Button buttonAdd;
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setto layout
         setContentView(R.layout.single_tool);
+        //oggetto helper database
+        helper = new DatabaseManager(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
 
+
+
+        buttonAdd = findViewById(R.id.add);
         // variabile in cui verrà memorizzata la misura del sensore
         value = (TextView) findViewById(R.id.measure);
 
@@ -205,6 +226,58 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
                 TextView details = findViewById(R.id.details);
                 details.setText(R.string.pressure_details);
+
+
+
+                buttonAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //dialog text acquisizione nome salvataggio
+                        final EditText input = new EditText(PressureTool.this);
+
+                        //apertura dialog inserimento nome salvataggio
+                        new AlertDialog.Builder(PressureTool.this)
+                                .setTitle(getResources().getString(R.string.name_saving))
+                                .setMessage(getResources().getString(R.string.insert_name))
+                                .setView(input)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                                        //acquisisco nome
+                                        Editable nome = input.getText();
+
+                                        //salvo valore in variabile
+                                        String value1 = String.valueOf(pressione);
+
+                                        //imposto nome tool
+                                        String name_tool ="Pressione";
+
+                                        //converto editable in stringa
+                                        String saving_name= nome.toString();
+
+
+                                        //aggiungo al db
+                                        if (value1.length() != 0) {
+
+                                            boolean insertData = helper.addData( saving_name, name_tool, value1);
+
+                                            if (insertData) {
+                                                toastMessage(getResources().getString(R.string.uploaddata_message_ok));
+                                            } else {
+                                                toastMessage(getResources().getString(R.string.uploaddata_message_error));
+                                            }
+                                        }                               }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        // Do nothing.
+                                    }
+                                }).show();
+
+
+                    }
+                });
 
                 //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
                 if (plotData) {

@@ -127,7 +127,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         //calcolo data in gmt - universal date
         Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault());
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
         String formattedDate = df.format(c);
 

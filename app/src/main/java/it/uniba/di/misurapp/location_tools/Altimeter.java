@@ -4,17 +4,25 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.Editable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -35,13 +43,14 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import it.uniba.di.misurapp.DatabaseManager;
 import it.uniba.di.misurapp.R;
 
 public class Altimeter extends AppCompatActivity {
 
     // variabile per la gestione del Bind
     static boolean status;
-
+    private static String append;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
 
@@ -57,6 +66,13 @@ public class Altimeter extends AppCompatActivity {
     private LineChart mChart;
     private Thread thread;
     static double altitudevalue;
+    DatabaseManager helper;
+    //pulsante aggiunta dati database
+    private Button buttonAdd;
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
 
     @SuppressLint("StaticFieldLeak")
     static TextView measure;
@@ -67,6 +83,14 @@ public class Altimeter extends AppCompatActivity {
         setContentView(R.layout.single_tool);
         mContext = this;
         p=0;
+        //oggetto helper database
+        helper = new DatabaseManager(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+
+
+        buttonAdd = findViewById(R.id.add);
+
 
         TextView details = findViewById(R.id.details);
         details.setText(R.string.gps);
@@ -81,6 +105,58 @@ public class Altimeter extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mChart = (LineChart) findViewById(R.id.chart1);
+
+
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //dialog text acquisizione nome salvataggio
+                final EditText input = new EditText(Altimeter.this);
+
+                //apertura dialog inserimento nome salvataggio
+                new AlertDialog.Builder(Altimeter.this)
+                        .setTitle(getResources().getString(R.string.name_saving))
+                        .setMessage(getResources().getString(R.string.insert_name))
+                        .setView(input)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                //acquisisco nome
+                                Editable nome = input.getText();
+
+                                //salvo valore in variabile
+                                String value1 = String.valueOf(altitudevalue);
+
+                                //imposto nome tool
+                                String name_tool ="Altitudine";
+
+                                //converto editable in stringa
+                                String saving_name= nome.toString();
+
+
+                                //aggiungo al db
+                                if (value1.length() != 0) {
+
+                                    boolean insertData = helper.addData( saving_name, name_tool, value1);
+
+                                    if (insertData) {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_ok));
+                                    } else {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_error));
+                                    }
+                                }                               }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Do nothing.
+                            }
+                        }).show();
+
+
+            }
+        });
 
         // Controllo permessi
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
@@ -251,7 +327,7 @@ public class Altimeter extends AppCompatActivity {
     public static void updateValue(double currHeight){
         altitudevalue = currHeight;
         if (!gps_off) {
-            String append = new DecimalFormat("#.#").format((altitudevalue));
+           append = new DecimalFormat("#.#").format((altitudevalue));
             String unitofmeasurement = getContext().getResources().getString(R.string.meters);
             append = append + " " + unitofmeasurement;
             measure.setText(append);

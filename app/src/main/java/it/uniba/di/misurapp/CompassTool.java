@@ -1,17 +1,25 @@
 package it.uniba.di.misurapp;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,8 +27,7 @@ public class CompassTool extends AppCompatActivity implements SensorEventListene
 
 //definisco l'immagine
 private ImageView image;
-
-
+private String cardinale;
     // device sensor manager
     private SensorManager mSensorManager;
 
@@ -42,10 +49,24 @@ private ImageView image;
 
     private float mCurrentDegree = 0f;
 
+    DatabaseManager helper;
+    //pulsante aggiunta dati database
+    private Button buttonAdd;
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_tool_nochart);
+        //oggetto helper database
+        helper = new DatabaseManager(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+
+
 
         //set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -67,6 +88,7 @@ private ImageView image;
 
         // textview dove viene mostrata l'angolazione
         tvHeading = (TextView) findViewById(R.id.measure);
+        buttonAdd = findViewById(R.id.add);
 
         // inizializzo sensori
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -82,6 +104,93 @@ private ImageView image;
         //  registro Listner sensori
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //dialog text acquisizione nome salvataggio
+                final EditText input = new EditText(CompassTool.this);
+
+                //apertura dialog inserimento nome salvataggio
+                new AlertDialog.Builder(CompassTool.this)
+                        .setTitle(getResources().getString(R.string.name_saving))
+                        .setMessage(getResources().getString(R.string.insert_name))
+                        .setView(input)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                //acquisisco nome
+                                Editable nome = input.getText();
+
+
+                                if(mCurrentDegree>=0 && mCurrentDegree<45) {
+                                    cardinale = "N";
+                                }
+                                if(mCurrentDegree>=45 && mCurrentDegree<90)
+                                {
+                                    cardinale="NE";
+                                }
+                                if(mCurrentDegree>=90 && mCurrentDegree<135)
+                                {
+                                    cardinale="E";
+                                }
+                                if(mCurrentDegree>=135 && mCurrentDegree<180)
+                                {
+                                    cardinale="SE";
+                                }
+                                if(mCurrentDegree>=180 && mCurrentDegree<225)
+                                {
+                                    cardinale="S";
+                                }
+                                if(mCurrentDegree>=225 && mCurrentDegree<270)
+                                {
+                                    cardinale="SW";
+                                }
+                                if(mCurrentDegree>=270 && mCurrentDegree<315)
+                                {
+                                    cardinale="W";
+                                }
+                                if(mCurrentDegree>=315 && mCurrentDegree<360)
+                                {
+                                    cardinale="NW";
+                                }
+                                if(mCurrentDegree==360)
+                                {
+                                    cardinale="N";
+                                }
+                                //salvo valore in variabile
+                                String value1 = mCurrentDegree + " "+ cardinale;
+
+                                //imposto nome tool
+                                String name_tool ="Bussola";
+
+                                //converto editable in stringa
+                                String saving_name= nome.toString();
+
+
+                                //aggiungo al db
+                                if (value1.length() != 0) {
+
+                                    boolean insertData = helper.addData( saving_name, name_tool, value1);
+
+                                    if (insertData) {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_ok));
+                                    } else {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_error));
+                                    }
+                                }                               }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Do nothing.
+                            }
+                        }).show();
+
+
+            }
+        });
+
     }
 
     @Override
@@ -138,6 +247,11 @@ private ImageView image;
             //inizio rotazione immagine
             image.startAnimation(ra);
             mCurrentDegree = -azimuthInDegress;
+
+
+
+
+
 
 
 

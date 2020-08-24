@@ -55,7 +55,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_rowWeight="3"
 
-                        android:src="@drawable/compass_tool" />
+                        android:background="@drawable/compass_tool" />
 
 
                     <TextView
@@ -148,6 +148,7 @@
             android:weightSum="2">
 
             <Button
+                android:id="@+id/add"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
