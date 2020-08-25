@@ -23,6 +23,7 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
     int[] rImgs;
     ImageView rTrash;
 
+
     // Costruttore
     ToolSaveAdapter(Context c, String[] title, String[] date, String[] value, String[] toolname ,int[] imgs, ImageView trash) {
         super(c, R.layout.row, R.id.textViewSave, title);
@@ -58,9 +59,14 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
 
         // Listener per click cestino
         trash.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"trash test " + position,Toast.LENGTH_SHORT).show();
+
+                //id elemento visualizzato sulla lista  da passare a metodo di eliminazione
+                int id = ToolSave.mId[position];
+
+                Toast.makeText(context,"trash test " + id,Toast.LENGTH_SHORT).show();
                 // TODO Eliminazione riga
             }
         });

@@ -32,6 +32,7 @@ public class SoundIntensity extends AppCompatActivity {
     Thread runner;
     double value;
     private LineChart mChart;
+    String value1;
 
     final Handler mHandler = new Handler();
     DatabaseManager helper;
@@ -127,10 +128,10 @@ public class SoundIntensity extends AppCompatActivity {
 
             startRecorder();
 
-
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    value1 = String.valueOf(value);
 
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(SoundIntensity.this);
@@ -147,7 +148,6 @@ public class SoundIntensity extends AppCompatActivity {
                                     Editable nome = input.getText();
 
                                     //salvo valore in variabile
-                                    String value1 = String.valueOf(value);
 
                                     //imposto nome tool
                                     String name_tool ="Intensità sonora";

@@ -36,6 +36,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
     float xAngle ;
     int DEGREE = 90;
     float sqrt;
+    String value1;
     LevelView levelView;
     private TextView XYZ_tv;
     public static DecimalFormat DECIMAL_FORMATTER;
@@ -131,7 +132,8 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+//salvo valore in variabile
+                     value1 = String.valueOf(sqrt);
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(SpiritLevel.this);
 
@@ -146,8 +148,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-                                    //salvo valore in variabile
-                                    String value1 = String.valueOf(sqrt);
+
 
                                     //imposto nome tool
                                     String name_tool ="Livella";

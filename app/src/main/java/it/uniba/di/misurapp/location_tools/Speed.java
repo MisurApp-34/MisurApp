@@ -55,7 +55,7 @@ public class Speed extends AppCompatActivity {
     static double speed;
     static long startTime, endTime;
     static int p = 1;
-
+    String value1;
     private static boolean gps_off;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
@@ -161,7 +161,8 @@ public class Speed extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //salvo valore in variabile
+                value1 = String.valueOf(speed);
                 //dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(Speed.this);
 
@@ -176,8 +177,7 @@ public class Speed extends AppCompatActivity {
                                 //acquisisco nome
                                 Editable nome = input.getText();
 
-                                //salvo valore in variabile
-                                String value1 = String.valueOf(speed);
+
 
                                 //imposto nome tool
                                 String name_tool ="Velocità";

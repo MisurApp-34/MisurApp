@@ -50,6 +50,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     static long startTime, endTime;
     static int p = 1;
     DatabaseManager helper;
+    String value1;
     //pulsante aggiunta dati database
     private Button buttonAdd;
     // stampa toast messaggio
@@ -138,7 +139,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //salvo valore in variabile
+                value1 = "Latitudine: "+latitude+" Longitudine: "+longitude;
                 //dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(MapActivity.this);
 
@@ -154,8 +156,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 Editable nome = input.getText();
 
 
-                                //salvo valore in variabile
-                                String value1 = "Latitudine: "+latitude+" Longitudine: "+longitude;
+
 
                                 //imposto nome tool
                                 String name_tool ="Gps";

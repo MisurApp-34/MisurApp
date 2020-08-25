@@ -51,7 +51,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-
+    String value1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -250,6 +250,8 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                 @Override
                 public void onClick(View v) {
 
+                    //salvo valore in variabile
+                     value1 = String.valueOf(magnitude);
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(MagneticField.this);
 
@@ -264,8 +266,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-                                    //salvo valore in variabile
-                                    String value = String.valueOf(magnitude);
+
 
                                     //imposto nome tool
                                     String name_tool ="Campo Magnetico";
@@ -275,9 +276,9 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
 
 
                                     //aggiungo al db
-                                    if (value.length() != 0) {
+                                    if (value1.length() != 0) {
 
-                                        boolean insertData = helper.addData( saving_name, name_tool, value);
+                                        boolean insertData = helper.addData( saving_name, name_tool, value1);
 
                                         if (insertData) {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_ok));

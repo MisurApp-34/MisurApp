@@ -43,7 +43,8 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
     private boolean plotData = true;
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
-    int first = 1;
+    int first = 1;    String value1;
+
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -240,6 +241,8 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                     @Override
                     public void onClick(View v) {
 
+                        //salvo valore in variabile
+                         value1 = String.valueOf(pressione);
                         //dialog text acquisizione nome salvataggio
                         final EditText input = new EditText(PressureTool.this);
 
@@ -254,8 +257,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                                         //acquisisco nome
                                         Editable nome = input.getText();
 
-                                        //salvo valore in variabile
-                                        String value1 = String.valueOf(pressione);
+
 
                                         //imposto nome tool
                                         String name_tool ="Pressione";

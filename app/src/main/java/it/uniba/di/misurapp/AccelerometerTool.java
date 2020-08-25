@@ -42,6 +42,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
+    String value1;
 private float x,y,z;
     private TextView xText, yText, zText;
     private float acceleration = Sensor.TYPE_LINEAR_ACCELERATION; //forza di accelerazione di inzio
@@ -205,6 +206,9 @@ private float x,y,z;
                 @Override
                 public void onClick(View v) {
 
+                    //salvo valore in variabile
+                    value1 = "X: "+String.valueOf(round(x,2))+" Y: "+String.valueOf(round(y,2))+" Z: "+String.valueOf(round(z,2));
+
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(AccelerometerTool.this);
 
@@ -219,8 +223,6 @@ private float x,y,z;
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-                                    //salvo valore in variabile
-                                    String value = "X: "+String.valueOf(round(x,2))+" Y: "+String.valueOf(round(y,2))+" Z: "+String.valueOf(round(z,2));
 
                                     //imposto nome tool
                                     String name_tool ="Accelerazione";
@@ -230,9 +232,9 @@ private float x,y,z;
 
 
                                     //aggiungo al db
-                                    if (value.length() != 0) {
+                                    if (value1.length() != 0) {
 
-                                        boolean insertData = helper.addData( saving_name, name_tool, value);
+                                        boolean insertData = helper.addData( saving_name, name_tool, value1);
 
                                         if (insertData) {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_ok));

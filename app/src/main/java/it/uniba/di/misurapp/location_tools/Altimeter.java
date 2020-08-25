@@ -54,7 +54,7 @@ public class Altimeter extends AppCompatActivity {
     private static String append;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
-
+    String value1;
     LocationManager locationManager;
     static long startTime, endTime;
     static int p=1;
@@ -123,6 +123,9 @@ public class Altimeter extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //salvo valore in variabile
+
+                value1 = String.valueOf(altitudevalue);
 
                 //dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(Altimeter.this);
@@ -138,8 +141,6 @@ public class Altimeter extends AppCompatActivity {
                                 //acquisisco nome
                                 Editable nome = input.getText();
 
-                                //salvo valore in variabile
-                                String value1 = String.valueOf(altitudevalue);
 
                                 //imposto nome tool
                                 String name_tool ="Altitudine";

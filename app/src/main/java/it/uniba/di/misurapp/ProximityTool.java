@@ -40,7 +40,8 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
     private LineChart mChart;
     private Thread thread;
     private boolean plotData = true;
-    DatabaseManager helper;
+    DatabaseManager helper;  String value1;
+
     //pulsante aggiunta dati database
     private Button buttonAdd;
     // stampa toast messaggio
@@ -192,7 +193,8 @@ double distanza;
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    //salvo valore in variabile
+                     value1 = String.valueOf((distanza));
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(ProximityTool.this);
 
@@ -207,8 +209,7 @@ double distanza;
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-                                    //salvo valore in variabile
-                                    String value1 = String.valueOf((distanza));
+
 
                                     //imposto nome tool
                                     String name_tool ="Sensore Prossimità";

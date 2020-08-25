@@ -48,6 +48,7 @@ public class TemperatureTool extends AppCompatActivity  {
     private SensorManager sensorManager;
     IntentFilter intentfilter;
     float batteryTemp;
+    String value1;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -204,6 +205,9 @@ public class TemperatureTool extends AppCompatActivity  {
                 @Override
                 public void onClick(View v) {
 
+                    //salvo valore in variabile
+                     value1 = String.valueOf(batteryTemp);
+
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(TemperatureTool.this);
 
@@ -218,8 +222,6 @@ public class TemperatureTool extends AppCompatActivity  {
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-                                    //salvo valore in variabile
-                                    String value1 = String.valueOf(batteryTemp);
 
                                     //imposto nome tool
                                     String name_tool ="Temperatura";

@@ -49,6 +49,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
     int first = 1;
+    String value1;
     double acceleration;
     DatabaseManager helper;
     //pulsante aggiunta dati database
@@ -234,7 +235,8 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+//salvo valore in variabile
+                     value1 = String.valueOf(gravity);
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(GravityTool.this);
 
@@ -249,8 +251,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-                                    //salvo valore in variabile
-                                    String value = String.valueOf(gravity);
+
 
                                     //imposto nome tool
                                     String name_tool ="Gravità";
@@ -260,9 +261,9 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
 
                                     //aggiungo al db
-                                    if (value.length() != 0) {
+                                    if (value1.length() != 0) {
 
-                                        boolean insertData = helper.addData( saving_name, name_tool, value);
+                                        boolean insertData = helper.addData( saving_name, name_tool, value1);
 
                                         if (insertData) {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_ok));

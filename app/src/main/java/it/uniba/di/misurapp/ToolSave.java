@@ -18,7 +18,7 @@ public class ToolSave extends AppCompatActivity {
     String[] mToolname;
     String[] mvalue;
     int[] images;
-
+public static int[] mId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,9 +99,10 @@ public class ToolSave extends AppCompatActivity {
         mToolname = new String[DatabaseManager.rows];
         mvalue = new String[DatabaseManager.rows];
         images = new int[DatabaseManager.rows];
-
+        mId = new int[DatabaseManager.rows];
         // Lettura della matrice e assegnazione valori ai rispettivi array
         for (int i = 0; i < DatabaseManager.rows; i++) {
+            mId[i] = parseInt(text[0][i]);
             mTitle[i] = text[1][i];
             mDate[i] = text[3][i];
             mToolname[i] = text[4][i];
@@ -127,9 +128,12 @@ public class ToolSave extends AppCompatActivity {
         mToolname = new String[DatabaseManager.rows];
         mvalue = new String[DatabaseManager.rows];
         images = new int[DatabaseManager.rows];
+        mId = new int[DatabaseManager.rows];
 
         // Lettura della matrice e assegnazione valori ai rispettivi array
         for (int i = 0; i < DatabaseManager.rows; i++) {
+            mId[i] = parseInt(text[0][i]);
+
             mTitle[i] = text[1][i];
             mDate[i] = text[3][i];
             mToolname[i] = text[4][i];

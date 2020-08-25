@@ -28,7 +28,7 @@ public class LightTool extends AppCompatActivity {
     private int  first =1;
     Handler mHandler = new Handler();
     Runnable run;
-
+    String value1;
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private SensorEventListener lightEventListener;
@@ -113,6 +113,9 @@ public class LightTool extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
+                        //salvo valore in variabile
+                         value1 = String.valueOf(value);
+
                         //dialog text acquisizione nome salvataggio
                         final EditText input = new EditText(LightTool.this);
 
@@ -127,8 +130,6 @@ public class LightTool extends AppCompatActivity {
                                         //acquisisco nome
                                         Editable nome = input.getText();
 
-                                        //salvo valore in variabile
-                                        String value1 = String.valueOf(value);
 
                                         //imposto nome tool
                                         String name_tool ="Intensità Luminosa";
