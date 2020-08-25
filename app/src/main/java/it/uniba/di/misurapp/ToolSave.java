@@ -1,6 +1,8 @@
 package it.uniba.di.misurapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -11,18 +13,25 @@ import static java.lang.Integer.parseInt;
 
 public class ToolSave extends AppCompatActivity {
 
-    static boolean flag;
+    static Context context;
+    public static ListView listView;
+    public static int flag;
     public static int id_tool;
-    String[] mTitle;
-    String[] mDate;
-    String[] mToolname;
-    String[] mvalue;
-    int[] images;
-public static int[] mId;
+    static String[] mTitle;
+    static String[] mDate;
+    static String[] mToolname;
+    static String[] mvalue;
+    static int[] images;
+    static int[] mId;
+    static ImageView trash;
+    static ToolSaveAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save_list);
+
+        context = getApplicationContext();
 
         // Setup toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -32,20 +41,12 @@ public static int[] mId;
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Vista lista
-        ListView listView = findViewById(R.id.my_list);
+        listView = findViewById(R.id.my_list);
 
-        ImageView trash = (ImageView) findViewById(R.id.trash);
+        trash = (ImageView) findViewById(R.id.trash);
 
-        // Controllo sullo storico misurazioni per comprendere se mostrare lo storico generale o uno specifico
-        if (flag) {
-            getAll();
-        } else {
-            getToolMeasurements();
-        }
-
-        // Inflate adapter
-        ToolSaveAdapter adapter = new ToolSaveAdapter(this, mTitle, mDate, mvalue, mToolname, images, trash);
-        listView.setAdapter(adapter);
+        // Metodo per ottenere da database i dati necessari
+        getAll();
     }
 
     @Override
@@ -64,7 +65,7 @@ public static int[] mId;
      * @param i indice relativo all'id dello strumento
      * @return int relativo al drawable legato all'indice strumento
      */
-    public int getIcon(int i){
+    public static int getIcon(int i){
         switch (i){
             case 1 :  return R.drawable.compass;
             case 2 :  return R.drawable.magnetic_fild;
@@ -83,23 +84,34 @@ public static int[] mId;
         }
     }
 
-    public void getAll(){
+    /**
+     * Metodo per ottenere da database le informazioni relative alle misurazioni effettuate;
+     * Si occupa anche dell'inflate dell'adapter.
+     */
+    public static void getAll(){
 
         // Apertura db in lettura
-        DatabaseManager dbmanager = new DatabaseManager(this);
+        DatabaseManager dbmanager = new DatabaseManager(context);
         dbmanager.openDataBase();
 
-        // Cattura dati presenti nel database
-        String[][] text = dbmanager.getData();
+        String[][] text;
+
+        if (flag == 0) {
+            text = dbmanager.getData();
+        } else {
+            text = dbmanager.getToolData(id_tool);
+        }
+
         dbmanager.close();
 
-        // Creazione array dinamici
         mTitle = new String[DatabaseManager.rows];
         mDate = new String[DatabaseManager.rows];
         mToolname = new String[DatabaseManager.rows];
         mvalue = new String[DatabaseManager.rows];
         images = new int[DatabaseManager.rows];
         mId = new int[DatabaseManager.rows];
+
+        // Creazione array dinamici
         // Lettura della matrice e assegnazione valori ai rispettivi array
         for (int i = 0; i < DatabaseManager.rows; i++) {
             mId[i] = parseInt(text[0][i]);
@@ -110,36 +122,15 @@ public static int[] mId;
             int append = parseInt(text[2][i]);
             images[i] = getIcon(append);
         }
-        flag = false;
+
+        adapter = new ToolSaveAdapter(context, mTitle, mDate, mvalue, mToolname, images, trash);
+        listView.setAdapter(adapter);
     }
 
-    public void getToolMeasurements(){
-        // Apertura db in lettura
-        DatabaseManager dbmanager = new DatabaseManager(this);
-        dbmanager.openDataBase();
-
-        // Cattura dati presenti nel database
-        String[][] text = dbmanager.getToolData(id_tool);
-        dbmanager.close();
-
-        // Creazione array dinamici
-        mTitle = new String[DatabaseManager.rows];
-        mDate = new String[DatabaseManager.rows];
-        mToolname = new String[DatabaseManager.rows];
-        mvalue = new String[DatabaseManager.rows];
-        images = new int[DatabaseManager.rows];
-        mId = new int[DatabaseManager.rows];
-
-        // Lettura della matrice e assegnazione valori ai rispettivi array
-        for (int i = 0; i < DatabaseManager.rows; i++) {
-            mId[i] = parseInt(text[0][i]);
-
-            mTitle[i] = text[1][i];
-            mDate[i] = text[3][i];
-            mToolname[i] = text[4][i];
-            mvalue[i] = text[5][i];
-            int append = parseInt(text[2][i]);
-            images[i] = getIcon(append);
-        }
+    /**
+     * Alla rimozione di un elemento ricarica la lista dei salvataggi
+     */
+    public static void removeElement(){
+        getAll();
     }
 }

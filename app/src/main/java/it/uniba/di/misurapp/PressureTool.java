@@ -64,6 +64,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
+        ToolSave.flag = 1;
 
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override

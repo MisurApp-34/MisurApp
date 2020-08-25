@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 public class ToolSaveAdapter extends ArrayAdapter<String> {
 
+
     Context context;
     String[] rTitle;
     String[] rDate;
@@ -22,9 +23,6 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
     String[] rToolName;
     int[] rImgs;
     ImageView rTrash;
-
-
-
 
     // Costruttore
     ToolSaveAdapter(Context c, String[] title, String[] date, String[] value, String[] toolname ,int[] imgs, ImageView trash) {
@@ -36,8 +34,8 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
         this.rToolName = toolname;
         this.rImgs = imgs;
         this.rTrash = trash;
-
     }
+
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -61,20 +59,27 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
 
         // Listener per click cestino
         trash.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 //id elemento visualizzato sulla lista  da passare a metodo di eliminazione
                 int id = ToolSave.mId[position];
                 DatabaseManager myDbOBJ = new DatabaseManager(getContext());
-               if(myDbOBJ.deleteItem(id)==true) {
+                myDbOBJ.deleteItem(id);
+
+
+
+                /*
+                if(myDbOBJ.deleteItem(id)) {
                     Toast.makeText(context,"eliminato " + id,Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context,"errore" + id,Toast.LENGTH_SHORT).show();
+                }
+                */
 
-               }else{
-                Toast.makeText(context,"errore" + id,Toast.LENGTH_SHORT).show();
 
-            }}
+                // Riferimento a classe per aggiornare la lista di elementi presenti sullo storico misurazioni
+                ToolSave.removeElement();
+            }
         });
         return row;
     }

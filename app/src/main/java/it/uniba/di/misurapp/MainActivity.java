@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem){
         switch (menuItem.getItemId()){
             case R.id.FragmentStoricoGenerale:
-                ToolSave.flag = true;
+                ToolSave.flag = 0;
                 Intent GenericData;
                 GenericData = new Intent(MainActivity.this,ToolSave.class);
                 startActivity(GenericData);

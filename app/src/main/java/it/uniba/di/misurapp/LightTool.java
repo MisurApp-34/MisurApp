@@ -59,6 +59,7 @@ public class LightTool extends AppCompatActivity {
 
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
+        ToolSave.flag = 1;
 
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +203,17 @@ public class LightTool extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(lightEventListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 
 }

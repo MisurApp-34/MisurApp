@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 import java.text.SimpleDateFormat;
@@ -185,6 +187,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         // Lettura da database e inserimento nella matrice dinamica
         if (cursor.moveToFirst()){
             do {
+                Log.i("database", DatabaseUtils.dumpCursorToString(cursor));
                 for (int f=0; f < cursor.getColumnCount(); f++){
                     data[f][i] = cursor.getString(f);
                 }
