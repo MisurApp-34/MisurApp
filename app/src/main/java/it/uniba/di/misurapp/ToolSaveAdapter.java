@@ -65,20 +65,13 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
                 int id = ToolSave.mId[position];
                 DatabaseManager myDbOBJ = new DatabaseManager(getContext());
                 myDbOBJ.deleteItem(id);
-
-
-
-                /*
                 if(myDbOBJ.deleteItem(id)) {
+                    // Riferimento a classe per aggiornare la lista di elementi presenti sullo storico misurazioni
+                    ToolSave.removeElement();
                     Toast.makeText(context,"eliminato " + id,Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(context,"errore" + id,Toast.LENGTH_SHORT).show();
                 }
-                */
-
-
-                // Riferimento a classe per aggiornare la lista di elementi presenti sullo storico misurazioni
-                ToolSave.removeElement();
             }
         });
         return row;
