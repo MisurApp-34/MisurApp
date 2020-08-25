@@ -1,7 +1,7 @@
 package it.uniba.di.misurapp;
 
-
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,7 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,9 +35,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
 
 public class PressureTool extends AppCompatActivity implements SensorEventListener {
     private TextView value;
@@ -65,7 +61,18 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
 
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=5;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
 
         buttonAdd = findViewById(R.id.add);
         // variabile in cui verrà memorizzata la misura del sensore

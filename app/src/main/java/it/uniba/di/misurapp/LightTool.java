@@ -1,6 +1,7 @@
 package it.uniba.di.misurapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -10,7 +11,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.github.mikephil.charting.charts.LineChart;
-
-import java.text.DecimalFormat;
 
 public class LightTool extends AppCompatActivity {
 
@@ -59,6 +57,18 @@ public class LightTool extends AppCompatActivity {
 
         buttonAdd = findViewById(R.id.add);
 
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
+
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=3;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
 
         val = (TextView) findViewById(R.id.measure);
 

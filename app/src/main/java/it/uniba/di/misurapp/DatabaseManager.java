@@ -7,18 +7,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static android.database.DatabaseUtils.*;
 
 public class DatabaseManager extends SQLiteOpenHelper {
 
@@ -172,8 +168,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
      */
     public String[][] getData(){
 
-        // query di selezione
-        String selectquery = "SELECT * FROM " + DETECTION_TABLE1;
+        // Query di selezione
+        String selectquery = "SELECT * FROM " + DETECTION_TABLE1 + " ORDER BY " + DATETIME + " DESC";
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Cursore per recuperare i dati da database
@@ -196,6 +192,43 @@ public class DatabaseManager extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        // Chiusura database
+        db.close();
+        return data;
+    }
+
+    /**
+     * metodo per la query relativa allo storico misurazioni specifico di uno strumento
+     * @param tool id del tool richiesto
+     * @return array con doppio indice con i valori ricercati nel database
+     */
+    public String[][] getToolData(int tool){
+
+        // Query di selezione
+        String selectquery = "SELECT * FROM " + DETECTION_TABLE1 + " WHERE " + ID_TOOL + "=" + tool + " ORDER BY " + DATETIME + " DESC";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Cursore per recuperare i dati da database
+        Cursor cursor = db.rawQuery(selectquery,null);
+        cursor.moveToFirst();
+
+        // Creazione matrice dinamica
+        columns = cursor.getColumnCount();
+        rows = cursor.getCount();
+        String[][] data = new String[columns][rows];
+
+        int i=0;
+        // Lettura da database e inserimento nella matrice dinamica
+        if (cursor.moveToFirst()){
+            do {
+                for (int f=0; f < cursor.getColumnCount(); f++){
+                    data[f][i] = cursor.getString(f);
+                }
+                i++;
+            } while (cursor.moveToNext());
+        }
+
+        // Chiusura database
         db.close();
         return data;
     }

@@ -2,6 +2,7 @@ package it.uniba.di.misurapp;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -34,10 +35,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * This class implements the SensorEventListener interface. When the application creates the MQTT
@@ -83,6 +80,19 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
+
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=11;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
 
 
 //inventario dei sensori disponibili nel nostro dispositivo.

@@ -1,8 +1,7 @@
 package it.uniba.di.misurapp;
 
-import android.annotation.SuppressLint;
-import android.content.AsyncQueryHandler;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -10,9 +9,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,6 +72,19 @@ private float x,y,z;
         xText = (TextView)findViewById(R.id.measureX);
         yText = (TextView)findViewById(R.id.measureY);
         zText = (TextView)findViewById(R.id.measureZ);
+
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
+
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=13;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
 
         //inventario dei sensori disponibili nel nostro dispositivo.
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);

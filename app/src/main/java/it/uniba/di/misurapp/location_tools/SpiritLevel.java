@@ -1,6 +1,7 @@
 package it.uniba.di.misurapp.location_tools;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -24,6 +25,7 @@ import java.util.Objects;
 
 import it.uniba.di.misurapp.DatabaseManager;
 import it.uniba.di.misurapp.R;
+import it.uniba.di.misurapp.ToolSave;
 import it.uniba.di.misurapp.location_tools.spirit_level_view.LevelView;
 
 public class SpiritLevel extends AppCompatActivity implements SensorEventListener {
@@ -66,7 +68,18 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
 
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=9;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
 
         buttonAdd = findViewById(R.id.add);
         // Toolbar

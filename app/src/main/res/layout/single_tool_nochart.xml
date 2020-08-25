@@ -168,20 +168,21 @@
             </Button>
 
             <Button
+                android:id="@+id/history"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="10sp"
-                android:autoSizeMaxTextSize="100sp"
-
                 android:layout_columnWeight="1"
-                android:background="@drawable/historical"
-                android:padding="14dp"
-                android:maxLines="2"
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
 
-                android:text="@string/historical_measure">
+                android:background="@drawable/historical"
+                android:maxLines="2"
+                android:padding="14dp"
+                android:text="@string/historical_measure"
+
+                android:textAlignment="center"
+                android:textColor="@android:color/black">
 
             </Button>
 
