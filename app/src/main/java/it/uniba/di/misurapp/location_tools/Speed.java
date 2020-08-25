@@ -45,6 +45,7 @@ import java.util.TimerTask;
 
 import it.uniba.di.misurapp.DatabaseManager;
 import it.uniba.di.misurapp.R;
+import it.uniba.di.misurapp.ToolSave;
 
 public class Speed extends AppCompatActivity {
 
@@ -83,7 +84,18 @@ public class Speed extends AppCompatActivity {
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
 
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=12;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
 
         buttonAdd = findViewById(R.id.add);
 

@@ -1,7 +1,7 @@
 package it.uniba.di.misurapp;
 
-import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
@@ -65,19 +65,31 @@ private String cardinale;
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-
-
-
         //set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
+
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=1;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
+
         try {
             getSupportActionBar().setTitle(R.string.compass_details);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
         TextView details = findViewById(R.id.details);
         Resources res = getResources();
 
@@ -95,6 +107,7 @@ private String cardinale;
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
     }
 
     @Override
@@ -247,13 +260,6 @@ private String cardinale;
             //inizio rotazione immagine
             image.startAnimation(ra);
             mCurrentDegree = -azimuthInDegress;
-
-
-
-
-
-
-
 
         }
     }

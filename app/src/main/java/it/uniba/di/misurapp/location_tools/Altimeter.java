@@ -45,6 +45,7 @@ import java.util.TimerTask;
 
 import it.uniba.di.misurapp.DatabaseManager;
 import it.uniba.di.misurapp.R;
+import it.uniba.di.misurapp.ToolSave;
 
 public class Altimeter extends AppCompatActivity {
 
@@ -106,7 +107,18 @@ public class Altimeter extends AppCompatActivity {
 
         mChart = (LineChart) findViewById(R.id.chart1);
 
+        // Storico misurazioni specifico dello strumento selezionato
+        Button buttonHistory = (Button) findViewById(R.id.history);
 
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolSave.id_tool=7;
+                Intent saves;
+                saves = new Intent(getApplicationContext(),ToolSave.class);
+                startActivity(saves);
+            }
+        });
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,19 +11,18 @@ import static java.lang.Integer.parseInt;
 
 public class ToolSave extends AppCompatActivity {
 
+    static boolean flag;
+    public static int id_tool;
+    String[] mTitle;
+    String[] mDate;
+    String[] mToolname;
+    String[] mvalue;
+    int[] images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save_list);
-
-        // Apertura db in lettura
-        DatabaseManager dbmanager = new DatabaseManager(this);
-        dbmanager.openDataBase();
-
-        // Cattura dati presenti nel database
-        String[][] text = dbmanager.getData();
-        dbmanager.close();
 
         // Setup toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -35,22 +34,13 @@ public class ToolSave extends AppCompatActivity {
         // Vista lista
         ListView listView = findViewById(R.id.my_list);
 
-        // Creazione array dinamici
-        String[] mTitle = new String[DatabaseManager.rows];
-        String[] mDate = new String[DatabaseManager.rows];
-        String[] mToolname = new String[DatabaseManager.rows];
-        String[] mvalue = new String[DatabaseManager.rows];
-        int[] images = new int[DatabaseManager.rows];
         ImageView trash = (ImageView) findViewById(R.id.trash);
 
-        // Lettura della matrice e assegnazione valori ai rispettivi array
-        for (int i = 0; i < DatabaseManager.rows; i++) {
-            mTitle[i] = text[1][i];
-            mDate[i] = text[3][i];
-            mToolname[i] = text[4][i];
-            mvalue[i] = text[5][i];
-            int append = parseInt(text[2][i]);
-            images[i] = getIcon(append);
+        // Controllo sullo storico misurazioni per comprendere se mostrare lo storico generale o uno specifico
+        if (flag) {
+            getAll();
+        } else {
+            getToolMeasurements();
         }
 
         // Inflate adapter
@@ -90,6 +80,62 @@ public class ToolSave extends AppCompatActivity {
             case 12 : return R.drawable.speedometer;
             case 13 : return R.drawable.accelerometer;
             default : return 0;
+        }
+    }
+
+    public void getAll(){
+
+        // Apertura db in lettura
+        DatabaseManager dbmanager = new DatabaseManager(this);
+        dbmanager.openDataBase();
+
+        // Cattura dati presenti nel database
+        String[][] text = dbmanager.getData();
+        dbmanager.close();
+
+        // Creazione array dinamici
+        mTitle = new String[DatabaseManager.rows];
+        mDate = new String[DatabaseManager.rows];
+        mToolname = new String[DatabaseManager.rows];
+        mvalue = new String[DatabaseManager.rows];
+        images = new int[DatabaseManager.rows];
+
+        // Lettura della matrice e assegnazione valori ai rispettivi array
+        for (int i = 0; i < DatabaseManager.rows; i++) {
+            mTitle[i] = text[1][i];
+            mDate[i] = text[3][i];
+            mToolname[i] = text[4][i];
+            mvalue[i] = text[5][i];
+            int append = parseInt(text[2][i]);
+            images[i] = getIcon(append);
+        }
+        flag = false;
+    }
+
+    public void getToolMeasurements(){
+        // Apertura db in lettura
+        DatabaseManager dbmanager = new DatabaseManager(this);
+        dbmanager.openDataBase();
+
+        // Cattura dati presenti nel database
+        String[][] text = dbmanager.getToolData(id_tool);
+        dbmanager.close();
+
+        // Creazione array dinamici
+        mTitle = new String[DatabaseManager.rows];
+        mDate = new String[DatabaseManager.rows];
+        mToolname = new String[DatabaseManager.rows];
+        mvalue = new String[DatabaseManager.rows];
+        images = new int[DatabaseManager.rows];
+
+        // Lettura della matrice e assegnazione valori ai rispettivi array
+        for (int i = 0; i < DatabaseManager.rows; i++) {
+            mTitle[i] = text[1][i];
+            mDate[i] = text[3][i];
+            mToolname[i] = text[4][i];
+            mvalue[i] = text[5][i];
+            int append = parseInt(text[2][i]);
+            images[i] = getIcon(append);
         }
     }
 }
