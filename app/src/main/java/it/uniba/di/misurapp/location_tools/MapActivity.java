@@ -22,6 +22,7 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -69,6 +70,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
+        final TextView measure = (TextView) findViewById(R.id.measure);
+        TextView details = (TextView) findViewById(R.id.details);
+        details.setText(R.string.gps);
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
 
@@ -109,8 +114,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Reminder attivazione GPS
         if (!checkGPS()){
-            // TODO: Rendere il controllo del gps e la conseguente allerta all'utente dinamico (se l'utente spegne il servizio)
+            measure.setText(R.string.alert_gps_off);
             Toast.makeText(this,R.string.alert_gps_off,Toast.LENGTH_SHORT).show();
+        } else {
+            measure.setText(R.string.getting_location);
         }
 
         // Thread principale di aggiornamento del marker sullla mappa
@@ -121,6 +128,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 // TODO: Permettere l'interruzione del runnable in caso si sia spostato il focus dalla propria posizione, riprenderlo con un bottone o simili
                 changeLocation();
                 mainHandler.postDelayed(this,5000);
+                if (latitude!=null && longitude!=null) {
+                    String append = latitude + " " + longitude;
+                    measure.setText(append);
+                }
             }
         });
         mainHandler.postDelayed(changeLocationRunnable,5000);
@@ -155,15 +166,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 //acquisisco nome
                                 Editable nome = input.getText();
 
-
-
-
                                 //imposto nome tool
                                 String name_tool ="Gps";
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
-
 
                                 //aggiungo al db
                                 if (value1.length() != 0) {
@@ -175,15 +182,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     } else {
                                         toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                     }
-                                }                               }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                }
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Do nothing.
                             }
                         }).show();
-
-
             }
         });
 
