@@ -124,43 +124,43 @@ private String cardinale;
                                 Editable nome = input.getText();
 
 
-                                if(mCurrentDegree>=0 && mCurrentDegree<45) {
+                                if(Math.abs(mCurrentDegree)>=0 && Math.abs(mCurrentDegree)<45) {
                                     cardinale = "N";
                                 }
-                                if(mCurrentDegree>=45 && mCurrentDegree<90)
+                                if(Math.abs(mCurrentDegree)>=45 && Math.abs(mCurrentDegree)<90)
                                 {
                                     cardinale="NE";
                                 }
-                                if(mCurrentDegree>=90 && mCurrentDegree<135)
+                                if(Math.abs(mCurrentDegree)>=90 && Math.abs(mCurrentDegree)<135)
                                 {
                                     cardinale="E";
                                 }
-                                if(mCurrentDegree>=135 && mCurrentDegree<180)
+                                if(Math.abs(mCurrentDegree)>=135 && Math.abs(mCurrentDegree)<180)
                                 {
                                     cardinale="SE";
                                 }
-                                if(mCurrentDegree>=180 && mCurrentDegree<225)
+                                if(Math.abs(mCurrentDegree)>=180 && Math.abs(mCurrentDegree)<225)
                                 {
                                     cardinale="S";
                                 }
-                                if(mCurrentDegree>=225 && mCurrentDegree<270)
+                                if(Math.abs(mCurrentDegree)>=225 && Math.abs(mCurrentDegree)<270)
                                 {
                                     cardinale="SW";
                                 }
-                                if(mCurrentDegree>=270 && mCurrentDegree<315)
+                                if(Math.abs(mCurrentDegree)>=270 && Math.abs(mCurrentDegree)<315)
                                 {
                                     cardinale="W";
                                 }
-                                if(mCurrentDegree>=315 && mCurrentDegree<360)
+                                if(Math.abs(mCurrentDegree)>=315 && Math.abs(mCurrentDegree)<360)
                                 {
                                     cardinale="NW";
                                 }
-                                if(mCurrentDegree==360)
+                                if(Math.abs(mCurrentDegree)==360)
                                 {
                                     cardinale="N";
                                 }
                                 //salvo valore in variabile
-                                String value1 = mCurrentDegree + " "+ cardinale;
+                                String value1 = Math.abs(mCurrentDegree) + " "+ cardinale;
 
                                 //imposto nome tool
                                 String name_tool ="Bussola";
