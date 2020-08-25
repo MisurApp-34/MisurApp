@@ -101,5 +101,10 @@
     <string name="save">Salvataggi</string>
     <string name="trash">Cestino</string>
     <string name="tool_icon">Icona Tool</string>
+    <string name="eliminato">eliminato</string>
+    <string name="errore">errore</string>
+
+
+
 
 </resources>

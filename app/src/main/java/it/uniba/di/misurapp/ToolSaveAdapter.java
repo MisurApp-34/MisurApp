@@ -24,6 +24,8 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
     ImageView rTrash;
 
 
+
+
     // Costruttore
     ToolSaveAdapter(Context c, String[] title, String[] date, String[] value, String[] toolname ,int[] imgs, ImageView trash) {
         super(c, R.layout.row, R.id.textViewSave, title);
@@ -65,10 +67,14 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
 
                 //id elemento visualizzato sulla lista  da passare a metodo di eliminazione
                 int id = ToolSave.mId[position];
+                DatabaseManager myDbOBJ = new DatabaseManager(getContext());
+               if(myDbOBJ.deleteItem(id)==true) {
+                    Toast.makeText(context,"eliminato " + id,Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(context,"trash test " + id,Toast.LENGTH_SHORT).show();
-                // TODO Eliminazione riga
-            }
+               }else{
+                Toast.makeText(context,"errore" + id,Toast.LENGTH_SHORT).show();
+
+            }}
         });
         return row;
     }

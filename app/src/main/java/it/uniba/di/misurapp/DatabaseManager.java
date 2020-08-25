@@ -198,6 +198,21 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     /**
+     * metodo per l'eliminazione dell'elemento in base all'id
+     * @param get_ID del tool
+     */
+    public boolean deleteItem(int get_ID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            db.execSQL("DELETE FROM " + DETECTION_TABLE1 + " WHERE " + ID + "= '" + get_ID + "'");
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    /**
      * metodo per la query relativa allo storico misurazioni specifico di uno strumento
      * @param tool id del tool richiesto
      * @return array con doppio indice con i valori ricercati nel database
