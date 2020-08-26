@@ -28,7 +28,7 @@
     <string name="speedsetting">Velocità</string>
     <string name="speed_setting">Unità misura velocità</string>
 
-    <string name="speedunit_defualt">Km/h</string>
+    <string name="speedunit_defualt" translatable="false">Km/h</string>
 
     <string name="language_setting">Imposta lingua</string>
     <string name="language">Lingua</string>
@@ -104,8 +104,6 @@
     <string name="tool_icon">Icona Tool</string>
     <string name="eliminato">eliminato</string>
     <string name="errore">errore</string>
-
-
-
+    <string name="upload" translatable="false">upolad</string>
 
 </resources>
