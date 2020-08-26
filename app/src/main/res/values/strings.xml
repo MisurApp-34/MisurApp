@@ -28,7 +28,6 @@
     <string name="speedsetting">Velocità</string>
     <string name="speed_setting">Unità misura velocità</string>
 
-    <string name="speedunit_defualt">Km/h</string>
 
     <string name="language_setting">Imposta lingua</string>
     <string name="language">Lingua</string>
@@ -82,6 +81,8 @@
     <string name="decibel_level_4">Molto fastidio</string>
     <string name="decibel_level_5">Dolore</string>
 
+<string name="addPreference">Aggiungi ai preferiti</string>
+    <string name="removePreference">Rimuovi dai preferiti</string>
 
     <string name="thermometer">Temperatura dispositivo</string>
     <string name="attention">Attenzione! \n Livello di temperatura anomalo</string>

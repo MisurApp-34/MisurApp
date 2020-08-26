@@ -215,6 +215,38 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
     }
 
+    public boolean favoriteTool(int get_ID, int preference)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            db.execSQL("UPDATE Strumenti SET preference ="+preference+" WHERE _id1="+get_ID);
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public int getFavoriteTool(int tool_id)
+    {
+        String column1 = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            String query= "SELECT preference FROM "+DETECTION_TABLE+" where _id1= "+tool_id;
+            Cursor cursor = db.rawQuery(query,null);
+            if (cursor.moveToFirst()){
+                do {
+                    // Passing values
+                     column1 = cursor.getString(0);
+
+                } while(cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+        } catch (SQLException e) {
+        }
+        return Integer.parseInt(column1);
+
+    }
     /**
      * metodo per la query relativa allo storico misurazioni specifico di uno strumento
      * @param tool id del tool richiesto

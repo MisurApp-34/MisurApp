@@ -54,7 +54,8 @@
     <string name="speedsetting">Speed</string>
     <string name="speed_setting">Unit of speed measurement</string>
     <string name="thermometer">Device temperature</string>
-
+    <string name="addPreference">Add to favourites</string>
+    <string name="removePreference">Remove from favorites</string>
     <string name="proximity_details">Proximity</string>
     <string name="near">Near</string>
     <string name="far">Far</string>

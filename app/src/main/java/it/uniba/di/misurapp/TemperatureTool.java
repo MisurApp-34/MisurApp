@@ -40,7 +40,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
  * Output from these sensors is used to publish accel event messages.
  */
 public class TemperatureTool extends AppCompatActivity  {
-
+    Button preferenceButton;
     private TextView value;
     private LineChart mChart;
     private Thread thread;
@@ -51,6 +51,7 @@ public class TemperatureTool extends AppCompatActivity  {
     String value1;
     String unit;
     DatabaseManager helper;
+    int favourite;
     //pulsante aggiunta dati database
     private Button buttonAdd;
     // stampa toast messaggio
@@ -67,6 +68,48 @@ public class TemperatureTool extends AppCompatActivity  {
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
+        //pulsante salva preferenze
+         preferenceButton = (Button) findViewById(R.id.add_fav);
+        //verifico la preferenza
+
+         favourite = helper.getFavoriteTool(6);
+         if(favourite==0)
+         {
+
+             preferenceButton.setText(R.string.addPreference);
+
+         }
+         else
+         {
+             preferenceButton.setText(R.string.removePreference);
+
+         }
+
+        preferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favourite ==0){
+
+                    helper.favoriteTool(6, 1);
+                    preferenceButton.setText(R.string.addPreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+
+                }
+                if(favourite==1)
+                {
+                    helper.favoriteTool(6, 0);
+                    preferenceButton.setText(R.string.removePreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+                }
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -80,6 +123,10 @@ public class TemperatureTool extends AppCompatActivity  {
                 startActivity(saves);
             }
         });
+
+
+
+
 
         buttonAdd = findViewById(R.id.add);
         // variabile in cui verrà memorizzata la misura del sensore
