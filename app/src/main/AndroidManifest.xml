@@ -42,6 +42,8 @@
         <activity android:name=".Settings" />
         <activity android:name=".Speed" />
         <activity android:name=".Altimeter" />
+
+
         <activity android:name=".MapActivity" />
         <activity android:name=".EditFavorite" />
 
@@ -53,6 +55,7 @@
         <activity android:name=".ToolSave" />
         <activity android:name=".SpiritLevel" />
 
+        <service android:name=".LocationService"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
