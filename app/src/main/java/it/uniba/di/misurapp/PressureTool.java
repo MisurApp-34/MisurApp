@@ -220,7 +220,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
         //importo preferenze dalle impostazioni per visualizzare dati in hPa o  Pascal
         SharedPreferences settings = getSharedPreferences("settings", 0);
-        if ((settings.getString("pressure", "").toString()).equals("hPa")) {
+        if ((settings.getString("pressure", "hPa").toString()).equals("hPa")) {
 
             if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
                 // prendo i valori generati dai singoli assi

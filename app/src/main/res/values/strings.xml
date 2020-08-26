@@ -28,6 +28,7 @@
     <string name="speedsetting">Velocità</string>
     <string name="speed_setting">Unità misura velocità</string>
 
+    <string name="speedunit_defualt">Km/h</string>
 
     <string name="language_setting">Imposta lingua</string>
     <string name="language">Lingua</string>

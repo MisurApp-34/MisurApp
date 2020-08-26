@@ -183,7 +183,7 @@ public class TemperatureTool extends AppCompatActivity  {
             //se è vero, controllo che la temperatura della batteria sia entro un livello normale e non anomalo, stampando il relativo valore in gradi celsius
             //se è falso, converto la temperatura da celsius a fahrenheit ed effettuo la verifica sull'intervallo della temperatura, stampando il relativo valore in fahrenheit
             SharedPreferences settings = getSharedPreferences("settings", 0);
-            if ((settings.getString("temperature", "").toString()).equals("Celsius")) {
+            if ((settings.getString("temperature", "Celsius").toString()).equals("Celsius")) {
 
                 if (batteryTemp >= 16 && batteryTemp < 45) {
                     value.setText(batteryTemp + " " + (char) 0x00B0 + " C");

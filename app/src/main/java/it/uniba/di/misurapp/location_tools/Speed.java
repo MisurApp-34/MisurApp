@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -50,8 +51,8 @@ import it.uniba.di.misurapp.ToolSave;
 public class Speed extends AppCompatActivity {
 
     static boolean status;
+    private static String unitofmeasurement;
     LocationManager locationManager;
-
     static double speed;
     static long startTime, endTime;
     static int p = 1;
@@ -79,6 +80,17 @@ public class Speed extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_tool);
+
+        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+
+        if ((settings.getString("speed", "Km/h").toString()).equals("Km/h")) {
+
+            unitofmeasurement = "Km/h";
+
+        }
+        else if ((settings.getString("speed", "").toString()).equals("Mph")) {
+            unitofmeasurement = "Mph";
+        }
 
         //oggetto helper database
         helper = new DatabaseManager(this);
@@ -161,8 +173,19 @@ public class Speed extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences settings = getSharedPreferences("settings", 0);
+
+                if ((settings.getString("speed", "").toString()).equals("Km/h")) {
+
+                    speed = speed*3.6;
+
+                }
+                else if ((settings.getString("speed", "").toString()).equals("Mph")) {
+                    speed = speed*2.24;
+                }
                 //salvo valore in variabile
-                value1 = String.valueOf(speed);
+                value1 = String.valueOf(speed) + "" +unitofmeasurement;
                 //dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(Speed.this);
 
@@ -317,16 +340,27 @@ public class Speed extends AppCompatActivity {
         startTime = System.currentTimeMillis();
     }
 
+
     /**
      * Interfaccia con LocationService.java per la cattura della velocità instantenea in metri al seconodo
      * @param currSpeed velocità instantanea calcolata mediante GPS
      */
-    public static void getSpeed(double currSpeed){
-        speed = currSpeed;
-        if (!gps_off){
+    public static void  getSpeed(double currSpeed){
+
+            speed=currSpeed;
+
+
+
+
+
+if (!gps_off){
+    if(unitofmeasurement=="Km/h")
+        speed = speed*3.6;
+    else if(unitofmeasurement=="Mph")
+        speed = speed*2.24;
             String append = new DecimalFormat("#.#").format((speed));
-            String unitofmeasurement = getContext().getResources().getString(R.string.meters_per_second);
-            append = append + " " + unitofmeasurement;
+            append = append + " "+unitofmeasurement;
+
             measure.setText(append);
         }
     }
@@ -403,11 +437,15 @@ public class Speed extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        status=false;
+
         super.onBackPressed();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+        status=false;
+
         onBackPressed();
         return super.onSupportNavigateUp();
     }

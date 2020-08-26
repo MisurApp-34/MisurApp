@@ -1,4 +1,5 @@
-<resources>
+
+ <resources>
     <!-- Reply Preference -->
     <string-array name="reply_entries">
         <item>Reply</item>
@@ -32,14 +33,14 @@
 
 
     <string-array name="pressure_entries">
-        <item>Pascal</item>
         <item>hPa</item>
+        <item>Pascal</item>
 
     </string-array>
 
     <string-array name="pressure_values">
-        <item>Pascal</item>
         <item>hPa</item>
+        <item>Pascal</item>
     </string-array>
 
 

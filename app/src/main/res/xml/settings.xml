@@ -6,7 +6,6 @@
 
     <PreferenceCategory android:title="@string/language">
         <ListPreference
-            android:defaultValue="false"
             android:entries="@array/language_entries"
             android:entryValues="@array/language_values"
             android:key="languages"
@@ -16,7 +15,7 @@
 
     <PreferenceCategory android:title="@string/temperature">
         <ListPreference
-            android:defaultValue="false"
+            android:defaultValue="Celsius"
             android:entries="@array/temperature_entries"
             android:entryValues="@array/temperature_values"
             android:key="temperature"
@@ -27,7 +26,7 @@
 
     <PreferenceCategory android:title="@string/pressuresetting">
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="hPa"
             android:entries="@array/pressure_entries"
             android:entryValues="@array/pressure_values"
             android:key="pressure"
@@ -37,7 +36,7 @@
 
     <PreferenceCategory android:title="@string/speedsetting">
         <ListPreference
-            android:defaultValue="false"
+            android:defaultValue="@string/speedunit_defualt"
             android:entries="@array/speed_entries"
             android:entryValues="@array/speed_values"
             android:key="speed"

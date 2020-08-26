@@ -104,16 +104,13 @@ public class Settings extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-            switch (newValue.toString()) {
-                case "Km/h":
-                    speed_unit="Km/h";
-                   System.out.println(speed_unit);
-                    break;
+            SharedPreferences settings = getSharedPreferences("settings", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("speed",newValue.toString());
+            editor.commit();
 
-                case "Mph":
-                    speed_unit="Mph";
-                    break;
-            }
+
+
             return false;
         }
     };
