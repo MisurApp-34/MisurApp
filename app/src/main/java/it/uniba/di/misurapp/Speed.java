@@ -56,7 +56,8 @@ public class Speed extends AppCompatActivity {
     private static boolean gps_off;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
-
+    Button preferenceButton;
+    int favourite;
     Timer timer;
     private Thread thread;
     LocationService myService;
@@ -92,6 +93,47 @@ public class Speed extends AppCompatActivity {
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
+//pulsante salva preferenze
+        preferenceButton = (Button) findViewById(R.id.add_fav);
+        //verifico la preferenza
+
+        favourite = helper.getFavoriteTool(12);
+        if(favourite==0)
+        {
+
+            preferenceButton.setText(R.string.addPreference);
+
+        }
+        else
+        {
+            preferenceButton.setText(R.string.removePreference);
+
+        }
+
+        preferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favourite ==0){
+
+                    helper.favoriteTool(12, 1);
+                    preferenceButton.setText(R.string.addPreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+
+                }
+                if(favourite==1)
+                {
+                    helper.favoriteTool(12, 0);
+                    preferenceButton.setText(R.string.removePreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+                }
+            }
+        });
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;

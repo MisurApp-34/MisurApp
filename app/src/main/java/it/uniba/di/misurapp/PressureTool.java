@@ -45,7 +45,8 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
     public static DecimalFormat DECIMAL_FORMATTER;
     int first = 1;    String value1;
     String unit;
-
+Button preferenceButton;
+int favourite;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -268,6 +269,47 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
             }
         }
 
+        //pulsante salva preferenze
+        preferenceButton = (Button) findViewById(R.id.add_fav);
+        //verifico la preferenza
+
+        favourite = helper.getFavoriteTool(5);
+        if(favourite==0)
+        {
+
+            preferenceButton.setText(R.string.addPreference);
+
+        }
+        else
+        {
+            preferenceButton.setText(R.string.removePreference);
+
+        }
+
+        preferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favourite ==0){
+
+                    helper.favoriteTool(5, 1);
+                    preferenceButton.setText(R.string.addPreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+
+                }
+                if(favourite==1)
+                {
+                    helper.favoriteTool(5, 0);
+                    preferenceButton.setText(R.string.removePreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+                }
+            }
+        });
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

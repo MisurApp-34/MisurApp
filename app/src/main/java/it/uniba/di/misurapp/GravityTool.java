@@ -51,6 +51,8 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
     int first = 1;
     String value1;
     double acceleration;
+    Button preferenceButton;
+    int favourite;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -82,6 +84,47 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
             e.printStackTrace();
         }
 
+        //pulsante salva preferenze
+        preferenceButton = (Button) findViewById(R.id.add_fav);
+        //verifico la preferenza
+
+        favourite = helper.getFavoriteTool(11);
+        if(favourite==0)
+        {
+
+            preferenceButton.setText(R.string.addPreference);
+
+        }
+        else
+        {
+            preferenceButton.setText(R.string.removePreference);
+
+        }
+
+        preferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favourite ==0){
+
+                    helper.favoriteTool(11, 1);
+                    preferenceButton.setText(R.string.addPreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+
+                }
+                if(favourite==1)
+                {
+                    helper.favoriteTool(11, 0);
+                    preferenceButton.setText(R.string.removePreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+                }
+            }
+        });
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;

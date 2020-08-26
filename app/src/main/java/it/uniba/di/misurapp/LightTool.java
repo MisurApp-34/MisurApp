@@ -34,6 +34,8 @@ public class LightTool extends AppCompatActivity {
     private SensorEventListener lightEventListener;
     private float maxValue;
     private TextView val;
+    Button preferenceButton;
+    int favourite;
     float value;
     int newValue;
     private LineChart mChart;
@@ -55,7 +57,51 @@ public class LightTool extends AppCompatActivity {
 
         setContentView(R.layout.single_tool);
 
+
+        //pulsante salva preferenze
+        preferenceButton = (Button) findViewById(R.id.add_fav);
+        //verifico la preferenza
+
+        favourite = helper.getFavoriteTool(3);
+        if(favourite==0)
+        {
+
+            preferenceButton.setText(R.string.addPreference);
+
+        }
+        else
+        {
+            preferenceButton.setText(R.string.removePreference);
+
+        }
+
+        preferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favourite ==0){
+
+                    helper.favoriteTool(3, 1);
+                    preferenceButton.setText(R.string.addPreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+
+                }
+                if(favourite==1)
+                {
+                    helper.favoriteTool(3, 0);
+                    preferenceButton.setText(R.string.removePreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+                }
+            }
+        });
+
         buttonAdd = findViewById(R.id.add);
+
 
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);

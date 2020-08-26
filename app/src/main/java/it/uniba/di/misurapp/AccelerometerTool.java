@@ -42,6 +42,8 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
+    Button preferenceButton;
+    int favourite;
     String value1;
 private float x,y,z;
     private TextView xText, yText, zText;
@@ -74,6 +76,48 @@ private float x,y,z;
         yText = (TextView)findViewById(R.id.measureY);
         zText = (TextView)findViewById(R.id.measureZ);
 
+
+        //pulsante salva preferenze
+        preferenceButton = (Button) findViewById(R.id.add_fav);
+        //verifico la preferenza
+
+        favourite = helper.getFavoriteTool(13);
+        if(favourite==0)
+        {
+
+            preferenceButton.setText(R.string.addPreference);
+
+        }
+        else
+        {
+            preferenceButton.setText(R.string.removePreference);
+
+        }
+
+        preferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favourite ==0){
+
+                    helper.favoriteTool(13, 1);
+                    preferenceButton.setText(R.string.addPreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+
+                }
+                if(favourite==1)
+                {
+                    helper.favoriteTool(13, 0);
+                    preferenceButton.setText(R.string.removePreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+                }
+            }
+        });
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;

@@ -48,6 +48,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     static int p = 1;
     DatabaseManager helper;
     String value1;
+    Button preferenceButton;
+    int favourite;
     //pulsante aggiunta dati database
     private Button buttonAdd;
     // stampa toast messaggio
@@ -70,6 +72,47 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         TextView details = (TextView) findViewById(R.id.details);
         details.setText(R.string.gps);
 
+        //pulsante salva preferenze
+        preferenceButton = (Button) findViewById(R.id.add_fav);
+        //verifico la preferenza
+
+        favourite = helper.getFavoriteTool(8);
+        if(favourite==0)
+        {
+
+            preferenceButton.setText(R.string.addPreference);
+
+        }
+        else
+        {
+            preferenceButton.setText(R.string.removePreference);
+
+        }
+
+        preferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(favourite ==0){
+
+                    helper.favoriteTool(8, 1);
+                    preferenceButton.setText(R.string.addPreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+
+                }
+                if(favourite==1)
+                {
+                    helper.favoriteTool(8, 0);
+                    preferenceButton.setText(R.string.removePreference);
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
+                }
+            }
+        });
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
 

@@ -41,7 +41,8 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
     private Thread thread;
     private boolean plotData = true;
     DatabaseManager helper;  String value1;
-
+Button preferenceButton;
+int favourite;
     //pulsante aggiunta dati database
     private Button buttonAdd;
     // stampa toast messaggio
@@ -189,7 +190,47 @@ double distanza;
 
             }
 
+//pulsante salva preferenze
+            preferenceButton = (Button) findViewById(R.id.add_fav);
+            //verifico la preferenza
 
+            favourite = helper.getFavoriteTool(10);
+            if(favourite==0)
+            {
+
+                preferenceButton.setText(R.string.addPreference);
+
+            }
+            else
+            {
+                preferenceButton.setText(R.string.removePreference);
+
+            }
+
+            preferenceButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(favourite ==0){
+
+                        helper.favoriteTool(10, 1);
+                        preferenceButton.setText(R.string.addPreference);
+                        finish();
+                        overridePendingTransition( 0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition( 0, 0);
+
+                    }
+                    if(favourite==1)
+                    {
+                        helper.favoriteTool(10, 0);
+                        preferenceButton.setText(R.string.removePreference);
+                        finish();
+                        overridePendingTransition( 0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition( 0, 0);
+                    }
+                }
+            });
 
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
