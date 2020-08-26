@@ -85,4 +85,7 @@
     <string name="eliminato">deleted</string>
     <string name="errore">error</string>
     <string name="search">Search</string>
+    <string name="addPreference">Add to Favorites</string>
+    <string name="removePreference">Remove from Favorites</string>
+    <string name="edit_favorites">Edit Favorites</string>
 </resources>

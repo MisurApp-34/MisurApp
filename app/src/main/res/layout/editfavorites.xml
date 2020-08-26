@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UseSwitchCompatOrMaterialXml"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_ambiental_tools"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/ambient_tools"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/compassicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/compass"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/compass" />
+
+                        <Switch
+                            android:id="@+id/compass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/compass" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/soundicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/sound_intensity"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/sound" />
+
+                        <Switch
+                            android:id="@+id/soundintensity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/sound_intensity" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/pressure"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/barometor" />
+
+                        <Switch
+                            android:id="@+id/pressure"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/pressure" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/light_intensity_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/light"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/light" />
+
+                        <Switch
+                            android:id="@+id/lightintensity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/light" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/thermometer_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/temperature"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/thermometer" />
+
+                        <Switch
+                            android:id="@+id/devicetemperature"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/temperature" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/magneticfieldicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/magneticfield"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/magnetic_fild" />
+
+                        <Switch
+                            android:id="@+id/magneticfield"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/magneticfield" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_position_tools"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/position_tools"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/altitudeicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/altitude"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/altitude" />
+
+                        <Switch
+                            android:id="@+id/altitude"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/altitude" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/gpscoordsicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/gps"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/gps" />
+
+                        <Switch
+                            android:id="@+id/gpscoords"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/gps_coordinates" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/spiritlevelicon"
+                            android:layout_width="52dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/level"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/level" />
+
+                        <Switch
+                            android:id="@+id/spiritlevel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/level" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/proximityicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/distance"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/proxyimity" />
+
+                        <Switch
+                            android:id="@+id/proximity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/distance" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_movement_tools"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/movement_tools"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/gravityicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/gravity"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/gravity" />
+
+                        <Switch
+                            android:id="@+id/gravity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/gravity" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/deviceaccelicon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/acceleration"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/accelerometer" />
+
+                        <Switch
+                            android:id="@+id/deviceacceleration"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/acceleration" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/speedometericon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:contentDescription="@string/speed"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="0dp"
+                            app:srcCompat="@drawable/speedometer" />
+
+                        <Switch
+                            android:id="@+id/speed"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="@string/speed" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

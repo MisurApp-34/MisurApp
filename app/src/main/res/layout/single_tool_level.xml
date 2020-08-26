@@ -46,7 +46,7 @@
                     android:textAlignment="center"
                     tools:ignore="UselessParent">
 
-                    <it.uniba.di.misurapp.location_tools.spirit_level_view.LevelView
+                    <it.uniba.di.misurapp.LevelView
                         android:id="@+id/Direction_View"
                         android:layout_width="match_parent"
                         android:layout_height="250dp"

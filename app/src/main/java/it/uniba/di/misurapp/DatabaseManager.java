@@ -189,7 +189,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         // Lettura da database e inserimento nella matrice dinamica
         if (cursor.moveToFirst()){
             do {
-                Log.i("database", DatabaseUtils.dumpCursorToString(cursor));
                 for (int f=0; f < cursor.getColumnCount(); f++){
                     data[f][i] = cursor.getString(f);
                 }
@@ -254,6 +253,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(query,null);
             if (cursor.moveToFirst()){
                 do {
+                    Log.i("DB",DatabaseUtils.dumpCursorToString(cursor));
                     // Passing values
                      column1 = cursor.getString(0);
 

@@ -92,4 +92,7 @@
     <string name="eliminato">eliminato</string>
     <string name="errore">errore</string>
     <string name="upload" translatable="false">upolad</string>
+    <string name="addPreference">Aggiungi ai preferiti</string>
+    <string name="removePreference">Rimuovi dai preferiti</string>
+    <string name="edit_favorites">Modifica Preferiti</string>
 </resources>

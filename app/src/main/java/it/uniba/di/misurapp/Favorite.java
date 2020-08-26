@@ -1,16 +1,15 @@
 package it.uniba.di.misurapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Objects;
 
 public class Favorite extends AppCompatActivity {
 
@@ -21,32 +20,9 @@ public class Favorite extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        try {
-            getSupportActionBar().setTitle(R.string.favorite);
-        } catch (NullPointerException e){
-            e.printStackTrace();
-        }
-
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.favorite);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        ImageView AddFavIcon = findViewById(R.id.add_favorite_mid_icon);
-        AddFavIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Activity aggiungi preferiti da implementare
-                Toast.makeText(Favorite.this,"Activity Aggiungi preferiti \n DA IMPLEMENTARE",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        TextView AddFavText = findViewById(R.id.add_favorite_mid_text);
-        AddFavText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Activity aggiungi preferiti da implementare
-                Toast.makeText(Favorite.this,"Activity Aggiungi preferiti \n DA IMPLEMENTARE",Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 
@@ -54,8 +30,9 @@ public class Favorite extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.addfavorite){
-            // TODO Activity aggiungi preferiti da implementare
-            Toast.makeText(Favorite.this,"Activity Aggiungi preferiti \n DA IMPLEMENTARE",Toast.LENGTH_SHORT).show();
+            Intent addfav;
+            addfav = new Intent(this,EditFavorite.class);
+            startActivity(addfav);
             return true;
         }
         return super.onOptionsItemSelected(item);

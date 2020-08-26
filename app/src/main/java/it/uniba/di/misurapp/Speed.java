@@ -343,20 +343,15 @@ public class Speed extends AppCompatActivity {
      */
     public static void  getSpeed(double currSpeed){
 
-            speed=currSpeed;
+        speed = currSpeed;
 
+        if (!gps_off){
 
+            if(unitofmeasurement.equals("Km/h")) speed = speed*3.6;
+            else if(unitofmeasurement.equals("Mph")) speed = speed*2.24;
 
-
-
-if (!gps_off){
-    if(unitofmeasurement=="Km/h")
-        speed = speed*3.6;
-    else if(unitofmeasurement=="Mph")
-        speed = speed*2.24;
             String append = new DecimalFormat("#.#").format((speed));
             append = append + " "+unitofmeasurement;
-
             measure.setText(append);
         }
     }
