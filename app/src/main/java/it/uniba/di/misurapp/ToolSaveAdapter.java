@@ -31,7 +31,6 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
     int[] rImgs;
     ImageView rTrash;
     ImageView rUpload;
-    private EditText editable_name;
 
     // Costruttore
     ToolSaveAdapter(Context c, String[] title, String[] date, String[] value, String[] toolname ,int[] imgs, ImageView trash, ImageView upload) {

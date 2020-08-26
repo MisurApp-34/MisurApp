@@ -1,9 +1,4 @@
-package it.uniba.di.misurapp.location_tools;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+package it.uniba.di.misurapp;
 
 import android.Manifest;
 import android.content.ComponentName;
@@ -25,6 +20,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,10 +35,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import it.uniba.di.misurapp.DatabaseManager;
-import it.uniba.di.misurapp.R;
-import it.uniba.di.misurapp.ToolSave;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 

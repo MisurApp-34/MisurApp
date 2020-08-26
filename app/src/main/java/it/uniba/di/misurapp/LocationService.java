@@ -1,4 +1,4 @@
-package it.uniba.di.misurapp.location_tools;
+package it.uniba.di.misurapp;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -13,17 +13,19 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.Timer;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import static it.uniba.di.misurapp.location_tools.Altimeter.*;
-import static it.uniba.di.misurapp.location_tools.MapActivity.*;
-import static it.uniba.di.misurapp.location_tools.Speed.*;
+import it.uniba.di.misurapp.Altimeter;
+import it.uniba.di.misurapp.MapActivity;
+import it.uniba.di.misurapp.Speed;
+
+import static it.uniba.di.misurapp.Altimeter.updateValue;
+import static it.uniba.di.misurapp.MapActivity.getCoordinates;
+import static it.uniba.di.misurapp.Speed.getSpeed;
 
 public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 

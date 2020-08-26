@@ -202,6 +202,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return data;
     }
 
+    /**
+     * metodo per la modifica dell'elemento in base all'id
+     * * @param newName nuovo nome salvataggio
+     * * @param id del tool
+     */
     public boolean updateName(String newName, int id){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + DETECTION_TABLE1 + " SET " + SAVING_NAME +

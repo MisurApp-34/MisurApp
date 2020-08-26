@@ -24,9 +24,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".location_tools.MapActivity"
-            android:label="@string/title_activity_map"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -36,9 +33,6 @@
         </activity>
         <activity android:name=".Favorite" />
         <activity android:name=".CompassTool" />
-        <activity android:name=".location_tools.Altimeter" />
-        <activity android:name=".location_tools.Speed" />
-        <activity android:name=".location_tools.SpiritLevel" />
         <activity android:name=".PressureTool" />
         <activity android:name=".MagneticField" />
         <activity android:name=".PositionTools" />
@@ -52,8 +46,6 @@
         <activity android:name=".LightTool" />
         <activity android:name=".GravityTool" />
         <activity android:name=".ToolSave" />
-
-        <service android:name=".location_tools.LocationService" />
 
         <meta-data
             android:name="com.google.android.gms.version"

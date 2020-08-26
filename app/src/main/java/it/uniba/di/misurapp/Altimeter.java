@@ -1,4 +1,4 @@
-package it.uniba.di.misurapp.location_tools;
+package it.uniba.di.misurapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -44,30 +43,26 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import it.uniba.di.misurapp.DatabaseManager;
-import it.uniba.di.misurapp.R;
-import it.uniba.di.misurapp.ToolSave;
+public class Altimeter extends AppCompatActivity {
 
-public class Speed extends AppCompatActivity {
-
+    // variabile per la gestione del Bind
     static boolean status;
-    private static String unitofmeasurement;
-    LocationManager locationManager;
-    static double speed;
-    static long startTime, endTime;
-    static int p = 1;
-    String value1;
-    private static boolean gps_off;
+    private static String append;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
+    String value1;
+    LocationManager locationManager;
+    static long startTime, endTime;
+    static int p=1;
 
-    Timer timer;
-    private Thread thread;
+    private static boolean gps_off;
+
+    // servizio LocationService
     LocationService myService;
+    Timer timer;
     private LineChart mChart;
-
-    @SuppressLint("StaticFieldLeak")
-    static TextView measure;
+    private Thread thread;
+    static double altitudevalue;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -76,121 +71,64 @@ public class Speed extends AppCompatActivity {
         Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
+    @SuppressLint("StaticFieldLeak")
+    static TextView measure;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_tool);
-
-        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
-
-        if ((settings.getString("speed", "Km/h").toString()).equals("Km/h")) {
-
-            unitofmeasurement = "Km/h";
-
-        }
-        else if ((settings.getString("speed", "").toString()).equals("Mph")) {
-            unitofmeasurement = "Mph";
-        }
-
+        mContext = this;
+        p=0;
         //oggetto helper database
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
+
+
+        buttonAdd = findViewById(R.id.add);
+
+
+        TextView details = findViewById(R.id.details);
+        details.setText(R.string.gps);
+
+        measure = findViewById(R.id.measure);
+
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.altitude);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mChart = (LineChart) findViewById(R.id.chart1);
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
+
         ToolSave.flag = 1;
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolSave.id_tool=12;
+                ToolSave.id_tool=7;
                 Intent saves;
                 saves = new Intent(getApplicationContext(),ToolSave.class);
                 startActivity(saves);
             }
         });
 
-        buttonAdd = findViewById(R.id.add);
-
-        mContext = this;
-        p=0;
-
-        TextView details = findViewById(R.id.details);
-        details.setText(R.string.gps);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.speed);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        measure = findViewById(R.id.measure);
-
-        mChart = (LineChart) findViewById(R.id.chart1);
-
-        // Controllo permessi
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                },1000);
-            }
-        }
-
-        timer = new Timer();
-
-        // Runnable per iterare il controllo sul gps
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (checkGPS()){
-                    gps_off = false;
-                    measure.setText(R.string.getting_location);
-                    timer.cancel();
-                    bindService();
-                } else {
-                    gps_off = true;
-                    measure.setText(R.string.alert_gps_off);
-                }
-            }
-        },0,5000);
-
-        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                String value = mChart.getXAxis().getValueFormatter().getFormattedValue(e.getY(), mChart.getXAxis());
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-
-
-
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                SharedPreferences settings = getSharedPreferences("settings", 0);
-
-                if ((settings.getString("speed", "").toString()).equals("Km/h")) {
-
-                    speed = speed*3.6;
-
-                }
-                else if ((settings.getString("speed", "").toString()).equals("Mph")) {
-                    speed = speed*2.24;
-                }
                 //salvo valore in variabile
-                value1 = String.valueOf(speed) + "" +unitofmeasurement;
+
+                value1 = String.valueOf(altitudevalue)+ " " +getContext().getResources().getString(R.string.meters);
+
                 //dialog text acquisizione nome salvataggio
-                final EditText input = new EditText(Speed.this);
+                final EditText input = new EditText(Altimeter.this);
 
                 //apertura dialog inserimento nome salvataggio
-                new AlertDialog.Builder(Speed.this)
+                new AlertDialog.Builder(Altimeter.this)
                         .setTitle(getResources().getString(R.string.name_saving))
                         .setMessage(getResources().getString(R.string.insert_name))
                         .setView(input)
@@ -201,9 +139,8 @@ public class Speed extends AppCompatActivity {
                                 Editable nome = input.getText();
 
 
-
                                 //imposto nome tool
-                                String name_tool ="Velocità";
+                                String name_tool ="Altitudine";
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
@@ -231,6 +168,46 @@ public class Speed extends AppCompatActivity {
             }
         });
 
+        // Controllo permessi
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                },1000);
+            }
+        }
+
+        timer = new Timer();
+
+        // Runnable per iterare il controllo sul gps
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (checkGPS()){
+                    gps_off = false;
+                    measure.setText(R.string.getting_location);
+                    timer.cancel();
+                    bindService();
+                } else {
+                    measure.setText(R.string.alert_gps_off);
+                    gps_off = true;
+                }
+            }
+        },0,5000);
+
+        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                String value = mChart.getXAxis().getValueFormatter().getFormattedValue(e.getY(), mChart.getXAxis());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
         // Setup MPAndroidChart
         mChart = (LineChart) findViewById(R.id.chart1);
@@ -340,27 +317,29 @@ public class Speed extends AppCompatActivity {
         startTime = System.currentTimeMillis();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        status = false;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        status = false;
+        return super.onSupportNavigateUp();
+    }
 
     /**
-     * Interfaccia con LocationService.java per la cattura della velocità instantenea in metri al seconodo
-     * @param currSpeed velocità instantanea calcolata mediante GPS
+     * Interfaccia con LocationService per ottenere il valore dell'Altitudine
+     * @param currHeight Double contenente il valore dell'altitudine
      */
-    public static void  getSpeed(double currSpeed){
-
-            speed=currSpeed;
-
-
-
-
-
-if (!gps_off){
-    if(unitofmeasurement=="Km/h")
-        speed = speed*3.6;
-    else if(unitofmeasurement=="Mph")
-        speed = speed*2.24;
-            String append = new DecimalFormat("#.#").format((speed));
-            append = append + " "+unitofmeasurement;
-
+    public static void updateValue(double currHeight){
+        altitudevalue = currHeight;
+        if (!gps_off) {
+           append = new DecimalFormat("#.#").format((altitudevalue));
+            String unitofmeasurement = getContext().getResources().getString(R.string.meters);
+            append = append + " " + unitofmeasurement;
             measure.setText(append);
         }
     }
@@ -408,9 +387,8 @@ if (!gps_off){
                 set = createSet();
                 data.addDataSet(set);
             }
-            //double Actspeed = (double) speed;
-            float speed_float = (float) speed;
-            data.addEntry(new Entry(set.getEntryCount(), speed_float), 0);
+            float altitude = (float) altitudevalue;
+            data.addEntry(new Entry(set.getEntryCount(), altitude), 0);
             data.notifyDataChanged();
             mChart.notifyDataSetChanged();
             mChart.setVisibleXRangeMaximum(10);
@@ -433,20 +411,5 @@ if (!gps_off){
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.2f);
         return set;
-    }
-
-    @Override
-    public void onBackPressed() {
-        status=false;
-
-        super.onBackPressed();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        status=false;
-
-        onBackPressed();
-        return super.onSupportNavigateUp();
     }
 }
