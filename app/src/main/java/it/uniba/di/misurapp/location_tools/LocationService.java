@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -33,7 +34,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     double currentHeight =0;
     double currentLat,currentLon,currentSpeed = 0;
     private final IBinder mBinder = new LocalBinder();
-    Timer timer;
 
     /**
      * Bind servizio con classe
@@ -94,16 +94,16 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         currentLon = location.getLongitude();
         currentSpeed = location.getSpeed();
 
-        timer = new Timer();
-
-        timer.schedule(new TimerTask() {
+        final Handler mainHandler = new Handler(Looper.getMainLooper());
+        final Runnable locupdated = (new Runnable() {
             @Override
             public void run() {
                 if (currentLat!=0.0 && currentLon!=0.0) {
                     updateUI();
                 }
             }
-        },0,5000);
+        });
+        mainHandler.postDelayed(locupdated,5000);
     }
 
     /**
