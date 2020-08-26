@@ -126,7 +126,7 @@ public class Altimeter extends AppCompatActivity {
             public void onClick(View v) {
                 //salvo valore in variabile
 
-                value1 = String.valueOf(altitudevalue);
+                value1 = String.valueOf(altitudevalue)+ " " +getContext().getResources().getString(R.string.meters);
 
                 //dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(Altimeter.this);

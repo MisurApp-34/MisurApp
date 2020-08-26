@@ -49,6 +49,7 @@ public class TemperatureTool extends AppCompatActivity  {
     IntentFilter intentfilter;
     float batteryTemp;
     String value1;
+    String unit;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -185,7 +186,8 @@ public class TemperatureTool extends AppCompatActivity  {
             if ((settings.getString("temperature", "").toString()).equals("Celsius")) {
 
                 if (batteryTemp >= 16 && batteryTemp < 45) {
-                    value.setText(batteryTemp + " " + (char) 0x00B0 + "C");
+                    value.setText(batteryTemp + " " + (char) 0x00B0 + " C");
+                    unit = " °C";
 
                 } else {
                     value.setText(String.format(res.getString(R.string.attention) + "\n" + batteryTemp + (char) 0x00B0 + "C"));
@@ -195,7 +197,7 @@ public class TemperatureTool extends AppCompatActivity  {
                     batteryTemp= (float) ((batteryTemp*1.8)+32);
                 if (batteryTemp >= 60.8 && batteryTemp < 113) {
                     value.setText(batteryTemp + " " + (char) 0x00B0 + "F");
-                } else {
+unit =" °F";   } else {
                     value.setText(String.format(res.getString(R.string.attention) + "\n" + batteryTemp + (char) 0x00B0 + "F"));
                 }
             }
@@ -207,7 +209,7 @@ public class TemperatureTool extends AppCompatActivity  {
                 public void onClick(View v) {
 
                     //salvo valore in variabile
-                     value1 = String.valueOf(batteryTemp);
+                     value1 = String.valueOf(batteryTemp) + " "+unit;
 
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(TemperatureTool.this);

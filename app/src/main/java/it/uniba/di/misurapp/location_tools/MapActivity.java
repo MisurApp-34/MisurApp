@@ -129,7 +129,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 changeLocation();
                 mainHandler.postDelayed(this,5000);
                 if (latitude!=null && longitude!=null) {
-                    String append = latitude + " " + longitude;
+
+                    String append = "Latitudine: "+latitude+" Longitudine: "+longitude;
                     measure.setText(append);
                 }
             }

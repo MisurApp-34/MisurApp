@@ -44,6 +44,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
     int first = 1;    String value1;
+    String unit;
 
     DatabaseManager helper;
     //pulsante aggiunta dati database
@@ -202,6 +203,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
     // temporizzo la stampa
     Handler mHandler = new Handler();
     double pressione;// intialize it
+    double pressioneP;
     Runnable run = new Runnable() {
 
         @Override
@@ -228,6 +230,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                 if (first == 1) {
                     value.setText(String.format("%.1f hPa", pressione));
                     first++;
+                    unit = "hPa";
                 } else {
                     //avvio handler ogni due secondi -- guardare sopra questo metodo
                     mHandler.postDelayed(run, 2000);
@@ -238,56 +241,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
 
 
-                buttonAdd.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        //salvo valore in variabile
-                         value1 = String.valueOf(pressione);
-                        //dialog text acquisizione nome salvataggio
-                        final EditText input = new EditText(PressureTool.this);
-
-                        //apertura dialog inserimento nome salvataggio
-                        new AlertDialog.Builder(PressureTool.this)
-                                .setTitle(getResources().getString(R.string.name_saving))
-                                .setMessage(getResources().getString(R.string.insert_name))
-                                .setView(input)
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                                        //acquisisco nome
-                                        Editable nome = input.getText();
-
-
-
-                                        //imposto nome tool
-                                        String name_tool ="Pressione";
-
-                                        //converto editable in stringa
-                                        String saving_name= nome.toString();
-
-
-                                        //aggiungo al db
-                                        if (value1.length() != 0) {
-
-                                            boolean insertData = helper.addData( saving_name, name_tool, value1);
-
-                                            if (insertData) {
-                                                toastMessage(getResources().getString(R.string.uploaddata_message_ok));
-                                            } else {
-                                                toastMessage(getResources().getString(R.string.uploaddata_message_error));
-                                            }
-                                        }                               }
-                                })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        // Do nothing.
-                                    }
-                                }).show();
-
-
-                    }
-                });
 
                 //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
                 if (plotData) {
@@ -299,7 +253,9 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
             if (event.sensor.getType() == Sensor.TYPE_PRESSURE) {
                 // prendo i valori generati dai singoli assi
                 float[] values = event.values;
-                value.setText(String.format("%.1f Pascal", values[0] * 100));
+                pressioneP= values[0] * 100;
+                value.setText(String.format("%.1f Pascal", pressioneP));
+                unit = "Pascal";
 
                 TextView details = findViewById(R.id.details);
                 details.setText(R.string.pressure_details);
@@ -311,6 +267,57 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                 }
             }
         }
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //salvo valore in variabile
+                value1 = String.valueOf(pressioneP)+ " "+ unit;
+                //dialog text acquisizione nome salvataggio
+                final EditText input = new EditText(PressureTool.this);
+
+                //apertura dialog inserimento nome salvataggio
+                new AlertDialog.Builder(PressureTool.this)
+                        .setTitle(getResources().getString(R.string.name_saving))
+                        .setMessage(getResources().getString(R.string.insert_name))
+                        .setView(input)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                //acquisisco nome
+                                Editable nome = input.getText();
+
+
+
+                                //imposto nome tool
+                                String name_tool ="Pressione";
+
+                                //converto editable in stringa
+                                String saving_name= nome.toString();
+
+
+                                //aggiungo al db
+                                if (value1.length() != 0) {
+
+                                    boolean insertData = helper.addData( saving_name, name_tool, value1);
+
+                                    if (insertData) {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_ok));
+                                    } else {
+                                        toastMessage(getResources().getString(R.string.uploaddata_message_error));
+                                    }
+                                }                               }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Do nothing.
+                            }
+                        }).show();
+
+
+            }
+        });
 
     }
 

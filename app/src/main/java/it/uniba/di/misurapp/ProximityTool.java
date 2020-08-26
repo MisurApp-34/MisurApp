@@ -195,7 +195,7 @@ double distanza;
                 @Override
                 public void onClick(View v) {
                     //salvo valore in variabile
-                     value1 = String.valueOf((distanza));
+                     value1 = String.valueOf((distanza)) + " cm";
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(ProximityTool.this);
 

@@ -32,6 +32,7 @@ private String cardinale;
     private SensorManager mSensorManager;
 
     TextView tvHeading;
+    String value1;
 
     private Sensor mAccelerometer;
     private Sensor mMagnetometer;
@@ -123,6 +124,43 @@ private String cardinale;
             @Override
             public void onClick(View v) {
 
+                if(Math.abs(mCurrentDegree)>=0 && Math.abs(mCurrentDegree)<45) {
+                    cardinale = "N";
+                }
+                if(Math.abs(mCurrentDegree)>=45 && Math.abs(mCurrentDegree)<90)
+                {
+                    cardinale="NE";
+                }
+                if(Math.abs(mCurrentDegree)>=90 && Math.abs(mCurrentDegree)<135)
+                {
+                    cardinale="E";
+                }
+                if(Math.abs(mCurrentDegree)>=135 && Math.abs(mCurrentDegree)<180)
+                {
+                    cardinale="SE";
+                }
+                if(Math.abs(mCurrentDegree)>=180 && Math.abs(mCurrentDegree)<225)
+                {
+                    cardinale="S";
+                }
+                if(Math.abs(mCurrentDegree)>=225 && Math.abs(mCurrentDegree)<270)
+                {
+                    cardinale="SW";
+                }
+                if(Math.abs(mCurrentDegree)>=270 && Math.abs(mCurrentDegree)<315)
+                {
+                    cardinale="W";
+                }
+                if(Math.abs(mCurrentDegree)>=315 && Math.abs(mCurrentDegree)<360)
+                {
+                    cardinale="NW";
+                }
+                if(Math.abs(mCurrentDegree)==360)
+                {
+                    cardinale="N";
+                }
+                //salvo valore in variabile
+                 value1 = Math.abs(mCurrentDegree) + "° "+ cardinale;
                 //dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(CompassTool.this);
 
@@ -138,43 +176,7 @@ private String cardinale;
                                 Editable nome = input.getText();
 
 
-                                if(Math.abs(mCurrentDegree)>=0 && Math.abs(mCurrentDegree)<45) {
-                                    cardinale = "N";
-                                }
-                                if(Math.abs(mCurrentDegree)>=45 && Math.abs(mCurrentDegree)<90)
-                                {
-                                    cardinale="NE";
-                                }
-                                if(Math.abs(mCurrentDegree)>=90 && Math.abs(mCurrentDegree)<135)
-                                {
-                                    cardinale="E";
-                                }
-                                if(Math.abs(mCurrentDegree)>=135 && Math.abs(mCurrentDegree)<180)
-                                {
-                                    cardinale="SE";
-                                }
-                                if(Math.abs(mCurrentDegree)>=180 && Math.abs(mCurrentDegree)<225)
-                                {
-                                    cardinale="S";
-                                }
-                                if(Math.abs(mCurrentDegree)>=225 && Math.abs(mCurrentDegree)<270)
-                                {
-                                    cardinale="SW";
-                                }
-                                if(Math.abs(mCurrentDegree)>=270 && Math.abs(mCurrentDegree)<315)
-                                {
-                                    cardinale="W";
-                                }
-                                if(Math.abs(mCurrentDegree)>=315 && Math.abs(mCurrentDegree)<360)
-                                {
-                                    cardinale="NW";
-                                }
-                                if(Math.abs(mCurrentDegree)==360)
-                                {
-                                    cardinale="N";
-                                }
-                                //salvo valore in variabile
-                                String value1 = Math.abs(mCurrentDegree) + " "+ cardinale;
+
 
                                 //imposto nome tool
                                 String name_tool ="Bussola";

@@ -206,9 +206,8 @@ private float x,y,z;
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     //salvo valore in variabile
-                    value1 = "X: "+String.valueOf(round(x,2))+" Y: "+String.valueOf(round(y,2))+" Z: "+String.valueOf(round(z,2));
+                    value1 = "X: "+String.valueOf(round(x,2))+" m/s² Y: "+String.valueOf(round(y,2))+"  m/s² Z: "+String.valueOf(round(z,2)+"  m/s²");
 
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(AccelerometerTool.this);

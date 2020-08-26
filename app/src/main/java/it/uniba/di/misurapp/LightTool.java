@@ -115,7 +115,7 @@ public class LightTool extends AppCompatActivity {
                     public void onClick(View v) {
 
                         //salvo valore in variabile
-                         value1 = String.valueOf(value);
+                         value1 = String.valueOf(value) +" lx";
 
                         //dialog text acquisizione nome salvataggio
                         final EditText input = new EditText(LightTool.this);

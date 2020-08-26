@@ -236,8 +236,8 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//salvo valore in variabile
-                     value1 = String.valueOf(gravity);
+                    //salvo valore in variabile
+                     value1 = String.valueOf(DECIMAL_FORMATTER.format(acceleration)) +" m/s2";
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(GravityTool.this);
 

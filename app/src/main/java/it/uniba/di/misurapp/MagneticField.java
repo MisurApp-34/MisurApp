@@ -252,7 +252,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                 public void onClick(View v) {
 
                     //salvo valore in variabile
-                     value1 = String.valueOf(magnitude);
+                     value1 = String.valueOf(DECIMAL_FORMATTER.format(magnitude)) +" \u00B5Tesla";
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(MagneticField.this);
 

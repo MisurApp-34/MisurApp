@@ -132,7 +132,7 @@ public class SoundIntensity extends AppCompatActivity {
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    value1 = String.valueOf(value);
+                    value1 = String.valueOf(value) + " dB";
 
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(SoundIntensity.this);

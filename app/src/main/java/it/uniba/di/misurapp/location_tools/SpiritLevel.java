@@ -134,7 +134,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                 @Override
                 public void onClick(View v) {
 //salvo valore in variabile
-                     value1 = String.valueOf(sqrt);
+                     value1 = String.valueOf(DECIMAL_FORMATTER.format(sqrt))+" °";
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(SpiritLevel.this);
 
