@@ -16,22 +16,18 @@
     <string name="positiontools">STRUMENTI DI POSIZIONE</string>
     <string name="temperature">Termometro</string>
     <string name="temperature_setting">Unità misura temperatura</string>
-    <string name="search" translatable="false">Ricerca</string>
-
+    <string name="search">Ricerca</string>
     <string name="pressuresetting">Pressione</string>
     <string name="pressure_setting">Unità misura pressione</string>
     <string name="name_saving">Nome salvataggio</string>
     <string name="insert_name">Inserisci nome salvataggio misura</string>
     <string name="uploaddata_message_ok">Caricamento avvenuto con successo</string>
     <string name="uploaddata_message_error">Errore nel caricamento, riprova</string>
-
     <string name="speedsetting">Velocità</string>
     <string name="speed_setting">Unità misura velocità</string>
-
-
+    <string name="speedunit_defualt" translatable="false">Km/h</string>
     <string name="language_setting">Imposta lingua</string>
     <string name="language">Lingua</string>
-
     <string name="app_name" translatable="false">MisurApp</string>
     <string name="menu" translatable="false">Menu</string>
     <string name="impostazioni">Impostazioni</string>
@@ -52,7 +48,6 @@
     <string name="acceleration_details">Accelerazione di gravità</string>
     <string name="gravity_details">Accelerazione gravitazionale</string>
     <string name="level_details">Angolazione</string>
-
     <string name="compass_instrument">Magnetometro - Accelerometro</string>
     <string name="pressure_details">Barometro</string>
     <string name="decibel_details">Microfono</string>
@@ -62,12 +57,8 @@
     <string name="far">Lontano</string>
     <string name="nosensor">Nessun sensore </string>
     <string name="centimeter">cm</string>
-
     <string name="degrees">Gradi</string>
-
     <string name="compass_details">Bussola</string>
-
-
     <string name="add_favour">Aggiungi ai preferiti</string>
     <string name="details_instrument">Dettagli stumento:</string>
     <string name="unit_of_measure">Unità di misura:</string>
@@ -80,16 +71,11 @@
     <string name="decibel_level_3">Interferenza nelle conversazioni, fastidio</string>
     <string name="decibel_level_4">Molto fastidio</string>
     <string name="decibel_level_5">Dolore</string>
-
-<string name="addPreference">Aggiungi ai preferiti</string>
-    <string name="removePreference">Rimuovi dai preferiti</string>
-
     <string name="thermometer">Temperatura dispositivo</string>
     <string name="attention">Attenzione! \n Livello di temperatura anomalo</string>
     <string name="missing_sensor">Attenzione! \n Sensore non presente</string>
     <string name="accelerometer"> Accelerometro</string>
     <string name="light">Fotometro</string>
-
     <string name="alert_gps_off">GPS non attivo!</string>
     <string name="getting_location">Ricerca posizione</string>
     <string name="gps" translatable="false">GPS</string>
@@ -105,8 +91,5 @@
     <string name="tool_icon">Icona Tool</string>
     <string name="eliminato">eliminato</string>
     <string name="errore">errore</string>
-
-
-
-
+    <string name="upload" translatable="false">upolad</string>
 </resources>

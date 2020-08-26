@@ -11,8 +11,6 @@ import androidx.cardview.widget.CardView;
 
 import java.util.Objects;
 
-import it.uniba.di.misurapp.location_tools.Speed;
-
 
 public class MovimentTools extends AppCompatActivity {
     Context context;

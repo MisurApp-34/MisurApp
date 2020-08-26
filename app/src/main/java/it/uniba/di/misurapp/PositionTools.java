@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView;
 
 import java.util.Objects;
 
-import it.uniba.di.misurapp.location_tools.*;
+import it.uniba.di.misurapp.*;
 
 
 public class PositionTools extends AppCompatActivity

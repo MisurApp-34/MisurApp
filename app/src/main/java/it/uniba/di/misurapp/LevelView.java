@@ -1,4 +1,4 @@
-package it.uniba.di.misurapp.location_tools.spirit_level_view;
+package it.uniba.di.misurapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

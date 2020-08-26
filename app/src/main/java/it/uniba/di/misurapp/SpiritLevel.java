@@ -1,4 +1,4 @@
-package it.uniba.di.misurapp.location_tools;
+package it.uniba.di.misurapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,11 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
-
-import it.uniba.di.misurapp.DatabaseManager;
-import it.uniba.di.misurapp.R;
-import it.uniba.di.misurapp.ToolSave;
-import it.uniba.di.misurapp.location_tools.spirit_level_view.LevelView;
 
 public class SpiritLevel extends AppCompatActivity implements SensorEventListener {
 

@@ -241,7 +241,8 @@ private float x,y,z;
                                         } else {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                         }
-                                    }                               }
+                                    }
+                                }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {

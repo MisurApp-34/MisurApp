@@ -1,18 +1,28 @@
 package it.uniba.di.misurapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
+
+import java.text.BreakIterator;
 import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
 public class ToolSave extends AppCompatActivity {
 
+    public static EditText editable_name;
     static Context context;
     public static ListView listView;
     public static int flag;
@@ -24,7 +34,9 @@ public class ToolSave extends AppCompatActivity {
     static int[] images;
     static int[] mId;
     static ImageView trash;
+    static ImageView upload;
     static ToolSaveAdapter adapter;
+    static DatabaseManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +52,19 @@ public class ToolSave extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        db = new DatabaseManager(this);
+        editable_name = new EditText(ToolSave.this);
+
         // Vista lista
         listView = findViewById(R.id.my_list);
 
         trash = (ImageView) findViewById(R.id.trash);
+        upload = (ImageView) findViewById(R.id.upload);
 
         // Metodo per ottenere da database i dati necessari
         getAll();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -123,7 +140,7 @@ public class ToolSave extends AppCompatActivity {
             images[i] = getIcon(append);
         }
 
-        adapter = new ToolSaveAdapter(context, mTitle, mDate, mvalue, mToolname, images, trash);
+        adapter = new ToolSaveAdapter(context, mTitle, mDate, mvalue, mToolname, images, trash, upload);
         listView.setAdapter(adapter);
     }
 

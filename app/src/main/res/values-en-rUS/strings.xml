@@ -18,9 +18,9 @@
     <string name="save_measure">Save measurement</string>
     <string name="historical_measure">Historical measurement</string>
     <string name="measure">Measurement</string>
-    <string name="altitude" translatable="false">Altitude</string>
+    <string name="altitude">Altitude</string>
     <string name="coordinate">Coordinate GPS</string>
-    <string name="level" translatable="false">Spirit Level</string>
+    <string name="level">Spirit Level</string>
     <string name="pressure">Pressure</string>
     <string name="photometer">Light Intensity</string>
     <string name="phonometer">Sound Intensity</string>
@@ -39,23 +39,17 @@
     <string name="positiontools">POSITION TOOLS</string>
     <string name="acceleration_details">Gravity acceleration</string>
     <string name="gravity_details">Gravity acceleration</string>
-
     <string name="temperature">Temperature</string>
     <string name="temperature_setting">Unit of temperature measurement</string>
-
     <string name="pressuresetting">Pressure</string>
     <string name="pressure_setting">Unit of pressure measurement</string>
-
     <string name="uploaddata_message_ok">Data Successfully Inserted!</string>
     <string name="uploaddata_message_error">Something went wrong</string>
-
     <string name="name_saving">Saving name</string>
     <string name="insert_name">Insert measure saving name</string>
     <string name="speedsetting">Speed</string>
     <string name="speed_setting">Unit of speed measurement</string>
     <string name="thermometer">Device temperature</string>
-    <string name="addPreference">Add to favourites</string>
-    <string name="removePreference">Remove from favorites</string>
     <string name="proximity_details">Proximity</string>
     <string name="near">Near</string>
     <string name="far">Far</string>
@@ -90,6 +84,5 @@
     <string name="trash">Trash</string>
     <string name="eliminato">deleted</string>
     <string name="errore">error</string>
-
-
+    <string name="search">Search</string>
 </resources>
