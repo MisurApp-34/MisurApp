@@ -96,4 +96,9 @@
     <string name="removePreference">Rimuovi dai preferiti</string>
     <string name="edit_favorites">Modifica Preferiti</string>
     <string name="nessun_salvataggio_disponibile">Nessun salvataggio disponibile</string>
+    <string name="textview">TextView</string>
+    <string name="arianna_pesce">Arianna Pesce</string>
+    <string name="emanuele_valente">Emanuele Valente</string>
+    <string name="fabio_palladino">Fabio Palladino</string>
+    <string name="marco_spagnolo">Marco Spagnolo</string>
 </resources>
