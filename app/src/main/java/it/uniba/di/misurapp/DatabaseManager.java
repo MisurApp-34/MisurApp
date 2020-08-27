@@ -253,7 +253,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(query,null);
             if (cursor.moveToFirst()){
                 do {
-                    Log.i("DB",DatabaseUtils.dumpCursorToString(cursor));
                     // Passing values
                      column1 = cursor.getString(0);
 

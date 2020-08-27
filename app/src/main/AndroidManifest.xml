@@ -27,11 +27,10 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".Favorite" />
+
         <activity android:name=".CompassTool" />
         <activity android:name=".PressureTool" />
         <activity android:name=".MagneticField" />
@@ -42,11 +41,8 @@
         <activity android:name=".Settings" />
         <activity android:name=".Speed" />
         <activity android:name=".Altimeter" />
-
-
         <activity android:name=".MapActivity" />
-        <activity android:name=".EditFavorite" />
-
+        <activity android:name=".Favorite" />
         <activity android:name=".AmbientalTools" />
         <activity android:name=".MovimentTools" />
         <activity android:name=".AccelerometerTool" />
@@ -61,5 +57,4 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
-
 </manifest>
