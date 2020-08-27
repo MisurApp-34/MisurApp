@@ -65,15 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupDrawerContent(nvDrawer);
 
-        // Barra di ricerca Custom - Mostra l'intera barra di ricerca, non la singola icona
-        // TODO Implementare la ricerca per elementi
-        final SearchView searchView = findViewById(R.id.search_bar);
-        searchView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                searchView.setIconified(false);
-            }
-        });
+
 
         // Blocchi raggruppamento strumenti generali tramite cardview + Comportamento OnClick
         CardView cardviewambient = findViewById(R.id.CardViewAmbient);
