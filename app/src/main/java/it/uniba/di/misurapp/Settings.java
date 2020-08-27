@@ -12,6 +12,9 @@ import android.preference.PreferenceActivity;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import java.util.Locale;
 
 public class Settings extends PreferenceActivity {
@@ -19,13 +22,15 @@ public class Settings extends PreferenceActivity {
     Locale myLocale;
     public String pressure_unit;
     public String temperature_unit;
-   public  String speed_unit;
+    public  String speed_unit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
+
         addPreferencesFromResource(R.xml.settings);
 
         Preference langPreference = getPreferenceScreen().findPreference(
