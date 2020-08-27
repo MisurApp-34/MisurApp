@@ -88,4 +88,6 @@
     <string name="addPreference">Add to Favorites</string>
     <string name="removePreference">Remove from Favorites</string>
     <string name="edit_favorites">Edit Favorites</string>
+    <string name="nessun_salvataggio_disponibile">No past saves</string>
+
 </resources>

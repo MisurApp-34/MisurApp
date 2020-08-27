@@ -95,4 +95,5 @@
     <string name="addPreference">Aggiungi ai preferiti</string>
     <string name="removePreference">Rimuovi dai preferiti</string>
     <string name="edit_favorites">Modifica Preferiti</string>
+    <string name="nessun_salvataggio_disponibile">Nessun salvataggio disponibile</string>
 </resources>

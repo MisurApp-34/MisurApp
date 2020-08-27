@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +37,7 @@ public class ToolSave extends AppCompatActivity {
     static ImageView trash;
     static ImageView upload;
     static ToolSaveAdapter adapter;
+    static TextView nosave;
     static DatabaseManager db;
 
     @Override
@@ -51,6 +53,8 @@ public class ToolSave extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.save);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        nosave = (TextView)findViewById(R.id.textView);
 
         db = new DatabaseManager(this);
         editable_name = new EditText(ToolSave.this);
@@ -118,6 +122,13 @@ public class ToolSave extends AppCompatActivity {
         } else {
             text = dbmanager.getToolData(id_tool);
         }
+
+        int flag = DatabaseManager.rows;
+        if (flag==0) {
+            nosave.setVisibility(TextView.VISIBLE);
+        } else
+            nosave.setVisibility(TextView.INVISIBLE);
+
 
         dbmanager.close();
 

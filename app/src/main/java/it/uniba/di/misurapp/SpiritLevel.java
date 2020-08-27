@@ -161,7 +161,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
             float[] values = event.values;
             yAngle = values[2]; // ASSE X
             zAngle = values[1]; // ASSE Z
-            DECIMAL_FORMATTER = new DecimalFormat("#.0");
+            DECIMAL_FORMATTER = new DecimalFormat("#.#");
 
             sqrt= (float) Math.sqrt((xAngle*xAngle) + (yAngle*yAngle));
             String append =(DECIMAL_FORMATTER.format(sqrt) + "°");
@@ -218,7 +218,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                 }
             });
 
-            levelView.yAngle = values[1]; 
+            levelView.yAngle = values[1];
             levelView.zAngle = values[2];
         }
     }
