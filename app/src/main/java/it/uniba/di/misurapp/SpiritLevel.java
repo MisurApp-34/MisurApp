@@ -160,7 +160,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         if (sensorType == Sensor.TYPE_ORIENTATION) {
             float[] values = event.values;
             yAngle = values[2]; // ASSE X
-            xAngle = values[1]; // ASSE Z
+            zAngle = values[1]; // ASSE Z
             DECIMAL_FORMATTER = new DecimalFormat("#.0");
 
             sqrt= (float) Math.sqrt((xAngle*xAngle) + (yAngle*yAngle));
@@ -218,8 +218,8 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                 }
             });
 
-            levelView.yAngle = values[2]; // TODO Fix direzione bolla
-            levelView.xAngle = values[1];
+            levelView.yAngle = values[1]; 
+            levelView.zAngle = values[2];
         }
     }
 

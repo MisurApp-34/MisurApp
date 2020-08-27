@@ -18,7 +18,6 @@ public class LevelView extends View {
     private int circleRadius;
     private static final int CIRCLE_RADIUS_DP = 15; // Raggio bolla
     public int MAX_ANGLE = 30;
-    public float xAngle=0;
     public float yAngle = 0;
     public float zAngle = 0;
 
