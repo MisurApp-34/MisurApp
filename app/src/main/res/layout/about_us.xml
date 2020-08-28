@@ -1,117 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:weightSum="10">
+    android:weightSum="10"
+    tools:context=".AboutUs">
+
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="visible"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="5dp">
 
-        <TextView
-            android:id="@+id/descrizione_aboutus"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/textview" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:padding="20dp">
 
+            <TextView
+                android:id="@+id/descrizione_aboutus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/textview"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="visible"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="5dp"/>
 
-        <ImageView
-            android:id="@+id/ariannaicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="0dp"
-            app:srcCompat="@drawable/arianna" />
 
-        <TextView
-            android:id="@+id/testo_arianna"
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/arianna_pesce" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
-
-        <ImageView
-            android:id="@+id/emanueleicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="0dp"
-            app:srcCompat="@drawable/emanuele" />
-
-        <TextView
-            android:id="@+id/testo_emanuele"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/emanuele_valente" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
-
-        <ImageView
-            android:id="@+id/fabioicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="0dp"
-            app:srcCompat="@drawable/fabio" />
-
-        <TextView
-            android:id="@+id/testo_fabio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/fabio_palladino" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
-
-        <ImageView
-            android:id="@+id/marcoicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="0dp"
-            app:srcCompat="@drawable/marco" />
-
-        <TextView
-            android:id="@+id/testo_marco"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/marco_spagnolo" />
-    </LinearLayout>
-
-    </LinearLayout>
+</LinearLayout>

@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(Settings);
                 break;
             case R.id.FragmentAbout:
-                // TODO Fragment/Activity About
-                Toast.makeText(this,"Activity About \n DA COLLEGARE",Toast.LENGTH_SHORT).show();
+                Intent About = new Intent(this , AboutUs.class);
+                startActivity(About);
                 break;
         }
 

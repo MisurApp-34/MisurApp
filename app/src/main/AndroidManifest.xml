@@ -50,6 +50,7 @@
         <activity android:name=".GravityTool" />
         <activity android:name=".ToolSave" />
         <activity android:name=".SpiritLevel" />
+        <activity android:name=".AboutUs" />
 
         <service android:name=".LocationService"/>
 

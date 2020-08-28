@@ -96,11 +96,13 @@
     <string name="removePreference">Rimuovi dai preferiti</string>
     <string name="edit_favorites">Modifica Preferiti</string>
     <string name="nessun_salvataggio_disponibile">Nessun salvataggio disponibile</string>
-    <string name="textview" translatable="false">TextView</string>
-    <string name="arianna_pesce" translatable="false">Arianna Pesce</string>
-    <string name="emanuele_valente" translatable="false">Emanuele Valente</string>
-    <string name="fabio_palladino" translatable="false">Fabio Palladino</string>
-    <string name="marco_spagnolo" translatable="false">Marco Spagnolo</string>
+    <string name="textview" translatable="false">Questa applicazione è stata realizzata da:\n
+        -Palladino Fabio\n
+        -Pesce Arianna\n
+        -Spagnolo Marco\n
+        -Valente Emanuele\ncome caso di studio per l\'esame di laurea \ndi Sviluppo Mobile Software.
+        \n\nL\'applicazione si occupa di fornire una collezione di strumenti basati sui sensori del dispositivo.\n\nOgni sensore è rappresentato secondo tre categorie: Ambientale, di Posizione e di Movimento.
+    </string>
     <string name="alert_no_favorites">Non hai aggiunto preferiti! \nPuoi aggiungere preferiti dalla pagina dello strumento!</string>
 
 </resources>
