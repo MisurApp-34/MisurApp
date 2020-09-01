@@ -4,7 +4,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/language">
+    <PreferenceCategory android:title="@string/language" android:layout="@layout/preferences_category">
         <ListPreference
             android:entries="@array/language_entries"
             android:entryValues="@array/language_values"
@@ -13,7 +13,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/temperature">
+    <PreferenceCategory android:title="@string/temperature" android:layout="@layout/preferences_category">
         <ListPreference
             android:defaultValue="Celsius"
             android:entries="@array/temperature_entries"
@@ -24,7 +24,7 @@
     </PreferenceCategory>
 
 
-    <PreferenceCategory android:title="@string/pressuresetting">
+    <PreferenceCategory android:title="@string/pressuresetting"  android:layout="@layout/preferences_category">
         <ListPreference
             android:defaultValue="hPa"
             android:entries="@array/pressure_entries"
@@ -34,7 +34,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/speedsetting">
+    <PreferenceCategory android:title="@string/speedsetting" android:layout="@layout/preferences_category">
         <ListPreference
             android:defaultValue="@string/speedunit_defualt"
             android:entries="@array/speed_entries"

@@ -6,6 +6,8 @@
     <string name="photometer">Intenistà Luminosa</string>
     <string name="phonometer">Intenistà Sonora</string>
     <string name="compass">Bussola</string>
+
+    <string name="settings">Impostazioni</string>
     <string name="magneticfield">Campo Magnetico</string>
     <string name="distance">Sensore Prossimità</string>
     <string name="acceleration">Accelerazione dispositivo</string>
