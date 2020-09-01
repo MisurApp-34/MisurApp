@@ -28,8 +28,8 @@
 
             <TextView
                 android:id="@+id/textViewSave"
-                android:layout_width="140dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_margin="5dp"
                 android:ellipsize="end"
@@ -53,11 +53,11 @@
 
             <ImageView
                 android:id="@+id/trash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_gravity="center_vertical|end"
+                android:layout_gravity="center_vertical|center"
                 android:clickable="true"
                 android:contentDescription="@string/trash"
                 android:focusable="true"
