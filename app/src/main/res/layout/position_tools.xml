@@ -66,10 +66,14 @@ android:background="@drawable/bg"
          <ImageView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_gravity="center_horizontal"
-             android:src="@drawable/altitude"
+             android:adjustViewBounds="true"
+             android:maxWidth="50dp"
+             android:layout_gravity="center"
+             android:maxHeight="50dp"
              android:scaleType="fitCenter"
-             android:adjustViewBounds="true" />
+             android:layout_marginBottom="10dp"
+             android:src="@drawable/altitude"
+            />
 
      <TextView
          android:layout_width="wrap_content"
@@ -109,10 +113,13 @@ android:background="@drawable/bg"
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/gps"
-                    android:layout_gravity="center_horizontal" />
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/gps" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,27 +152,30 @@ android:background="@drawable/bg"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             >
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal|center_vertical">
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="46dp"
-
-                    android:layout_height="46dp"
-                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:maxHeight="50dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/level" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/level"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@android:color/black" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -197,8 +207,14 @@ android:background="@drawable/bg"
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/proxyimity"
-                    android:layout_gravity="center_horizontal" />
+                   />
 
                 <TextView
                     android:layout_width="wrap_content"

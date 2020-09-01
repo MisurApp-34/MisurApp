@@ -273,7 +273,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
             TextView details = findViewById(R.id.details);
 
-            details.setText(R.string.gravity_details);
+            details.setText(R.string.accelerometer);
 
             //gestione listner pulsante aggiunta database
             buttonAdd.setOnClickListener(new View.OnClickListener() {

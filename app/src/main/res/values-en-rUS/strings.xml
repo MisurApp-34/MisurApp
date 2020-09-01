@@ -73,7 +73,7 @@
     <string name="feet">Feet</string>
     <string name="compass_details">Compass</string>
     <string name="degrees">Degrees</string>
-    <string name="compass_instrument">Magnetometer - Accellerometer</string>
+    <string name="compass_instrument">Magnetometer</string>
     <string name="level_details">Angle</string>
     <string name="gps_coordinates">GPS Coordinates</string>
     <string name="title_activity_map">Map</string>

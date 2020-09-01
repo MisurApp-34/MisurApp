@@ -68,9 +68,14 @@
                 android:layout_gravity="center_horizontal|center_vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/compass" />
 
                 <TextView
@@ -79,7 +84,8 @@
                     android:textAlignment="center"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="12sp"
-                    android:autoSizeMaxTextSize="100sp"                        android:textColor="@android:color/black"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:textColor="@android:color/black"
 
                     android:textStyle="normal"
                     android:layout_height="wrap_content" />
@@ -117,8 +123,13 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/magnetic_fild"
-                    android:layout_gravity="center_horizontal" />
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/magnetic_fild"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -127,7 +138,8 @@
                     android:textColor="@android:color/black"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMinTextSize="12sp"
-                    android:autoSizeMaxTextSize="100sp"                    android:textStyle="normal"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:textStyle="normal"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -162,8 +174,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/light"
-                    android:layout_gravity="center_horizontal" />
+                   />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,8 +225,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/sound"
-                    android:layout_gravity="center_horizontal" />
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -257,8 +281,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/barometor"
-                    android:layout_gravity="center_horizontal" />
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -300,8 +330,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/thermometer"
-                    android:layout_gravity="center_horizontal" />
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"

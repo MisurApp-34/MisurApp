@@ -23,7 +23,7 @@
             android:id="@+id/CardViewAmbient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="20dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
@@ -33,31 +33,32 @@
             app:cardElevation="8dp">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
 
 
                 >
 
                 <!--TODO Cambiare l'icona degli strumenti ambientali-->
                 <ImageView
-                    android:contentDescription="@string/ambient_tools"
                     android:id="@+id/AmbientIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_weight="3"
+                    android:contentDescription="@string/ambient_tools"
                     app:srcCompat="@drawable/ambient_tools" />
 
                 <TextView
                     android:id="@+id/ambient_tool"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
+                    android:layout_weight="5"
                     android:text="@string/ambient_tools"
                     android:textAlignment="center"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -65,7 +66,7 @@
             android:id="@+id/CardViewPosition"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="20dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
@@ -85,18 +86,19 @@
                     android:id="@+id/PositionIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_weight="3"
                     app:srcCompat="@drawable/position_tools" />
 
                 <TextView
                     android:id="@+id/position_tool"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
+                    android:layout_weight="5"
                     android:text="@string/position_tools"
                     android:textAlignment="center"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -105,7 +107,7 @@
             android:id="@+id/CardViewMovement"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="20dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
@@ -125,18 +127,19 @@
                     android:id="@+id/MovementIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_weight="3"
                     app:srcCompat="@drawable/movement_tools" />
 
                 <TextView
                     android:id="@+id/movement_tool"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
+                    android:layout_weight="5"
                     android:text="@string/movement_tools"
                     android:textAlignment="center"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="15dp"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

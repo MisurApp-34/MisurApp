@@ -68,9 +68,14 @@
                 android:layout_gravity="center_horizontal|center_vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/gravity" />
 
                 <TextView
@@ -115,9 +120,14 @@
                 android:layout_gravity="center_horizontal|center_vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/accelerometer" />
 
                 <TextView
@@ -163,9 +173,14 @@
                 android:layout_gravity="center_horizontal|center_vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="50dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/speedometer" />
 
                 <TextView

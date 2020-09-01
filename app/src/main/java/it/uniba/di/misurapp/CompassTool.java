@@ -314,6 +314,8 @@ int favourite;
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // not in use
     }
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
