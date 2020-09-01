@@ -58,13 +58,10 @@
 
                         <ImageView
                             android:id="@+id/compassicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/compass"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/compass" />
 
                         <TextView
@@ -86,13 +83,10 @@
 
                         <ImageView
                             android:id="@+id/soundintensityicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/sound_intensity"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/sound" />
 
                         <TextView
@@ -113,13 +107,10 @@
 
                         <ImageView
                             android:id="@+id/pressureicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/pressure"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/barometor" />
 
                         <TextView
@@ -139,13 +130,10 @@
 
                         <ImageView
                             android:id="@+id/light_intensity_icon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/light"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/light" />
 
                         <TextView
@@ -165,13 +153,10 @@
 
                         <ImageView
                             android:id="@+id/thermometer_icon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/temperature"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/thermometer" />
 
                         <TextView
@@ -191,13 +176,10 @@
 
                         <ImageView
                             android:id="@+id/magneticfieldicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/magneticfield"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/magnetic_fild" />
 
                         <TextView
@@ -244,13 +226,10 @@
 
                         <ImageView
                             android:id="@+id/altitudeicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/altitude"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/altitude" />
 
                         <TextView
@@ -270,12 +249,10 @@
 
                         <ImageView
                             android:id="@+id/gpscoordsicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/gps"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/gps" />
 
                         <TextView
@@ -295,12 +272,10 @@
 
                         <ImageView
                             android:id="@+id/spiritlevelicon"
-                            android:layout_width="52dp"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/level"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/level" />
 
                         <TextView
@@ -320,13 +295,10 @@
 
                         <ImageView
                             android:id="@+id/proximityicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/distance"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/proxyimity" />
 
                         <TextView
@@ -374,13 +346,10 @@
 
                         <ImageView
                             android:id="@+id/gravityicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/gravity"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/gravity" />
 
                         <TextView
@@ -400,13 +369,10 @@
 
                         <ImageView
                             android:id="@+id/deviceaccelicon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/acceleration"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/accelerometer" />
 
                         <TextView
@@ -426,13 +392,10 @@
 
                         <ImageView
                             android:id="@+id/speedometericon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="8dp"
+                            android:layout_margin="5dp"
                             android:contentDescription="@string/speed"
-                            android:paddingStart="5dp"
-                            android:paddingEnd="0dp"
                             app:srcCompat="@drawable/speedometer" />
 
                         <TextView
