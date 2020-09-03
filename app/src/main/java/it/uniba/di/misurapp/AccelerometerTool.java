@@ -45,9 +45,9 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     Button preferenceButton;
     int favourite;
     String value1;
-private float x,y,z;
+    private float x,y,z;
     private TextView xText, yText, zText;
-    private float acceleration = Sensor.TYPE_LINEAR_ACCELERATION; //forza di accelerazione di inzio
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,10 +346,16 @@ private float x,y,z;
         if (data != null) {
 
             ILineDataSet set = data.getDataSetByIndex(0);
+            ILineDataSet sety = data.getDataSetByIndex(1);
+            ILineDataSet setz = data.getDataSetByIndex(2);
 
-            if (set == null) {
+            if (set == null || sety == null || setz == null) {
                 set = createSet();
+                sety = createSety();
+                setz = createSetz();
                 data.addDataSet(set);
+                data.addDataSet(sety);
+                data.addDataSet(setz);
             }
 
             //prelevo le tre misure sui tre assi, inviate con l'oggetto event
@@ -357,7 +363,9 @@ private float x,y,z;
             float y = event.values[1];
             float z = event.values[2];
 
-            data.addEntry(new Entry(set.getEntryCount(), (float) Math.sqrt((x*x)+(y*y)+(z*z))), 0);
+            data.addEntry(new Entry(set.getEntryCount(), x), 0);
+            data.addEntry(new Entry(sety.getEntryCount(), y), 1);
+            data.addEntry(new Entry(setz.getEntryCount(), z), 2);
             data.notifyDataChanged();
 
             // mostra il cambiamento dei dati presenti nel chart
@@ -372,10 +380,10 @@ private float x,y,z;
         }
     }
 
-    //creo il tracciato nel grafico
+    //creo il tracciato nel grafico, sui valori dell'asse X
     private LineDataSet createSet() {
 
-        LineDataSet set = new LineDataSet(null, "");
+        LineDataSet set = new LineDataSet(null, "X");
         set.setAxisDependency(YAxis.AxisDependency.RIGHT);
         set.setLineWidth(1f);
         set.setColor(Color.BLUE);
@@ -384,7 +392,38 @@ private float x,y,z;
         set.setDrawCircles(true);
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.2f);
+
         return set;
+    }
+    //creo il tracciato nel grafico, sui valori dell'asse Y
+    private LineDataSet createSety() {
+
+        LineDataSet sety = new LineDataSet(null, "Y");
+        sety.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        sety.setLineWidth(1f);
+        sety.setColor(Color.GREEN);
+        sety.setHighlightEnabled(true);
+        sety.setDrawValues(true);
+        sety.setDrawCircles(true);
+        sety.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        sety.setCubicIntensity(0.2f);
+
+        return sety;
+    }
+    //creo il tracciato nel grafico, sui valori dell'asse Z
+    private LineDataSet createSetz() {
+
+        LineDataSet setz = new LineDataSet(null, "Z");
+        setz.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        setz.setLineWidth(1f);
+        setz.setColor(Color.RED);
+        setz.setHighlightEnabled(true);
+        setz.setDrawValues(true);
+        setz.setDrawCircles(true);
+        setz.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        setz.setCubicIntensity(0.2f);
+
+        return setz;
     }
 //funzione per l'arrontondamento delle cifre decimali definite in scale
     public static double round(double value, int scale) {
