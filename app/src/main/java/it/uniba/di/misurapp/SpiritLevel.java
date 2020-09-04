@@ -2,7 +2,6 @@ package it.uniba.di.misurapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -33,19 +32,13 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
     float sqrt;
     String value1;
     int favourite;
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     LevelView levelView;
     private TextView XYZ_tv;
     public static DecimalFormat DECIMAL_FORMATTER;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-    // stampa toast messaggio
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
-    }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +46,13 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
 
         // Vista
         setContentView(R.layout.single_tool_level);
+
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.level);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         levelView = (LevelView) findViewById(R.id.Direction_View);
@@ -64,49 +64,43 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
 
         //oggetto helper database
         helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(9);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(9, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(9, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(9,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(9,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -122,12 +116,11 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         });
 
         buttonAdd = findViewById(R.id.add);
-        // Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.level);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -167,11 +160,10 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
             String append =(DECIMAL_FORMATTER.format(sqrt) + "°");
             XYZ_tv.setText(append);
 
-
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//salvo valore in variabile
+                    //salvo valore in variabile
                      value1 = String.valueOf(DECIMAL_FORMATTER.format(sqrt))+" °";
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(SpiritLevel.this);
@@ -187,14 +179,11 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-
-
                                     //imposto nome tool
                                     String name_tool ="Livella";
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
-
 
                                     //aggiungo al db
                                     if (value1.length() != 0) {
@@ -206,15 +195,13 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                                         } else {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                         }
-                                    }                               }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    }
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     // Do nothing.
                                 }
                             }).show();
-
-
                 }
             });
 

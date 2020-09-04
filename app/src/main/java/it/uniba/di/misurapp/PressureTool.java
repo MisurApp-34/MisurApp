@@ -37,23 +37,21 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.text.DecimalFormat;
 
 public class PressureTool extends AppCompatActivity implements SensorEventListener {
+
     private TextView value;
     private LineChart mChart;
     private Thread thread;
     private boolean plotData = true;
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
-    int first = 1;    String value1;
+    int first = 1;
+    String value1;
     String unit;
-Button preferenceButton;
-int favourite;
+    Button addpreferenceButton,removepreferenceButton;
+    int favourite;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-    // stampa toast messaggio
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +91,41 @@ int favourite;
             e.printStackTrace();
         }
 
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
+
+        // verifico l'entità dell'id nel database
+        favourite = helper.getFavoriteTool(5);
+        if (favourite == 1) {
+
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
+
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
+        }
+
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(5,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(5,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
 
         //inventario dei sensori disponibili nel nostro dispositivo.
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -161,7 +194,6 @@ int favourite;
         mChart.getXAxis().setDrawGridLines(false);
         mChart.setDrawBorders(false);
 
-
         // recupero il valore selezionato nel grafico, per poter eventualmente salvarlo.
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -182,15 +214,10 @@ int favourite;
     @Override
     protected void onResume() {
         super.onResume();
-
-        //
-        sensorManager.registerListener(this,
-                sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE),
-                SensorManager.SENSOR_DELAY_UI);
-
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE), SensorManager.SENSOR_DELAY_UI);
     }
 
-    //interrompo thread e de-registro
+    // interrompo thread e de-registro
     @Override
     protected void onPause() {
         super.onPause();
@@ -198,7 +225,6 @@ int favourite;
             thread.interrupt();
         }
         sensorManager.unregisterListener(this);
-
     }
 
     // temporizzo la stampa
@@ -206,13 +232,10 @@ int favourite;
     double pressione;// intialize it
     double pressioneP;
     Runnable run = new Runnable() {
-
         @Override
         public void run() {
-
             value.setText(String.format("%.1f hPa", pressione));
             mHandler.removeCallbacks(run);
-
         }
     };
 
@@ -240,10 +263,6 @@ int favourite;
                 TextView details = findViewById(R.id.details);
                 details.setText(R.string.pressure_details);
 
-
-
-
-
                 //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
                 if (plotData) {
                     addEntry(event);
@@ -268,6 +287,9 @@ int favourite;
                 }
             }
         }
+
+        // TODO: Capire dove inserire codice riguardante i bottoni dei preferiti
+        /*
 
         //pulsante salva preferenze
         preferenceButton = (Button) findViewById(R.id.add_fav);
@@ -310,6 +332,8 @@ int favourite;
                 }
             }
         });
+         */
+
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -330,14 +354,11 @@ int favourite;
                                 //acquisisco nome
                                 Editable nome = input.getText();
 
-
-
                                 //imposto nome tool
                                 String name_tool ="Pressione";
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
-
 
                                 //aggiungo al db
                                 if (value1.length() != 0) {
@@ -349,29 +370,29 @@ int favourite;
                                     } else {
                                         toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                     }
-                                }                               }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                }
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Do nothing.
                             }
                         }).show();
-
-
             }
         });
 
     }
 
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
     //creo il tracciato nel grafico
-
     private LineDataSet createSet() {
-
 
         LineDataSet set = new LineDataSet(null, "");
         set.setAxisDependency(YAxis.AxisDependency.RIGHT);
@@ -384,7 +405,6 @@ int favourite;
         set.setCubicIntensity(0.2f);
         return set;
     }
-
 
     //gestisco thread per la stampa sul grafico
     private void feedMultiple() {
@@ -407,7 +427,6 @@ int favourite;
                 }
             }
         });
-
         thread.start();
     }
 
@@ -427,8 +446,6 @@ int favourite;
             //prelevo valori dall'evento
             float[] values = event.values;
 
-
-
             //catturo preferenza dalle impostazioni circa l'unità di misura
             SharedPreferences settings = getSharedPreferences("settings", 0);
             if ((settings.getString("pressure", "").toString()).equals("hPa")) {
@@ -439,28 +456,27 @@ int favourite;
                 data.addEntry(new Entry(set.getEntryCount(), (float) round(values[0] * 100, 1)), 0);
 
             }
-            //prelevo le tre misure sui tre assi, inviate con l'oggetto event
 
+            // prelevo le tre misure sui tre assi, inviate con l'oggetto event
             data.notifyDataChanged();
 
             // mostra il cambiamento dei dati presenti nel chart
             mChart.notifyDataSetChanged();
 
-//numero di elementi visibili nel chart prima dello scroll automatico
+            // numero di elementi visibili nel chart prima dello scroll automatico
             mChart.setVisibleXRangeMaximum(15);
 
             // muovi l'ultimo elemento
             mChart.moveViewToX(data.getEntryCount());
-
         }
     }
 
-    //troncamento numeri decimali
+    // troncamento numeri decimali
     public static double round(double value, int scale) {
         return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
     }
 
-  // pulsante indietro
+    // pulsante indietro
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

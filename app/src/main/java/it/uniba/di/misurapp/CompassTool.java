@@ -3,7 +3,6 @@ package it.uniba.di.misurapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -26,15 +25,15 @@ import androidx.appcompat.widget.Toolbar;
 public class CompassTool extends AppCompatActivity implements SensorEventListener {
 
 //definisco l'immagine
-private ImageView image;
-private String cardinale;
+    private ImageView image;
+    private String cardinale;
     // device sensor manager
     private SensorManager mSensorManager;
 
     TextView tvHeading;
     String value1;
-Button preferenceButton;
-int favourite;
+    Button addpreferenceButton,removepreferenceButton;
+    int favourite;
     private Sensor mAccelerometer;
     private Sensor mMagnetometer;
     //variabile in cui memorizzo le  tre  misure  dei tre assi dell'accelerometro
@@ -65,7 +64,6 @@ int favourite;
         setContentView(R.layout.single_tool_nochart);
         //oggetto helper database
         helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
 
         //set toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -73,48 +71,42 @@ int favourite;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
-
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(1);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(1, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(1, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(1,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(1,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -136,7 +128,6 @@ int favourite;
         }
 
         TextView details = findViewById(R.id.details);
-        Resources res = getResources();
 
         //TextView tipo strumento
         details.setText(R.string.compass_instrument);
@@ -218,15 +209,11 @@ int favourite;
                                 //acquisisco nome
                                 Editable nome = input.getText();
 
-
-
-
                                 //imposto nome tool
                                 String name_tool ="Bussola";
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
-
 
                                 //aggiungo al db
                                 if (value1.length() != 0) {
@@ -238,18 +225,15 @@ int favourite;
                                     } else {
                                         toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                     }
-                                }                               }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                }
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Do nothing.
                             }
                         }).show();
-
-
             }
         });
-
     }
 
     @Override
@@ -258,24 +242,24 @@ int favourite;
 
         // stoppo Listner sensori per risparmiare batteria
         mSensorManager.unregisterListener(this, mAccelerometer);
-        mSensorManager.unregisterListener(this, mMagnetometer);    }
+        mSensorManager.unregisterListener(this, mMagnetometer);
+    }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        // get the angle around the z-axis rotated
-
-
         if (event.sensor == mAccelerometer) {
-            //memorizzo misure accelerometro
+
+            // memorizzo misure accelerometro
             System.arraycopy(event.values, 0, mLastAccelerometer, 0, event.values.length);
             mLastAccelerometerSet = true;
         } else if (event.sensor == mMagnetometer) {
-            //memorizzo misure magnetometro
 
+            // memorizzo misure magnetometro
             System.arraycopy(event.values, 0, mLastMagnetometer, 0, event.values.length);
             mLastMagnetometerSet = true;
         }
+
         if (mLastAccelerometerSet && mLastMagnetometerSet) {
             //genero matrice di rotazione
             SensorManager.getRotationMatrix(mR, null, mLastAccelerometer, mLastMagnetometer);
@@ -289,7 +273,6 @@ int favourite;
             Resources res = getResources();
             //stampo gradi
             tvHeading.setText(Integer.toString(azimuthInDegress) + " "+ String.format(res.getString(R.string.degrees)));
-
 
             //creo oggetto di rotazione
             RotateAnimation ra = new RotateAnimation(
@@ -306,14 +289,11 @@ int favourite;
             //inizio rotazione immagine
             image.startAnimation(ra);
             mCurrentDegree = -azimuthInDegress;
-
         }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // not in use
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
 
     @Override

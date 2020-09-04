@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Build;
@@ -47,6 +46,8 @@ public class Altimeter extends AppCompatActivity {
 
     // variabile per la gestione del Bind
     static boolean status;
+    // servizio LocationService
+    LocationService myService;
     private static String append;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
@@ -54,12 +55,9 @@ public class Altimeter extends AppCompatActivity {
     LocationManager locationManager;
     static long startTime, endTime;
     static int p=1;
-Button preferenceButton;
-int favourite;
+    Button addpreferenceButton,removepreferenceButton;
+    int favourite;
     private static boolean gps_off;
-
-    // servizio LocationService
-    LocationService myService;
     Timer timer;
     private LineChart mChart;
     private Thread thread;
@@ -67,10 +65,7 @@ int favourite;
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-    // stampa toast messaggio
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
-    }
+
 
     @SuppressLint("StaticFieldLeak")
     static TextView measure;
@@ -81,19 +76,6 @@ int favourite;
         setContentView(R.layout.single_tool);
         mContext = this;
         p=0;
-        //oggetto helper database
-        helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
-
-
-        buttonAdd = findViewById(R.id.add);
-
-
-        TextView details = findViewById(R.id.details);
-        details.setText(R.string.gps);
-
-        measure = findViewById(R.id.measure);
 
         // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -102,51 +84,51 @@ int favourite;
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        // oggetto helper database
+        helper = new DatabaseManager(this);
+
+        buttonAdd = findViewById(R.id.add);
+        TextView details = findViewById(R.id.details);
+        details.setText(R.string.gps);
+        measure = findViewById(R.id.measure);
         mChart = (LineChart) findViewById(R.id.chart1);
+        Button buttonHistory = (Button) findViewById(R.id.history);
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(7);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(7, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(7, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(7,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
-        // Storico misurazioni specifico dello strumento selezionato
-        Button buttonHistory = (Button) findViewById(R.id.history);
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(7,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
 
         ToolSave.flag = 1;
         buttonHistory.setOnClickListener(new View.OnClickListener() {
@@ -162,14 +144,14 @@ int favourite;
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //salvo valore in variabile
 
-                value1 = String.valueOf(altitudevalue)+ " " +getContext().getResources().getString(R.string.meters);
+                // salvo valore in variabile
+                value1 = (altitudevalue)+ " " +getContext().getResources().getString(R.string.meters);
 
-                //dialog text acquisizione nome salvataggio
+                // dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(Altimeter.this);
 
-                //apertura dialog inserimento nome salvataggio
+                // apertura dialog inserimento nome salvataggio
                 new AlertDialog.Builder(Altimeter.this)
                         .setTitle(getResources().getString(R.string.name_saving))
                         .setMessage(getResources().getString(R.string.insert_name))
@@ -180,33 +162,29 @@ int favourite;
                                 //acquisisco nome
                                 Editable nome = input.getText();
 
-
                                 //imposto nome tool
                                 String name_tool ="Altitudine";
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
 
-
                                 //aggiungo al db
                                 if (value1.length() != 0) {
 
                                     boolean insertData = helper.addData( saving_name, name_tool, value1);
-
                                     if (insertData) {
                                         toastMessage(getResources().getString(R.string.uploaddata_message_ok));
                                     } else {
                                         toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                     }
-                                }                               }
+                                }
+                            }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Do nothing.
                             }
                         }).show();
-
-
             }
         });
 
@@ -357,6 +335,11 @@ int favourite;
         bindService(i,sc, BIND_AUTO_CREATE);
         status = true;
         startTime = System.currentTimeMillis();
+    }
+
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
     @Override

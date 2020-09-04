@@ -34,6 +34,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 public class ProximityTool extends AppCompatActivity implements  SensorEventListener{
+
+    double distanza;
     TextView ProximitySensor, data;
     SensorManager mySensorManager;
     Sensor myProximitySensor;
@@ -41,15 +43,10 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
     private Thread thread;
     private boolean plotData = true;
     DatabaseManager helper;  String value1;
-Button preferenceButton;
-int favourite;
+    Button addpreferenceButton,removepreferenceButton;
+    int favourite;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-    // stampa toast messaggio
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +71,7 @@ int favourite;
 
         buttonAdd = findViewById(R.id.add);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -85,17 +83,50 @@ int favourite;
 
         ProximitySensor = (TextView) findViewById(R.id.details);
         data = (TextView) findViewById(R.id.measure);
-        mySensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        myProximitySensor = mySensorManager.getDefaultSensor(
-                Sensor.TYPE_PROXIMITY);
+        mySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        myProximitySensor = mySensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+
         if (myProximitySensor == null) {
             ProximitySensor.setText(R.string.nosensor);
         } else {
-
             ProximitySensor.setText(R.string.proximity_details);
-
         }
+
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
+
+        // verifico l'entità dell'id nel database
+        favourite = helper.getFavoriteTool(10);
+        if (favourite == 1) {
+
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
+
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
+        }
+
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(10,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(10,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
 
         //associo il chart del layout alla variabile LineChart
         mChart = (LineChart) findViewById(R.id.chart1);
@@ -161,14 +192,10 @@ int favourite;
             }
 
             @Override
-            public void onNothingSelected() {
-
-            }
+            public void onNothingSelected() {}
         });
     }
 
-
-double distanza;
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // TODO Auto-generated method stub
@@ -176,12 +203,10 @@ double distanza;
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        // TODO Auto-generated method stub
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
             distanza=event.values[0];
 
             if (distanza == 0) {
-
                 data.setText((Double.toString(distanza))+"cm");
                 // data.setText(R.string.near);
             } else {
@@ -190,7 +215,9 @@ double distanza;
 
             }
 
-//pulsante salva preferenze
+            // TODO: Capire dove inserire codice riguardante i bottoni dei preferiti
+            /*
+            // pulsante salva preferenze
             preferenceButton = (Button) findViewById(R.id.add_fav);
             //verifico la preferenza
 
@@ -231,6 +258,7 @@ double distanza;
                     }
                 }
             });
+            */
 
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -251,14 +279,11 @@ double distanza;
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-
-
                                     //imposto nome tool
                                     String name_tool ="Sensore Prossimità";
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
-
 
                                     //aggiungo al db
                                     if (value1.length() != 0) {
@@ -270,15 +295,13 @@ double distanza;
                                         } else {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                         }
-                                    }                               }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    }
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     // Do nothing.
                                 }
                             }).show();
-
-
                 }
             });
 
@@ -290,6 +313,7 @@ double distanza;
             }
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -297,7 +321,11 @@ double distanza;
             thread.interrupt();
         }
         mySensorManager.unregisterListener(this);
+    }
 
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
     private void feedMultiple() {
@@ -320,7 +348,6 @@ double distanza;
                 }
             }
         });
-
         thread.start();
     }
 
@@ -337,25 +364,22 @@ double distanza;
                 data.addDataSet(set);
             }
 
-
             data.addEntry(new Entry(set.getEntryCount(), event.values[0]), 0);
             data.notifyDataChanged();
 
             // mostra il cambiamento dei dati presenti nel chart
             mChart.notifyDataSetChanged();
 
-//numero di elementi visibili nel chart prima dello scroll automatico
+            // numero di elementi visibili nel chart prima dello scroll automatico
             mChart.setVisibleXRangeMaximum(15);
 
             // muovi l'ultimo elemento
             mChart.moveViewToX(data.getEntryCount());
-
         }
     }
 
     //creo il tracciato nel grafico
     private LineDataSet createSet() {
-
 
         LineDataSet set = new LineDataSet(null, "");
         set.setAxisDependency(YAxis.AxisDependency.RIGHT);
@@ -368,20 +392,16 @@ double distanza;
         set.setCubicIntensity(0.2f);
         return set;
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
-        //
-        mySensorManager.registerListener(this, mySensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                SensorManager.SENSOR_DELAY_UI);
-
+        mySensorManager.registerListener(this, mySensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_UI);
     }
 }

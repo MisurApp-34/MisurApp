@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:weightSum="10">
+
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:padding="20dp"
-        >
+        android:padding="20dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -53,11 +53,8 @@
                         android:layout_height="wrap_content"
                         tools:layout_editor_absoluteY="0dp"
                         android:layout_rowWeight="3"
-
                         tools:layout_editor_absoluteX="8dp"
-                        tools:ignore="MissingClass"
-
-                        />
+                        tools:ignore="MissingClass" />
 
                 <GridLayout
                     android:id="@+id/measure_text"
@@ -70,6 +67,7 @@
                     android:columnCount="1"
                     android:alignmentMode="alignMargins"
                     tools:ignore="UselessParent">
+
                     <TextView
                         android:id="@+id/measureX"
                         android:layout_width="match_parent"
@@ -77,9 +75,8 @@
                         android:layout_marginTop="0dp"
                         android:text="@string/measure"
                         android:textStyle="bold"
-                        android:textAlignment="center">
+                        android:textAlignment="center" />
 
-                    </TextView>
                     <TextView
                         android:id="@+id/measureY"
                         android:layout_width="match_parent"
@@ -87,9 +84,8 @@
                         android:layout_marginTop="0dp"
                         android:text="@string/measure"
                         android:textStyle="bold"
-                        android:textAlignment="center">
+                        android:textAlignment="center" />
 
-                    </TextView>
                     <TextView
                         android:id="@+id/measureZ"
                         android:layout_width="match_parent"
@@ -97,9 +93,8 @@
                         android:layout_marginTop="0dp"
                         android:text="@string/measure"
                         android:textStyle="bold"
-                        android:textAlignment="center">
+                        android:textAlignment="center" />
 
-                    </TextView>
                 </GridLayout>
 
                     <LinearLayout
@@ -117,8 +112,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="3"
                             android:orientation="horizontal"
-                            tools:ignore="NestedWeights"
-                            >
+                            tools:ignore="NestedWeights">
 
                             <TextView
                                 android:id="@+id/unit_measu"
@@ -143,17 +137,10 @@
                                 android:textSize="14dp"/>
 
                         </LinearLayout>
-
                     </LinearLayout>
-
                 </GridLayout>
             </LinearLayout>
-
-
-
         </androidx.cardview.widget.CardView>
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -162,7 +149,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1">
-
 
         <GridLayout
             android:id="@+id/horiz_botton"
@@ -188,15 +174,12 @@
                 android:background="@drawable/historical"
                 android:padding="14dp"
                 android:maxLines="2"
-
                 android:text="@string/save_measure"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMinTextSize="10sp"
-                android:autoSizeMaxTextSize="100sp">
-
-            </Button>
+                android:autoSizeMaxTextSize="100sp" />
 
             <Button
                 android:id="@+id/history"
@@ -206,16 +189,12 @@
                 android:autoSizeMaxTextSize="100sp"
                 android:autoSizeMinTextSize="10sp"
                 android:autoSizeTextType="uniform"
-
                 android:background="@drawable/historical"
                 android:maxLines="2"
                 android:padding="14dp"
                 android:text="@string/historical_measure"
-
                 android:textAlignment="center"
-                android:textColor="@android:color/black">
-
-            </Button>
+                android:textColor="@android:color/black" />
 
         </GridLayout>
 
@@ -230,7 +209,17 @@
             android:text="@string/add_favour"
             android:background="@drawable/historical"/>
 
+        <Button
+            android:id="@+id/remove_fav"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/historical"
+            android:text="@string/removePreference"
+            android:visibility="gone" />
+
     </LinearLayout>
-
-
 </LinearLayout>

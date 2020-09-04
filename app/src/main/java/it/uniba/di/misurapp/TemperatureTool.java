@@ -40,7 +40,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
  * Output from these sensors is used to publish accel event messages.
  */
 public class TemperatureTool extends AppCompatActivity  {
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     private TextView value;
     private LineChart mChart;
     private Thread thread;
@@ -68,45 +68,39 @@ public class TemperatureTool extends AppCompatActivity  {
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        //pulsante salva preferenze
-         preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
-         favourite = helper.getFavoriteTool(6);
-         if(favourite==0)
-         {
+        // verifico l'entità dell'id nel database
+        favourite = helper.getFavoriteTool(6);
+        if (favourite == 1) {
 
-             preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-         }
-         else
-         {
-             preferenceButton.setText(R.string.removePreference);
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
+        }
 
-         }
-
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
+            public void onClick(View v) {
+                helper.favoriteTool(6,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
+            }
+        });
 
-                    helper.favoriteTool(6, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(6, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(6,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
             }
         });
 
@@ -123,10 +117,6 @@ public class TemperatureTool extends AppCompatActivity  {
                 startActivity(saves);
             }
         });
-
-
-
-
 
         buttonAdd = findViewById(R.id.add);
         // variabile in cui verrà memorizzata la misura del sensore
@@ -214,8 +204,6 @@ public class TemperatureTool extends AppCompatActivity  {
 
             }
         });
-
-
     }
 
     private BroadcastReceiver broadcastreceiver = new BroadcastReceiver() {
@@ -226,9 +214,9 @@ public class TemperatureTool extends AppCompatActivity  {
 
             batteryTemp = (float)(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0))/10;
 
-            //verifico che la temperatura sia uguale all'unità di misura Celsius dopo l'impostazione dei settings:
-            //se è vero, controllo che la temperatura della batteria sia entro un livello normale e non anomalo, stampando il relativo valore in gradi celsius
-            //se è falso, converto la temperatura da celsius a fahrenheit ed effettuo la verifica sull'intervallo della temperatura, stampando il relativo valore in fahrenheit
+            // verifico che la temperatura sia uguale all'unità di misura Celsius dopo l'impostazione dei settings:
+            // se è vero, controllo che la temperatura della batteria sia entro un livello normale e non anomalo, stampando il relativo valore in gradi celsius
+            // se è falso, converto la temperatura da celsius a fahrenheit ed effettuo la verifica sull'intervallo della temperatura, stampando il relativo valore in fahrenheit
             SharedPreferences settings = getSharedPreferences("settings", 0);
             if ((settings.getString("temperature", "Celsius").toString()).equals("Celsius")) {
 
@@ -244,12 +232,10 @@ public class TemperatureTool extends AppCompatActivity  {
                     batteryTemp= (float) ((batteryTemp*1.8)+32);
                 if (batteryTemp >= 60.8 && batteryTemp < 113) {
                     value.setText(batteryTemp + " " + (char) 0x00B0 + "F");
-unit =" °F";   } else {
+                    unit =" °F";   } else {
                     value.setText(String.format(res.getString(R.string.attention) + "\n" + batteryTemp + (char) 0x00B0 + "F"));
                 }
             }
-
-
 
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -290,15 +276,13 @@ unit =" °F";   } else {
                                         } else {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                         }
-                                    }                               }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    }
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     // Do nothing.
                                 }
                             }).show();
-
-
                 }
             });
 
@@ -310,7 +294,6 @@ unit =" °F";   } else {
             //memorizzo il nome dello strumento nella stringa temperature
             TextView details = findViewById(R.id.details);
             details.setText(R.string.temperature);
-
         }
     };
 
@@ -349,11 +332,9 @@ unit =" °F";   } else {
                         e.printStackTrace();
                     }
                     TemperatureTool.this.registerReceiver(broadcastreceiver,intentfilter);
-
                 }
             }
         });
-
         thread.start();
     }
 
@@ -384,7 +365,8 @@ unit =" °F";   } else {
 
         }
     }
-    //creo il tracciato nel grafico
+
+    // creo il tracciato nel grafico
     private LineDataSet createSet() {
 
         LineDataSet set = new LineDataSet(null, "");
