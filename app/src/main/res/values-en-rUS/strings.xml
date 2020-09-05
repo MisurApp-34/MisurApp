@@ -15,7 +15,7 @@
     <string name="add_favour">Add favourite</string>
     <string name="details_instrument">Tool detail</string>
     <string name="unit_of_measure">Unit of measurement</string>
-    <string name="instrument_det">Tool: </string>
+    <string name="instrument_det">Sensor: </string>
     <string name="save_measure">Save measurement</string>
     <string name="historical_measure">Historical measurement</string>
     <string name="measure">Measurement</string>

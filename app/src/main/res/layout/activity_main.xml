@@ -30,15 +30,13 @@
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-
-
-                >
+                android:orientation="vertical">
 
                 <!--TODO Cambiare l'icona degli strumenti ambientali-->
                 <ImageView
@@ -76,18 +74,19 @@
             app:cardElevation="8dp">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
 
                 <!--TODO Cambiare l'icona degli strumenti di posizione-->
                 <ImageView
-                    android:contentDescription="@string/position_tools"
                     android:id="@+id/PositionIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="20dp"
                     android:layout_weight="3"
+                    android:contentDescription="@string/position_tools"
                     app:srcCompat="@drawable/position_tools" />
 
                 <TextView
@@ -117,18 +116,18 @@
             app:cardElevation="8dp">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <!--TODO Cambiare l'icona degli strumenti di movimento-->
                 <ImageView
-                    android:contentDescription="@string/movement_tools"
                     android:id="@+id/MovementIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="20dp"
                     android:layout_weight="3"
+                    android:contentDescription="@string/movement_tools"
                     app:srcCompat="@drawable/movement_tools" />
 
                 <TextView
@@ -139,7 +138,7 @@
                     android:text="@string/movement_tools"
                     android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
