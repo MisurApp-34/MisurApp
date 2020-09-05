@@ -3,7 +3,6 @@ package it.uniba.di.misurapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -48,7 +47,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
     int first = 1;
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     int favourite;
     DatabaseManager helper;
     //pulsante aggiunta dati database
@@ -57,56 +56,57 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.single_tool);
 
         //oggetto helper database
         helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
 
         //setto layout
-        setContentView(R.layout.single_tool);
         buttonAdd = findViewById(R.id.add);
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // importo toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.magneticfield);
 
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
+
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(2);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(2, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(2, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(2,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(2,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -124,19 +124,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
         // variabile in cui verrà memorizzata la misura del sensore
         value = (TextView) findViewById(R.id.measure);
 
-        //importo toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        try {
-            getSupportActionBar().setTitle(R.string.magneticfield);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-
-//inventario dei sensori disponibili nel nostro dispositivo.
+        //inventario dei sensori disponibili nel nostro dispositivo.
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         //associo il chart del layout alla variabile LineChart
@@ -203,36 +191,22 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
             }
 
             @Override
-            public void onNothingSelected() {
-
-            }
+            public void onNothingSelected() {}
         });
-
-
-
     }
-
-
-
 
     // stampa toast messaggio
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
-
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
                 SensorManager.SENSOR_DELAY_NORMAL);
-
-
     }
-
 
     @Override
     protected void onPause() {
@@ -241,41 +215,36 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
             thread.interrupt();
         }
         sensorManager.unregisterListener(this);
-
     }
-
 
     // temporizzo la stampa
     Handler mHandler = new Handler();
     double magnitude;// intialize it
     Runnable run = new Runnable() {
-
         @Override
         public void run() {
-
             value.setText(DECIMAL_FORMATTER.format(magnitude) + " \u00B5Tesla");
             mHandler.removeCallbacks(run);
-
         }
     };
-
-
-
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
 
-        //se l'evento generato è di tipo  MAGNETIC_FIELD
+        // se l'evento generato è di tipo  MAGNETIC_FIELD
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            // prendo i valori generati dai singoli assi
 
+            // prendo i valori generati dai singoli assi
             float magX = event.values[0];
             float magY = event.values[1];
             float magZ = event.values[2];
-            //determino il valore del campo magnetico utilizzando le misure di tutti i tre assi
+
+            // determino il valore del campo magnetico utilizzando le misure di tutti i tre assi
             magnitude = Math.sqrt((magX * magX) + (magY * magY) + (magZ * magZ));
-            //definisco il numero  di cifre decimali del valore da stampare
+
+            // definisco il numero  di cifre decimali del valore da stampare
             DECIMAL_FORMATTER = new DecimalFormat("#.0");
+
             //imposto testo nella textview
             if (first == 1) {
                 value.setText(DECIMAL_FORMATTER.format(magnitude) + " \u00B5Tesla");
@@ -310,14 +279,11 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-
-
                                     //imposto nome tool
                                     String name_tool ="Campo Magnetico";
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
-
 
                                     //aggiungo al db
                                     if (value1.length() != 0) {
@@ -329,18 +295,17 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                                         } else {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                         }
-                                    }                               }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    }
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     // Do nothing.
                                 }
                             }).show();
-
-
                 }
             });
-            //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
+
+            // invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
             if (plotData) {
                 addEntry(event);
                 plotData = false;
@@ -348,10 +313,8 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
         }
     }
 
-
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -366,7 +329,6 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
         }
 
         thread = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 while (true) {
@@ -379,7 +341,6 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                 }
             }
         });
-
         thread.start();
     }
 
@@ -407,18 +368,16 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
             // mostra il cambiamento dei dati presenti nel chart
             mChart.notifyDataSetChanged();
 
-//numero di elementi visibili nel chart prima dello scroll automatico
+            // numero di elementi visibili nel chart prima dello scroll automatico
             mChart.setVisibleXRangeMaximum(15);
 
             // muovi l'ultimo elemento
             mChart.moveViewToX(data.getEntryCount());
-
         }
     }
 
     //creo il tracciato nel grafico
     private LineDataSet createSet() {
-
 
         LineDataSet set = new LineDataSet(null, "");
         set.setAxisDependency(YAxis.AxisDependency.RIGHT);

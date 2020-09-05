@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -25,6 +24,8 @@ import androidx.core.app.ActivityCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
 
+import java.io.IOException;
+
 public class SoundIntensity extends AppCompatActivity {
     public static final int RECORD_AUDIO = 0;
     TextView mStatusView;
@@ -33,8 +34,8 @@ public class SoundIntensity extends AppCompatActivity {
     double value;
     private LineChart mChart;
     String value1;
-Button preferenceButton;
-int favourite;
+    Button addpreferenceButton,removepreferenceButton;
+    int favourite;
     final Handler mHandler = new Handler();
     DatabaseManager helper;
     //pulsante aggiunta dati database
@@ -57,53 +58,47 @@ int favourite;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.single_tool);
+
         //oggetto helper database
         helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(4);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(4, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(4, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(4,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(4,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -126,6 +121,7 @@ int favourite;
         mChart.setNoDataTextColor(Color.BLACK);
         TextView details = findViewById(R.id.details);
         details.setText(R.string.decibel_details);
+
         //importo toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -137,10 +133,7 @@ int favourite;
             e.printStackTrace();
         }
 
-
-
-
-        //gestione thread per l'acquisizione dei segnali dal microfono
+        // gestione thread per l'acquisizione dei segnali dal microfono
         if (runner == null) {
             runner = new Thread() {
                 public void run() {
@@ -148,8 +141,8 @@ int favourite;
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                        ;
                         mHandler.post(updater);
                     }
                 }
@@ -158,8 +151,7 @@ int favourite;
         }
     }
 
-
-    //chiedo permessi micrfono e procedo nel registrare l'audio
+    // chiedo permessi micrfono e procedo nel registrare l'audio
     public void onResume() {
         super.onResume();
 
@@ -198,7 +190,6 @@ int favourite;
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
 
-
                                     //aggiungo al db
                                     if (value1.length() != 0) {
 
@@ -209,29 +200,25 @@ int favourite;
                                         } else {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                         }
-                                    }                               }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    }
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     // Do nothing.
                                 }
                             }).show();
-
-
                 }
             });
-
-
         }
     }
 
-    //stoppo registrazione audio
+    // stoppo registrazione audio
     public void onPause() {
         super.onPause();
         stopRecorder();
     }
 
-    //preparo la registrazione dell'audio circostante il quale verrà processato per trovare l'intensità  del suono
+    // preparo la registrazione dell'audio circostante il quale verrà processato per trovare l'intensità  del suono
     public void startRecorder() {
         if (mRecorder == null) {
             mRecorder = new MediaRecorder();
@@ -241,20 +228,16 @@ int favourite;
             mRecorder.setOutputFile("/dev/null");
             try {
                 mRecorder.prepare();
-            } catch (java.io.IOException ioe) {
-
-
-            } catch (java.lang.SecurityException e) {
-
+            } catch (IOException | SecurityException ioe) {
+                ioe.printStackTrace();
             }
+
             try {
                 mRecorder.start();
             } catch (java.lang.SecurityException e) {
-
+                e.printStackTrace();
             }
-
         }
-
     }
 
     public void stopRecorder() {
@@ -265,14 +248,13 @@ int favourite;
         }
     }
 
-    //aggiorno valore textview
+    // aggiorno valore textview
     public void updateTv() {
         Resources res = getResources();
         //calcolo valore decibel captato dal microfono
         value = 20 * Math.log10((double) Math.abs(getAmplitude()));
         //arrotondo valore
         value = round(value, 1);
-
 
         //classificazione dei risultati restituendo nella parte superiore dell'activity il colore relativo all'acutezza del suono e al tipo di disturbo avvertito
         if (value <= 35) {
@@ -281,55 +263,54 @@ int favourite;
             mChart.setBackgroundColor(Color.parseColor("#c1ed2c"));
 
         }
+
         if (value >= 36 && value <= 50) {
             mChart.setNoDataText(String.format(res.getString(R.string.decibel_level_2)));
 
             mChart.setBackgroundColor(Color.GREEN);
 
         }
+
         if (value >= 51 && value <= 80) {
             mChart.setNoDataText(String.format(res.getString(R.string.decibel_level_3)));
 
             mChart.setBackgroundColor(Color.parseColor("#f4f532"));
 
         }
+
         if (value >= 81 && value <= 110) {
             mChart.setNoDataText(String.format(res.getString(R.string.decibel_level_4)));
 
             mChart.setBackgroundColor(Color.parseColor("#f3b035"));
 
         }
+
         if (value >= 111) {
             mChart.setNoDataText(String.format(res.getString(R.string.decibel_level_5)));
 
             mChart.setBackgroundColor(Color.RED);
 
         }
+
         //visualizzo valori decibel
         if (value < 0) {
             mStatusView.setText(R.string.initialization);
-
-        } else
+        } else {
             mStatusView.setText(value + " dB");
-
+        }
     }
 
-    //ricavo massima amplificazione
+    // ricavo massima amplificazione
     public double getAmplitude() {
-        if (mRecorder != null)
-            return (mRecorder.getMaxAmplitude());
-        else
-            return 0;
-
+        if (mRecorder != null) return (mRecorder.getMaxAmplitude());
+        else return 0;
     }
 
-    //troncamento numeri decimali
+    // troncamento numeri decimali
     public static double round(double value, int scale) {
         return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
     }
 
-
-    //tasto back
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

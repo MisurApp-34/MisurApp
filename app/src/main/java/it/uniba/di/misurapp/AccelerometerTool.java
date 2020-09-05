@@ -39,84 +39,73 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     private boolean plotData = true;
     private SensorManager sensorManager;
     DatabaseManager helper;
-    //pulsante aggiunta dati database
+    // pulsante aggiunta dati database
     private Button buttonAdd;
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     int favourite;
     String value1;
     private float x,y,z;
     private TextView xText, yText, zText;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setto layout
         setContentView(R.layout.single_tool2);
+
         // variabile in cui verrà memorizzata la misura del sensore
         value = (TextView) findViewById(R.id.measure);
         helper = new DatabaseManager(this);
         SQLiteDatabase db = helper.getReadableDatabase();
         buttonAdd = findViewById(R.id.add);
 
-        //importo toolbar
+        // importo toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        try {
-            getSupportActionBar().setTitle(R.string.accelerometer);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        getSupportActionBar().setTitle(R.string.accelerometer);
 
         // Assign TextView
         xText = (TextView)findViewById(R.id.measureX);
         yText = (TextView)findViewById(R.id.measureY);
         zText = (TextView)findViewById(R.id.measureZ);
 
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
-
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(13);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(13, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(13, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(13,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(13,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -167,27 +156,24 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
         // modifico leggenda
         l.setForm(Legend.LegendForm.LINE);
         l.setTextColor(Color.BLACK);
-
         XAxis xl = mChart.getXAxis();
         xl.setTextColor(Color.WHITE);
         xl.setDrawGridLines(true);
         xl.setAvoidFirstLastClipping(true);
         xl.setEnabled(true);
-
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
         leftAxis.setDrawGridLines(true);
         leftAxis.setAxisMaximum(10f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.setDrawGridLines(true);
-
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setEnabled(true);
-
         mChart.getAxisLeft().setDrawGridLines(true);
         mChart.getXAxis().setDrawGridLines(false);
         mChart.setDrawBorders(false);
 
+        // Stampa grafico
         feedMultiple();
 
         // recupero il valore selezionato nel grafico, per poter eventualmente salvarlo.
@@ -198,9 +184,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
             }
 
             @Override
-            public void onNothingSelected() {
-
-            }
+            public void onNothingSelected(){}
         });
 
     }
@@ -209,15 +193,12 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-
-        sensorManager.registerListener(this,
-                sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
-                SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_UI);
     }
-
 
     @Override
     protected void onPause() {
@@ -233,14 +214,21 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
         //se l'evento generato è di tipo  TYPE_ACCELEROMETER
         if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
-           x = event.values[0];
-             y = event.values[1];
+
+            x = event.values[0];
+            y = event.values[1];
             z = event.values[2];
 
+            String textX,textY,textZ;
+
             // stampo i valori generati dai singoli assi in ogni textView
-            xText.setText("X: " + round(x,2)+ " m/s²");
-            yText.setText("Y: " + round(y,2)+ " m/s²");
-            zText.setText("Z: " +  round(z,2)+ " m/s²");
+            textX = "X: " + round(x,2)+ " m/s²";
+            textY = "Y: " + round(y,2)+ " m/s²";
+            textZ = "Z: " +  round(z,2)+ " m/s²";
+
+            xText.setText(textX);
+            yText.setText(textY);
+            zText.setText(textZ);
 
             TextView details = findViewById(R.id.details);
             details.setText(R.string.accelerometer);
@@ -250,7 +238,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
                 @Override
                 public void onClick(View v) {
                     //salvo valore in variabile
-                    value1 = "X: "+String.valueOf(round(x,2))+" m/s² Y: "+String.valueOf(round(y,2))+"  m/s² Z: "+String.valueOf(round(z,2)+"  m/s²");
+                    value1 = "X: "+(round(x,2))+" m/s² Y: "+(round(y,2))+"  m/s² Z: "+(round(z,2)+"  m/s²");
 
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(AccelerometerTool.this);
@@ -292,8 +280,6 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
                                     // Do nothing.
                                 }
                             }).show();
-
-
                 }
             });
             //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
@@ -305,8 +291,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -321,7 +306,6 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
         }
 
         thread = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 while (true) {
@@ -334,7 +318,6 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
                 }
             }
         });
-
         thread.start();
     }
 
@@ -379,7 +362,7 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
         }
     }
 
-    //creo il tracciato nel grafico, sui valori dell'asse X
+    // creo il tracciato nel grafico, sui valori dell'asse X
     private LineDataSet createSet() {
 
         LineDataSet set = new LineDataSet(null, "X");
@@ -394,7 +377,8 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
         return set;
     }
-    //creo il tracciato nel grafico, sui valori dell'asse Y
+
+    // creo il tracciato nel grafico, sui valori dell'asse Y
     private LineDataSet createSety() {
 
         LineDataSet sety = new LineDataSet(null, "Y");
@@ -409,7 +393,8 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
         return sety;
     }
-    //creo il tracciato nel grafico, sui valori dell'asse Z
+
+    // creo il tracciato nel grafico, sui valori dell'asse Z
     private LineDataSet createSetz() {
 
         LineDataSet setz = new LineDataSet(null, "Z");
@@ -424,7 +409,8 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
 
         return setz;
     }
-//funzione per l'arrontondamento delle cifre decimali definite in scale
+
+    //funzione per l'arrontondamento delle cifre decimali definite in scale
     public static double round(double value, int scale) {
         return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
     }

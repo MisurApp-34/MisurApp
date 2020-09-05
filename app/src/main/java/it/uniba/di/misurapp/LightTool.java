@@ -2,7 +2,6 @@ package it.uniba.di.misurapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -34,7 +33,7 @@ public class LightTool extends AppCompatActivity {
     private SensorEventListener lightEventListener;
     private float maxValue;
     private TextView val;
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     int favourite;
     float value;
     int newValue;
@@ -43,65 +42,59 @@ public class LightTool extends AppCompatActivity {
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-    // stampa toast messaggio
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //oggetto helper database
-        helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
         setContentView(R.layout.single_tool);
 
+        //importo toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.photometer);
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // oggetto helper database
+        helper = new DatabaseManager(this);
 
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
+
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(3);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
+            public void onClick(View v) {
+                helper.favoriteTool(3,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
+            }
+        });
 
-                    helper.favoriteTool(3, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(3, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(3,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
             }
         });
 
         buttonAdd = findViewById(R.id.add);
-
 
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
@@ -128,17 +121,6 @@ public class LightTool extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        //importo toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        try {
-            getSupportActionBar().setTitle(R.string.photometer);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
         if (lightSensor == null) {
             Toast.makeText(this, "The device has no light sensor !", Toast.LENGTH_SHORT).show();
             finish();
@@ -154,7 +136,6 @@ public class LightTool extends AppCompatActivity {
                 details.setText(R.string.light);
                 value = sensorEvent.values[0];
                 val.setText(value + " lx");
-
 
                 buttonAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -177,13 +158,11 @@ public class LightTool extends AppCompatActivity {
                                         //acquisisco nome
                                         Editable nome = input.getText();
 
-
                                         //imposto nome tool
                                         String name_tool ="Intensità Luminosa";
 
                                         //converto editable in stringa
                                         String saving_name= nome.toString();
-
 
                                         //aggiungo al db
                                         if (value1.length() != 0) {
@@ -195,19 +174,18 @@ public class LightTool extends AppCompatActivity {
                                             } else {
                                                 toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                             }
-                                        }                               }
-                                })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        }
+                                    }
+                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         // Do nothing.
                                     }
                                 }).show();
-
-
                     }
                 });
-                //otteniamo il nuovo valore per la luminosità in lx.
-                //mettiamo questo valore nell'intervallo [0, 255] per poter cambiare il colore di sfondo della nostra attività principale in base alla luminosità ambientale.
+
+                // otteniamo il nuovo valore per la luminosità in lx.
+                // mettiamo questo valore nell'intervallo [0, 255] per poter cambiare il colore di sfondo della nostra attività principale in base alla luminosità ambientale.
                 newValue = (int) ((255f * value) / maxValue);
                 root.setBackgroundColor(Color.rgb(newValue, newValue, newValue));
 
@@ -219,15 +197,14 @@ public class LightTool extends AppCompatActivity {
                     //avvio handler ogni due secondi -- guardare sopra questo metodo
                     mHandler.postDelayed(run, 2000);
                 }
-
             }
 
             @Override
-            public void onAccuracyChanged(Sensor sensor, int i) {
+            public void onAccuracyChanged(Sensor sensor, int i) {}
 
-            }
         };
-        //gestore per la temporizzazione della vsualizzazione della misura rilevata dallo strumento
+
+        // gestore per la temporizzazione della vsualizzazione della misura rilevata dallo strumento
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -237,6 +214,10 @@ public class LightTool extends AppCompatActivity {
                 mHandler.removeCallbacks(run);
             }
         }, 2000);
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
     @Override

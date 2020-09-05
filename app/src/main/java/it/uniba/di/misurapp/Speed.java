@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Build;
@@ -56,7 +55,7 @@ public class Speed extends AppCompatActivity {
     private static boolean gps_off;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     int favourite;
     Timer timer;
     private Thread thread;
@@ -68,22 +67,28 @@ public class Speed extends AppCompatActivity {
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-    // stampa toast messaggio
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
-    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_tool);
 
+        mContext = this;
+        p=0;
+
+        TextView details = findViewById(R.id.details);
+        details.setText(R.string.gps);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.speed);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
-
         if ((settings.getString("speed", "Km/h").toString()).equals("Km/h")) {
-
             unitofmeasurement = "Km/h";
-
         }
         else if ((settings.getString("speed", "").toString()).equals("Mph")) {
             unitofmeasurement = "Mph";
@@ -91,49 +96,43 @@ public class Speed extends AppCompatActivity {
 
         //oggetto helper database
         helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
 
-//pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(12);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(12, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(12, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(12,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(12,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -148,18 +147,6 @@ public class Speed extends AppCompatActivity {
         });
 
         buttonAdd = findViewById(R.id.add);
-
-        mContext = this;
-        p=0;
-
-        TextView details = findViewById(R.id.details);
-        details.setText(R.string.gps);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.speed);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         measure = findViewById(R.id.measure);
 
@@ -201,12 +188,8 @@ public class Speed extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected() {
-
-            }
+            public void onNothingSelected() {}
         });
-
-
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,16 +198,16 @@ public class Speed extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences("settings", 0);
 
                 if ((settings.getString("speed", "").toString()).equals("Km/h")) {
-
                     speed = speed*3.6;
-
                 }
                 else if ((settings.getString("speed", "").toString()).equals("Mph")) {
                     speed = speed*2.24;
                 }
-                //salvo valore in variabile
+
+                // salvo valore in variabile
                 value1 = String.valueOf(speed) + "" +unitofmeasurement;
-                //dialog text acquisizione nome salvataggio
+
+                // dialog text acquisizione nome salvataggio
                 final EditText input = new EditText(Speed.this);
 
                 //apertura dialog inserimento nome salvataggio
@@ -238,14 +221,11 @@ public class Speed extends AppCompatActivity {
                                 //acquisisco nome
                                 Editable nome = input.getText();
 
-
-
                                 //imposto nome tool
                                 String name_tool ="Velocità";
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
-
 
                                 //aggiungo al db
                                 if (value1.length() != 0) {
@@ -257,18 +237,15 @@ public class Speed extends AppCompatActivity {
                                     } else {
                                         toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                     }
-                                }                               }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                }
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Do nothing.
                             }
                         }).show();
-
-
             }
         });
-
 
         // Setup MPAndroidChart
         mChart = (LineChart) findViewById(R.id.chart1);
@@ -321,6 +298,11 @@ public class Speed extends AppCompatActivity {
             public void onNothingSelected(){}
         });
 
+    }
+
+    // stampa toast messaggio
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
     /**

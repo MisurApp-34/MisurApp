@@ -1,9 +1,7 @@
 package it.uniba.di.misurapp;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -48,10 +45,9 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
     private boolean plotData = true;
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
-    int first = 1;
     String value1;
     double acceleration;
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     int favourite;
     DatabaseManager helper;
     //pulsante aggiunta dati database
@@ -60,14 +56,12 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.single_tool);
 
         //oggetto helper database
         helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
 
         //setto layout
-        setContentView(R.layout.single_tool);
         buttonAdd = findViewById(R.id.add);
 
         // variabile in cui verrà memorizzata la misura del sensore
@@ -78,53 +72,44 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        try {
-            getSupportActionBar().setTitle(R.string.gravity_details);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        getSupportActionBar().setTitle(R.string.gravity_details);
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(11);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(11, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(11, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(11,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(11,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
@@ -139,11 +124,10 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
             }
         });
 
-
-//inventario dei sensori disponibili nel nostro dispositivo.
+        // inventario dei sensori disponibili nel nostro dispositivo.
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        //associo il chart del layout alla variabile LineChart
+        // associo il chart del layout alla variabile LineChart
         mChart = (LineChart) findViewById(R.id.chart1);
 
         // disabilito label descrizione chart
@@ -157,13 +141,13 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         mChart.setScaleEnabled(true);
         mChart.setDrawGridBackground(false);
 
-        //abilito pinch to zoom
+        // abilito pinch to zoom
         mChart.setPinchZoom(true);
 
         // definisco background chart
         mChart.setBackgroundColor(Color.WHITE);
 
-        //Creo oggetti data e definisco colore del testo dei dati
+        // Creo oggetti data e definisco colore del testo dei dati
         LineData data = new LineData();
         data.setValueTextColor(Color.BLACK);
 
@@ -201,8 +185,6 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) != null) {
             feedMultiple();
-
-
         } else {
             value.setText(R.string.nosensor);
         }
@@ -219,22 +201,13 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
             }
         });
-
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
-        sensorManager.registerListener(this,
-                sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY),
-                SensorManager.SENSOR_DELAY_NORMAL);
-
-
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_NORMAL);
     }
-
 
     @Override
     protected void onPause() {
@@ -243,9 +216,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
             thread.interrupt();
         }
         sensorManager.unregisterListener(this);
-
     }
-
 
     // temporizzo la stampa
     Handler mHandler = new Handler();
@@ -254,17 +225,15 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
         @Override
         public void run() {
-
             value.setText(DECIMAL_FORMATTER.format(gravity) + " m/s2");
             mHandler.removeCallbacks(run);
-
         }
     };
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
 
-        //se l'evento generato è di tipo  MAGNETIC_FIELD
+        // se l'evento generato è di tipo  MAGNETIC_FIELD
         if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
 
             DECIMAL_FORMATTER = new DecimalFormat("#.00");
@@ -295,14 +264,11 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-
-
                                     //imposto nome tool
                                     String name_tool ="Gravità";
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
-
 
                                     //aggiungo al db
                                     if (value1.length() != 0) {
@@ -314,18 +280,17 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                                         } else {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_error));
                                         }
-                                    }                               }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    }
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     // Do nothing.
                                 }
                             }).show();
-
-
                 }
             });
-            //invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
+
+            // invio evento ed attributi al metodo addEntry che aggiungerà gli elementi al grafico
             if (plotData) {
                 addEntry(acceleration);
                 plotData = false;
@@ -333,10 +298,8 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         }
     }
 
-
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -364,14 +327,13 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                 }
             }
         });
-
         thread.start();
     }
+
     // stampa toast messaggio
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
-
 
     private void addEntry(double event) {
 
@@ -386,22 +348,19 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                 data.addDataSet(set);
             }
 
-
             data.addEntry(new Entry(set.getEntryCount(), (float) event), 0);
             data.notifyDataChanged();
 
             // mostra il cambiamento dei dati presenti nel chart
             mChart.notifyDataSetChanged();
 
-//numero di elementi visibili nel chart prima dello scroll automatico
+            // numero di elementi visibili nel chart prima dello scroll automatico
             mChart.setVisibleXRangeMaximum(15);
 
             // muovi l'ultimo elemento
             mChart.moveViewToX(data.getEntryCount());
-
         }
     }
-
 
     double magnitude(float[] v) {
         return Math.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
@@ -409,7 +368,6 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
     //creo il tracciato nel grafico
     private LineDataSet createSet() {
-
 
         LineDataSet set = new LineDataSet(null, "");
         set.setAxisDependency(YAxis.AxisDependency.RIGHT);
@@ -422,5 +380,4 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         set.setCubicIntensity(0.2f);
         return set;
     }
-
 }

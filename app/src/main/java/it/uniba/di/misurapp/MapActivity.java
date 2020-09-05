@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,7 +47,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     static int p = 1;
     DatabaseManager helper;
     String value1;
-    Button preferenceButton;
+    Button addpreferenceButton,removepreferenceButton;
     int favourite;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -64,55 +63,56 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         p=0;
 
-        //oggetto helper database
+        // Toolbar setup
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.gps_coordinates);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // oggetto helper database
         helper = new DatabaseManager(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
 
         final TextView measure = (TextView) findViewById(R.id.measure);
         TextView details = (TextView) findViewById(R.id.details);
         details.setText(R.string.gps);
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
+        // pulsante salva nei preferiti
+        addpreferenceButton = (Button) findViewById(R.id.add_fav);
+        removepreferenceButton = (Button) findViewById(R.id.remove_fav);
 
+        // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(8);
-        if(favourite==0)
-        {
+        if (favourite == 1) {
 
-            preferenceButton.setText(R.string.addPreference);
+            addpreferenceButton.setVisibility(View.GONE);
+            removepreferenceButton.setVisibility(View.VISIBLE);
+        } else {
 
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
+            addpreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.setVisibility(View.GONE);
         }
 
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
+        // Listener per aggiungere il tool all'insieme di tool preferiti
+        addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(8, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(8, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
+            public void onClick(View v) {
+                helper.favoriteTool(8,1);
+                addpreferenceButton.setVisibility(View.GONE);
+                removepreferenceButton.setVisibility(View.VISIBLE);
             }
         });
+
+        // Listener per rimuovere dalla lista preferiti il tool
+        removepreferenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.favoriteTool(8,0);
+                addpreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.setVisibility(View.GONE);
+            }
+        });
+
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
 
@@ -128,17 +128,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         buttonAdd = findViewById(R.id.add);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         Objects.requireNonNull(mapFragment).getMapAsync(this);
-
-        // Toolbar setup
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.gps_coordinates);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
 
         // Controllo permessi dal Manifest (posizione)
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
@@ -168,12 +159,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 changeLocation();
                 mainHandler.postDelayed(this,5000);
                 if (latitude!=null && longitude!=null) {
-
                     String append = "Latitudine: "+latitude+" Longitudine: "+longitude;
                     measure.setText(append);
                 }
             }
         });
+
         mainHandler.postDelayed(changeLocationRunnable,5000);
 
         // Controllo a runtime della presenza o meno del segnale gps
@@ -184,8 +175,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 gpsloop();
             }
         },0,5000);
-
-
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
