@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.hardware.SensorManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
@@ -78,10 +79,14 @@ public class TemperatureTool extends AppCompatActivity  {
 
             addpreferenceButton.setVisibility(View.GONE);
             removepreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
         } else {
 
             addpreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.setVisibility(View.GONE);
+            addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
         }
 
         // Listener per aggiungere il tool all'insieme di tool preferiti
@@ -91,6 +96,8 @@ public class TemperatureTool extends AppCompatActivity  {
                 helper.favoriteTool(6,1);
                 addpreferenceButton.setVisibility(View.GONE);
                 removepreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
             }
         });
 
@@ -101,9 +108,10 @@ public class TemperatureTool extends AppCompatActivity  {
                 helper.favoriteTool(6,0);
                 addpreferenceButton.setVisibility(View.VISIBLE);
                 removepreferenceButton.setVisibility(View.GONE);
+                addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
             }
         });
-
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;

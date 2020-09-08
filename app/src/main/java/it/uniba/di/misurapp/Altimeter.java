@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -104,10 +105,14 @@ public class Altimeter extends AppCompatActivity {
 
             addpreferenceButton.setVisibility(View.GONE);
             removepreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
         } else {
 
             addpreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.setVisibility(View.GONE);
+            addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
         }
 
         // Listener per aggiungere il tool all'insieme di tool preferiti
@@ -117,6 +122,8 @@ public class Altimeter extends AppCompatActivity {
                 helper.favoriteTool(7,1);
                 addpreferenceButton.setVisibility(View.GONE);
                 removepreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
             }
         });
 
@@ -127,6 +134,8 @@ public class Altimeter extends AppCompatActivity {
                 helper.favoriteTool(7,0);
                 addpreferenceButton.setVisibility(View.VISIBLE);
                 removepreferenceButton.setVisibility(View.GONE);
+                addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
             }
         });
 

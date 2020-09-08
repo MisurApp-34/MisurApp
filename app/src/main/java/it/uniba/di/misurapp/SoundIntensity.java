@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 
@@ -73,10 +74,14 @@ public class SoundIntensity extends AppCompatActivity {
 
             addpreferenceButton.setVisibility(View.GONE);
             removepreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
         } else {
 
             addpreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.setVisibility(View.GONE);
+            addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
         }
 
         // Listener per aggiungere il tool all'insieme di tool preferiti
@@ -86,6 +91,8 @@ public class SoundIntensity extends AppCompatActivity {
                 helper.favoriteTool(4,1);
                 addpreferenceButton.setVisibility(View.GONE);
                 removepreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
             }
         });
 
@@ -96,6 +103,8 @@ public class SoundIntensity extends AppCompatActivity {
                 helper.favoriteTool(4,0);
                 addpreferenceButton.setVisibility(View.VISIBLE);
                 removepreferenceButton.setVisibility(View.GONE);
+                addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
             }
         });
 

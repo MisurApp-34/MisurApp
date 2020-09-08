@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -101,10 +102,14 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
 
             addpreferenceButton.setVisibility(View.GONE);
             removepreferenceButton.setVisibility(View.VISIBLE);
+            removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
         } else {
 
             addpreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.setVisibility(View.GONE);
+            addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
         }
 
         // Listener per aggiungere il tool all'insieme di tool preferiti
@@ -114,6 +119,8 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                 helper.favoriteTool(5,1);
                 addpreferenceButton.setVisibility(View.GONE);
                 removepreferenceButton.setVisibility(View.VISIBLE);
+                removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
+
             }
         });
 
@@ -124,6 +131,8 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                 helper.favoriteTool(5,0);
                 addpreferenceButton.setVisibility(View.VISIBLE);
                 removepreferenceButton.setVisibility(View.GONE);
+                addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
+
             }
         });
 
