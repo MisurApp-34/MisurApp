@@ -2,7 +2,7 @@
 <resources>
     <string name="impostazioni">Settings</string>
     <string name="favorite">Favorites</string>
-    <string name="storicogenerale">Generic Data</string>
+    <string name="storicogenerale">Overall Data</string>
     <string name="drawer_open">Open Navigation Drawer</string>
     <string name="drawer_close">Close Navigation Drawer</string>
     <string name="about">About Us</string>
@@ -13,7 +13,7 @@
     <string name="ambient_tools">Ambient Tools</string>
     <string name="movement_tools">Motion Tools</string>
     <string name="add_favour">Add favourite</string>
-    <string name="details_instrument">Tool detail</string>
+    <string name="details_instrument">Tool details</string>
     <string name="unit_of_measure">Unit of measurement</string>
     <string name="instrument_det">Sensor: </string>
     <string name="save_measure">Save measurement</string>
@@ -38,15 +38,15 @@
     <string name="positiontools">POSITION TOOLS</string>
     <string name="acceleration_details">Gravity acceleration</string>
     <string name="gravity_details">Gravity acceleration</string>
-    <string name="temperature">Temperature</string>
-    <string name="temperature_setting">Unit of temperature measurement</string>
+    <string name="temperature">Thermometer</string>
+    <string name="temperature_setting">Temperature\'s unit of measurement</string>
     <string name="pressuresetting">Barometer</string>
-    <string name="pressure_setting">Unit of pressure measurement</string>
+    <string name="pressure_setting">Presure\'s unit of measurement</string>
     <string name="uploaddata_message_ok">Data Successfully Inserted!</string>
     <string name="uploaddata_message_error">Something went wrong</string>
-    <string name="name_saving">Saving name</string>
-    <string name="insert_name">Insert measure saving name</string>
-    <string name="speed_setting">Unit of speed measurement</string>
+    <string name="name_saving">Save name</string>
+    <string name="insert_name">Insert name of measure save</string>
+    <string name="speed_setting">Speed\'s unit of measurement</string>
     <string name="thermometer">" Internal thermometer"</string>
     <string name="proximity_details">Proximity</string>
     <string name="near">Near</string>
@@ -81,7 +81,7 @@
     <string name="trash">Trash</string>
     <string name="eliminato">successfully deleted</string>
     <string name="errore">error</string>
-    <string name="modificato">edited successfully</string>
+    <string name="modificato">"successfully edited "</string>
     <string name="search">Search</string>
     <string name="addPreference">Add to Favorites</string>
     <string name="removePreference">Remove from Favorites</string>

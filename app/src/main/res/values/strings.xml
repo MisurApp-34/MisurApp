@@ -1,11 +1,10 @@
 <resources>
     <string name="altitude">Altimetro</string>
     <string name="level">Livella</string>
-    <string name="pressure">Pressione</string>
+    <string name="pressure">Barometro</string>
     <string name="photometer">Fotometro</string>
     <string name="phonometer">Fonometro</string>
     <string name="compass">Bussola</string>
-
     <string name="settings">Impostazioni</string>
     <string name="magneticfield">Magnetometro</string>
     <string name="distance">Distanziometro</string>
