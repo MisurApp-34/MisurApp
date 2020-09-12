@@ -137,7 +137,7 @@ public class TemperatureTool extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         try {
-            getSupportActionBar().setTitle(R.string.temperature);
+            getSupportActionBar().setTitle(R.string.thermometer);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

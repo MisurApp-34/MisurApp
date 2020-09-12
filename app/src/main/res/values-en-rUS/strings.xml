@@ -19,22 +19,20 @@
     <string name="save_measure">Save measurement</string>
     <string name="historical_measure">Historical measurement</string>
     <string name="measure">Measurement</string>
-    <string name="altitude">Altitude</string>
-    <string name="coordinate">Coordinate GPS</string>
+    <string name="altitude">Altimeter</string>
     <string name="level">Spirit Level</string>
-    <string name="pressure">Pressure</string>
-    <string name="photometer">Light Intensity</string>
-    <string name="phonometer">Sound Intensity</string>
+    <string name="pressure">Barometer</string>
+    <string name="photometer">Photometer</string>
+    <string name="phonometer">Phonometer</string>
     <string name="compass">Compass</string>
-    <string name="magneticfield">Magnetic Field</string>
-    <string name="distance">Proxyimity Sensor</string>
+    <string name="magneticfield">Magnetometer</string>
+    <string name="distance">Distance meter</string>
     <string name="language_setting">Language settings</string>
     <string name="language">Language</string>
     <string name="magneticfield_details">Magnetometer</string>
     <string name="pressure_details">Barometer</string>
-    <string name="acceleration">Device Acceleration</string>
-    <string name="gravity">Gravity Acceleration</string>
-    <string name="speed">Speed</string>
+    <string name="gravity">Gravity accelerometer</string>
+    <string name="speed">Speedometer</string>
     <string name="movimenttools">MOVIMENT TOOLS</string>
     <string name="ambientaltools">AMBIENTAL TOOLS</string>
     <string name="positiontools">POSITION TOOLS</string>
@@ -42,15 +40,14 @@
     <string name="gravity_details">Gravity acceleration</string>
     <string name="temperature">Temperature</string>
     <string name="temperature_setting">Unit of temperature measurement</string>
-    <string name="pressuresetting">Pressure</string>
+    <string name="pressuresetting">Barometer</string>
     <string name="pressure_setting">Unit of pressure measurement</string>
     <string name="uploaddata_message_ok">Data Successfully Inserted!</string>
     <string name="uploaddata_message_error">Something went wrong</string>
     <string name="name_saving">Saving name</string>
     <string name="insert_name">Insert measure saving name</string>
-    <string name="speedsetting">Speed</string>
     <string name="speed_setting">Unit of speed measurement</string>
-    <string name="thermometer">Device temperature</string>
+    <string name="thermometer">" Internal thermometer"</string>
     <string name="proximity_details">Proximity</string>
     <string name="near">Near</string>
     <string name="far">Far</string>
@@ -62,7 +59,7 @@
     <string name = "decibel_level_4"> Very annoying </string>
     <string name = "decibel_level_5"> Pain </string>
     <string name="decibel_details">Microphone</string>
-    <string name="sound_intensity">Sound intensity</string>
+    <string name="sound_intensity">Phonometer</string>
     <string name="initialization">Initialization</string>
     <string name="missing_sensor">Attention! \n Missing sensor</string>
     <string name="attention">Attention! \n Abnormal temperature level</string>
@@ -76,7 +73,6 @@
     <string name="degrees">Degrees</string>
     <string name="compass_instrument">Magnetometer</string>
     <string name="level_details">Angle</string>
-    <string name="gps_coordinates">GPS Coordinates</string>
     <string name="title_activity_map">Map</string>
     <string name="currentlocation">Current Location</string>
     <string name="gyroscope">Gyroscope</string>
@@ -92,5 +88,12 @@
     <string name="edit_favorites">Edit Favorites</string>
     <string name="nessun_salvataggio_disponibile">No past saves</string>
     <string name="alert_no_favorites">No favorite tools added yet! \nYou can add them in the tool page!</string>
+    <string name="textview">This application was made by:\n
+        -Palladino Fabio\n
+        -Pesce Arianna\n
+        -Spagnolo Marco\n
+        -Valente Emanuele\nas a case study for the degree exam \nof Mobile Software Development.
+        \n\nThe application is responsible for providing a collection of instruments based on the sensors of the device.\n\nEach instrument is represented according to three categories: Environmental, Position and Movement.
+    </string>
 
 </resources>

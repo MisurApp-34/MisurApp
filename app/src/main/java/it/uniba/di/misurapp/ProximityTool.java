@@ -77,7 +77,7 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         try {
-            getSupportActionBar().setTitle(R.string.proximity_details);
+            getSupportActionBar().setTitle(R.string.distance);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

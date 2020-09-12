@@ -1,18 +1,16 @@
 <resources>
-    <string name="altitude">Altitudine</string>
-    <string name="coordinate">Coordinate GPS</string>
+    <string name="altitude">Altimetro</string>
     <string name="level">Livella</string>
     <string name="pressure">Pressione</string>
-    <string name="photometer">Intenistà Luminosa</string>
-    <string name="phonometer">Intenistà Sonora</string>
+    <string name="photometer">Fotometro</string>
+    <string name="phonometer">Fonometro</string>
     <string name="compass">Bussola</string>
 
     <string name="settings">Impostazioni</string>
-    <string name="magneticfield">Campo Magnetico</string>
-    <string name="distance">Sensore Prossimità</string>
-    <string name="acceleration">Accelerazione dispositivo</string>
-    <string name="gravity">Accelerazione gravità</string>
-    <string name="speed">Velocità</string>
+    <string name="magneticfield">Magnetometro</string>
+    <string name="distance">Distanziometro</string>
+    <string name="gravity">Accelerometro gravitazionale</string>
+    <string name="speed">Tachimetro</string>
     <string name="movimenttools">STRUMENTI DI MOVIMENTO</string>
     <string name="ambientaltools">STRUMENTI AMBIENTALI</string>
     <string name="positiontools">STRUMENTI DI POSIZIONE</string>
@@ -25,7 +23,6 @@
     <string name="insert_name">Inserisci nome salvataggio misura</string>
     <string name="uploaddata_message_ok">Caricamento avvenuto con successo</string>
     <string name="uploaddata_message_error">Errore nel caricamento, riprova</string>
-    <string name="speedsetting">Velocità</string>
     <string name="speed_setting">Unità misura velocità</string>
     <string name="speedunit_defualt" translatable="false">Km/h</string>
     <string name="language_setting">Imposta lingua</string>
@@ -53,7 +50,7 @@
     <string name="compass_instrument">Magnetometro</string>
     <string name="pressure_details">Barometro</string>
     <string name="decibel_details">Microfono</string>
-    <string name="sound_intensity">Intensità sonora</string>
+    <string name="sound_intensity">Fonometro</string>
     <string name="initialization">Inizializzazione</string>
     <string name="near">Vicino</string>
     <string name="far">Lontano</string>
@@ -73,7 +70,7 @@
     <string name="decibel_level_3">Interferenza nelle conversazioni, fastidio</string>
     <string name="decibel_level_4">Molto fastidio</string>
     <string name="decibel_level_5">Dolore</string>
-    <string name="thermometer">Temperatura dispositivo</string>
+    <string name="thermometer">Termometro interno</string>
     <string name="attention">Attenzione! \n Livello di temperatura anomalo</string>
     <string name="missing_sensor">Attenzione! \n Sensore non presente</string>
     <string name="accelerometer"> Accelerometro</string>
@@ -83,7 +80,6 @@
     <string name="gps" translatable="false">GPS</string>
     <string name="meters">Metri</string>
     <string name="feet">Piedi</string>
-    <string name="gps_coordinates">Coordinate GPS</string>
     <string name="title_activity_map">Mappa</string>
     <string name="currentlocation">Posizione Attuale</string>
     <string name="meters_per_second" translatable="false">m/s</string>
@@ -100,12 +96,12 @@
     <string name="edit_favorites">Modifica Preferiti</string>
     <string name="nessun_salvataggio_disponibile">Nessun salvataggio disponibile
     </string>
-    <string name="textview" translatable="false">Questa applicazione è stata realizzata da:\n
+    <string name="textview">Questa applicazione è stata realizzata da:\n
         -Palladino Fabio\n
         -Pesce Arianna\n
         -Spagnolo Marco\n
         -Valente Emanuele\ncome caso di studio per l\'esame di laurea \ndi Sviluppo Mobile Software.
-        \n\nL\'applicazione si occupa di fornire una collezione di strumenti basati sui sensori del dispositivo.\n\nOgni sensore è rappresentato secondo tre categorie: Ambientale, di Posizione e di Movimento.
+        \n\nL\'applicazione si occupa di fornire una collezione di strumenti basati sui sensori del dispositivo.\n\nOgni strumento è rappresentato secondo tre categorie: Ambientale, di Posizione e di Movimento.
     </string>
     <string name="alert_no_favorites">Non hai aggiunto preferiti! \nPuoi aggiungere preferiti dalla pagina dello strumento!</string>
 

@@ -34,7 +34,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/speedsetting" android:layout="@layout/preferences_category">
+    <PreferenceCategory android:title="@string/speed" android:layout="@layout/preferences_category">
         <ListPreference
             android:defaultValue="@string/speedunit_defualt"
             android:entries="@array/speed_entries"

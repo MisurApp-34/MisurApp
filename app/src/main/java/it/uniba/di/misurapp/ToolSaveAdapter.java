@@ -118,6 +118,4 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
               return row;
     }
 
-    private void toastMessage(String you_must_enter_a_name) {
-    }
 }

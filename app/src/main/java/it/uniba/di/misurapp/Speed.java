@@ -206,10 +206,10 @@ public class Speed extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences("settings", 0);
 
                 if ((settings.getString("speed", "").toString()).equals("Km/h")) {
-                    speed = speed*3.6;
+                    speed = round(speed*3.6,2);
                 }
                 else if ((settings.getString("speed", "").toString()).equals("Mph")) {
-                    speed = speed*2.24;
+                    speed = round(speed*2.24,2);
                 }
 
                 // salvo valore in variabile
@@ -379,8 +379,8 @@ public class Speed extends AppCompatActivity {
 
         if (!gps_off){
 
-            if(unitofmeasurement.equals("Km/h")) speed = speed*3.6;
-            else if(unitofmeasurement.equals("Mph")) speed = speed*2.24;
+            if(unitofmeasurement.equals("Km/h")) speed = round(speed*3.6,2);
+            else if(unitofmeasurement.equals("Mph")) speed =round(speed*2.24,2) ;
 
             String append = new DecimalFormat("#.#").format((speed));
             append = append + " "+unitofmeasurement;
@@ -472,4 +472,9 @@ public class Speed extends AppCompatActivity {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
+    //funzione per l'arrontondamento delle cifre decimali definite in scale
+    public static double round(double value, int scale) {
+        return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
+    }
+
 }

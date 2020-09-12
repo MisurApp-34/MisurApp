@@ -281,7 +281,7 @@ public class CompassTool extends AppCompatActivity implements SensorEventListene
 
             Resources res = getResources();
             //stampo gradi
-            tvHeading.setText(Integer.toString(azimuthInDegress) + " "+ String.format(res.getString(R.string.degrees)));
+            tvHeading.setText(Integer.toString(azimuthInDegress) + "° ");
 
             //creo oggetto di rotazione
             RotateAnimation ra = new RotateAnimation(
