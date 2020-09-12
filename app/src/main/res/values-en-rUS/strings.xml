@@ -83,8 +83,9 @@
     <string name="save">Saves</string>
     <string name="tool_icon">Tool Icon</string>
     <string name="trash">Trash</string>
-    <string name="eliminato">deleted</string>
+    <string name="eliminato">successfully deleted</string>
     <string name="errore">error</string>
+    <string name="modificato">edited successfully</string>
     <string name="search">Search</string>
     <string name="addPreference">Add to Favorites</string>
     <string name="removePreference">Remove from Favorites</string>

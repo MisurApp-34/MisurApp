@@ -78,9 +78,9 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
                 if(myDbOBJ.deleteItem(id)) {
                     // Riferimento a classe per aggiornare la lista di elementi presenti sullo storico misurazioni
                     ToolSave.removeElement();
-                    Toast.makeText(context,"eliminato " + id,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.eliminato),Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context,"errore" + id,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,context.getString(R.string.errore),Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,8 +104,8 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
                                 String nome = input.getText().toString();
                                 if(db.updateName(nome,id)){
                                     getAll();
-                                    Toast.makeText(context,"modificato " + id,Toast.LENGTH_SHORT).show();
-                                }else Toast.makeText(context,"errore" + id,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, context.getString(R.string.modificato),Toast.LENGTH_SHORT).show();
+                                }else Toast.makeText(context,context.getString(R.string.errore),Toast.LENGTH_SHORT).show();
                             }
                         });
                         alertbox.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

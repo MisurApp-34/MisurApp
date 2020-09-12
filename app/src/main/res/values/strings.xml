@@ -91,13 +91,15 @@
     <string name="save">Salvataggi</string>
     <string name="trash">Cestino</string>
     <string name="tool_icon">Icona Tool</string>
-    <string name="eliminato">eliminato</string>
+    <string name="eliminato">eliminato con successo</string>
     <string name="errore">errore</string>
+    <string name="modificato">modificato con successo</string>
     <string name="upload" translatable="false">upolad</string>
     <string name="addPreference">Aggiungi ai preferiti</string>
     <string name="removePreference">Rimuovi dai preferiti</string>
     <string name="edit_favorites">Modifica Preferiti</string>
-    <string name="nessun_salvataggio_disponibile">Nessun salvataggio disponibile</string>
+    <string name="nessun_salvataggio_disponibile">Nessun salvataggio disponibile
+    </string>
     <string name="textview" translatable="false">Questa applicazione è stata realizzata da:\n
         -Palladino Fabio\n
         -Pesce Arianna\n
