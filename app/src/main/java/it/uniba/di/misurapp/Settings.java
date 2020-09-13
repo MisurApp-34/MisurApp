@@ -1,30 +1,14 @@
 
 package it.uniba.di.misurapp;
 
-import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.Locale;
 
 public class Settings extends  AppCompatActivity {
     @Override
@@ -67,10 +51,6 @@ public class Settings extends  AppCompatActivity {
         {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings);
-            Preference langPreference = getPreferenceScreen().findPreference(
-                    "languages");
-            langPreference.setOnPreferenceChangeListener(languageChangeListener);
-
 
             Preference tempPreference = getPreferenceScreen().findPreference(
                     "temperature");
@@ -84,49 +64,16 @@ public class Settings extends  AppCompatActivity {
                     "speed");
             speedPreference.setOnPreferenceChangeListener(speedChangeListener);
         }
-        Preference.OnPreferenceChangeListener languageChangeListener = new Preference.OnPreferenceChangeListener() {
 
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-                switch (newValue.toString()) {
-                    case "en":
-                        setLocale("en");
-                        break;
-
-                    case "it":
-                        setLocale("it");
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + newValue.toString());
-                }
-                return true;
-            }
-        };
-        //* manually changing current locale/
-        public void setLocale(String lang) {
-            Locale myLocale = new Locale(lang);
-            Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
-            conf.locale = myLocale;
-            res.updateConfiguration(conf, dm);
-            Intent refresh = new Intent(getActivity(),Settings.class);
-            getActivity().finish();
-            startActivity(refresh);
-
-        }
         Preference.OnPreferenceChangeListener temperatureChangeListener = new Preference.OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-
                 SharedPreferences settings = getActivity().getSharedPreferences("settings",0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("temperature",newValue.toString());
                 editor.commit();
-
-
                 return true;
             }
         };
@@ -135,36 +82,24 @@ public class Settings extends  AppCompatActivity {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-
                 SharedPreferences settings = getActivity().getSharedPreferences("settings",0);
-
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("pressure",newValue.toString());
                 editor.commit();
-
-
                 return true;
             }
         };
-
-
 
         Preference.OnPreferenceChangeListener speedChangeListener = new Preference.OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-
                 SharedPreferences settings = getActivity().getSharedPreferences("settings", 0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("speed",newValue.toString());
                 editor.commit();
-
-
-
                 return true;
             }
         };
     }
-
-
 }

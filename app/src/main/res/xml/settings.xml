@@ -3,15 +3,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <PreferenceCategory android:title="@string/language" android:layout="@layout/preferences_category">
-        <ListPreference
-            android:entries="@array/language_entries"
-            android:entryValues="@array/language_values"
-            android:key="languages"
-            android:title="@string/language_setting"></ListPreference>
-
-    </PreferenceCategory>
+    
 
     <PreferenceCategory android:title="@string/temperature" android:layout="@layout/preferences_category">
         <ListPreference
