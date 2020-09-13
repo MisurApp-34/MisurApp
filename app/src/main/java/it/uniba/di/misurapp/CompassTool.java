@@ -160,8 +160,8 @@ public class CompassTool extends AppCompatActivity implements SensorEventListene
         super.onResume();
 
         //  registro Listner sensori
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
-        mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,7 +291,7 @@ public class CompassTool extends AppCompatActivity implements SensorEventListene
                     Animation.RELATIVE_TO_SELF,
                     0.5f);
 
-            ra.setDuration(250);
+            ra.setDuration(100);
 
             ra.setFillAfter(true);
 
