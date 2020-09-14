@@ -16,7 +16,6 @@ public class Settings extends  AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         //importo toolbar
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -26,6 +25,8 @@ public class Settings extends  AppCompatActivity {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        //importo fragment
         FragmentTransaction transaction =
                 getFragmentManager().beginTransaction();
 
@@ -42,7 +43,7 @@ public class Settings extends  AppCompatActivity {
         return true;
     }
 
-
+        //fragment preferenze
     public static class MyPreferenceFragment extends PreferenceFragment
     {
 
@@ -50,8 +51,10 @@ public class Settings extends  AppCompatActivity {
         public void onCreate(final Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
+            //importo file preferenze
             addPreferencesFromResource(R.xml.settings);
 
+            //cerco preferenza
             Preference tempPreference = getPreferenceScreen().findPreference(
                     "temperature");
             tempPreference.setOnPreferenceChangeListener(temperatureChangeListener);
@@ -66,6 +69,7 @@ public class Settings extends  AppCompatActivity {
         }
 
 
+        //listner preferenza con commit di sistema
         Preference.OnPreferenceChangeListener temperatureChangeListener = new Preference.OnPreferenceChangeListener() {
 
             @Override

@@ -99,14 +99,20 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
         // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(5);
         if (favourite == 1) {
+            //nascondo pulsante aggiungi
 
             addpreferenceButton.setVisibility(View.GONE);
+            //mostro pulsante rimuovi
+
             removepreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
 
-        } else {
+        } else {//strumento non preferito
 
+            //mostro pulsante aggiungi
             addpreferenceButton.setVisibility(View.VISIBLE);
+            //nascondo pulsante rimuovi
+
             removepreferenceButton.setVisibility(View.GONE);
             addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
 
@@ -297,51 +303,7 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
             }
         }
 
-        // TODO: Capire dove inserire codice riguardante i bottoni dei preferiti
-        /*
 
-        //pulsante salva preferenze
-        preferenceButton = (Button) findViewById(R.id.add_fav);
-        //verifico la preferenza
-
-        favourite = helper.getFavoriteTool(5);
-        if(favourite==0)
-        {
-
-            preferenceButton.setText(R.string.addPreference);
-
-        }
-        else
-        {
-            preferenceButton.setText(R.string.removePreference);
-
-        }
-
-        preferenceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(favourite ==0){
-
-                    helper.favoriteTool(5, 1);
-                    preferenceButton.setText(R.string.addPreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-
-                }
-                if(favourite==1)
-                {
-                    helper.favoriteTool(5, 0);
-                    preferenceButton.setText(R.string.removePreference);
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
-                }
-            }
-        });
-         */
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override

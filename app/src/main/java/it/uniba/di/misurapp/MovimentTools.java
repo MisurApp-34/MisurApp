@@ -20,6 +20,8 @@ public class MovimentTools extends AppCompatActivity {
         context=this;
 
         setContentView(R.layout.moviment_tools);
+
+        //importa toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -31,8 +33,11 @@ public class MovimentTools extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //riferimento cardview
         CardView card_gravity = (CardView) findViewById(R.id.card_gravity);
 
+
+        //listner click cardview
         card_gravity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +67,8 @@ public class MovimentTools extends AppCompatActivity {
         });
     }
 
+
+    //pulsante indietro
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
