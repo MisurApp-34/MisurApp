@@ -35,12 +35,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-/**
- * This class implements the SensorEventListener interface. When the application creates the MQTT
- * connection, it registers listeners for the accelerometer and magnetometer sensors.
- * Output from these sensors is used to publish accel event messages.
- */
 public class TemperatureTool extends AppCompatActivity  {
+
     Button addpreferenceButton,removepreferenceButton;
     private TextView value;
     private LineChart mChart;
@@ -49,7 +45,9 @@ public class TemperatureTool extends AppCompatActivity  {
     private SensorManager sensorManager;
     IntentFilter intentfilter;
     float batteryTemp;
+    //variabile per memorizzare i valori sui tre assi, quando si salva la misurazione nello storico generale
     String value1;
+    //variabile per memorizzare l'unità di misura della temperatura
     String unit;
     DatabaseManager helper;
     int favourite;

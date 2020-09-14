@@ -35,15 +35,13 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.DecimalFormat;
 
-/**
- * This class implements the SensorEventListener interface. When the application creates the MQTT
- * connection, it registers listeners for the accelerometer and magnetometer sensors.
- * Output from these sensors is used to publish accel event messages.
- */
+
 public class MagneticField extends AppCompatActivity implements SensorEventListener {
+    // variabile in cui verrà memorizzata la misura del sensore
     private TextView value;
     private LineChart mChart;
     private Thread thread;
+    //variabile sentinella stampa plot
     private boolean plotData = true;
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;

@@ -13,18 +13,25 @@ import android.view.View;
  * Classe custom per stampa livella, disegnata tramite un grafico a linee
  */
 public class LevelView extends View {
+    // disegno bolla per la livella
     private Paint paint = new Paint();
+    // Disegno quadrato per riferimento alla bolla
     private Paint line = new Paint();
+    // Raggio bolla della livella
     private int circleRadius;
-    private static final int CIRCLE_RADIUS_DP = 15; // Raggio bolla
+    // Raggio bolla
+    private static final int CIRCLE_RADIUS_DP = 15;
+    // Angolo massimo di inclinazione
     public int MAX_ANGLE = 30;
+    // Valore asse x
     public float yAngle = 0;
+    // Valore asse y
     public float zAngle = 0;
 
     // Costruttore
     public LevelView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // Setup grafico
+        // Setup grafico con bolla e quadrato
         line.setColor(Color.GRAY);
         line.setStyle(Paint.Style.FILL);
         line.setStrokeWidth((float) 5.0);
@@ -42,9 +49,11 @@ public class LevelView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        // Disegno del canvas di supporto alla livella
         canvas.drawLine(0, canvas.getHeight()/2, canvas.getWidth(), canvas.getHeight()/2, line);
         canvas.drawLine(canvas.getWidth()/2, 0, canvas.getWidth()/2, canvas.getHeight(), line);
 
+        // Valore del centro del canvas
         int x = getWidth()/2;
         int y = getHeight()/2;
 

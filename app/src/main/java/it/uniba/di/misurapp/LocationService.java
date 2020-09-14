@@ -19,22 +19,25 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import it.uniba.di.misurapp.Altimeter;
-import it.uniba.di.misurapp.MapActivity;
-import it.uniba.di.misurapp.Speed;
-
 import static it.uniba.di.misurapp.Altimeter.updateValue;
 import static it.uniba.di.misurapp.MapActivity.getCoordinates;
 import static it.uniba.di.misurapp.Speed.getSpeed;
 
 public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    // Intervallo di aggiornamento standard
     private static final long INTERVAL = 1000*2;
-    private static final long FASTEST_INTERVAL=1000;
+    // Intervallo di aggiornamento rapido
+    private static final long FASTEST_INTERVAL = 1000;
+    // Variabile richiesta posizione
     LocationRequest mLocationRequest;
+    // Riferimento all'api google
     GoogleApiClient mGoogleApiClient;
-    double currentHeight =0;
+    // valore altezza inizializzato a 0
+    double currentHeight = 0;
+    // valori ricevuti da google api su latitudine, longitudine e velocità
     double currentLat,currentLon,currentSpeed = 0;
+    // Binder per "onBind()"
     private final IBinder mBinder = new LocalBinder();
 
     /**
@@ -45,7 +48,9 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        // Richiesta posizione
         createLocationRequest();
+        // API google per posizione
         mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
         mGoogleApiClient.connect();
         return mBinder;
@@ -112,14 +117,17 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
      * Aggiornamento dati e relativa stampa nella textview di single_tool.xml
      */
     private void updateUI() {
-        if(Altimeter.p ==0){
+        // Richiesta dall'altimetro della posizione
+        if(Altimeter.p == 0){
             Altimeter.endTime = System.currentTimeMillis();
             updateValue(currentHeight);
         }
+        // Richiesta da MapActivity della posizione
         if (MapActivity.p == 0){
             MapActivity.endTime = System.currentTimeMillis();
             getCoordinates(currentLat,currentLon);
         }
+        // Richiesta da Speed della velocità
         if (Speed.p == 0){
             Speed.endTime = System.currentTimeMillis();
             getSpeed(currentSpeed);

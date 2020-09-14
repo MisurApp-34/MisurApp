@@ -26,6 +26,7 @@ import java.util.Objects;
 
 public class SpiritLevel extends AppCompatActivity implements SensorEventListener {
 
+
     SensorManager mSensorManager;
     float yAngle ;
     float zAngle ;
