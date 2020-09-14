@@ -36,9 +36,13 @@ public class SoundIntensity extends AppCompatActivity {
     Thread runner;
     double value;
     private LineChart mChart;
+    //valore decibel calcolato
     String value1;
+    //pulsante di aggiunta preferenza e rimozione preferenza
     Button addpreferenceButton,removepreferenceButton;
+    //flag controllo database per verificare se strumento è preferito o no (valori 0/1)
     int favourite;
+    //supporto al thread
     final Handler mHandler = new Handler();
     DatabaseManager helper;
     //pulsante aggiunta dati database
@@ -72,15 +76,22 @@ public class SoundIntensity extends AppCompatActivity {
 
         // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(4);
+
+        //strumento impostato comre preferito
         if (favourite == 1) {
 
+            //nascondo pulsante aggiungi
             addpreferenceButton.setVisibility(View.GONE);
+            //mostro pulsante rimuovi
             removepreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
 
-        } else {
+        } else { //strumento non preferito
 
+            //mostro pulsante aggiungi
             addpreferenceButton.setVisibility(View.VISIBLE);
+            //nascondo pulsante rimuovi
+
             removepreferenceButton.setVisibility(View.GONE);
             addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
 
@@ -90,6 +101,7 @@ public class SoundIntensity extends AppCompatActivity {
         addpreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //set strumento preferito nel database
                 helper.favoriteTool(4,1);
                 addpreferenceButton.setVisibility(View.GONE);
                 removepreferenceButton.setVisibility(View.VISIBLE);
@@ -102,6 +114,8 @@ public class SoundIntensity extends AppCompatActivity {
         removepreferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //set strumento preferito nel database
+
                 helper.favoriteTool(4,0);
                 addpreferenceButton.setVisibility(View.VISIBLE);
                 removepreferenceButton.setVisibility(View.GONE);
@@ -110,13 +124,14 @@ public class SoundIntensity extends AppCompatActivity {
             }
         });
 
-        // Storico misurazioni specifico dello strumento selezionato
+        // pulsante Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
 
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //avvio intent con id tool
                 ToolSave.id_tool=4;
                 Intent saves;
                 saves = new Intent(getApplicationContext(),ToolSave.class);
@@ -124,13 +139,16 @@ public class SoundIntensity extends AppCompatActivity {
             }
         });
 
+        //riferimento pulsante aggiungi salvataggio
         buttonAdd = findViewById(R.id.add);
 
+        //stampa valore calcolato
         mStatusView = (TextView) findViewById(R.id.measure);
         mChart = findViewById(R.id.chart1);
         mChart.setNoDataText("");
         mChart.setNoDataTextColor(Color.BLACK);
         TextView details = findViewById(R.id.details);
+        //
         details.setText(R.string.decibel_details);
 
         //importo toolbar
@@ -254,6 +272,8 @@ public class SoundIntensity extends AppCompatActivity {
         }
     }
 
+
+    //stop registrazione
     public void stopRecorder() {
         if (mRecorder != null) {
             mRecorder.stop();
@@ -325,6 +345,8 @@ public class SoundIntensity extends AppCompatActivity {
         return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
     }
 
+
+    //pulsante indietro
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

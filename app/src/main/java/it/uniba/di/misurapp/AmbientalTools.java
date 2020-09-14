@@ -33,6 +33,8 @@ public class AmbientalTools extends AppCompatActivity
         } catch (NullPointerException e){
             e.printStackTrace();
         }
+
+        //riferimento card view
         CardView card_compass = (CardView) findViewById(R.id.card_compass); // creating a CardView and assigning a value.
 
         card_compass.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +45,8 @@ public class AmbientalTools extends AppCompatActivity
                 startActivity(CompassTool);}
 
         });
+
+        //riferimento card magnetometero
         CardView card_magnetometor = (CardView) findViewById(R.id.card_magnetometor); // creating a CardView and assigning a value.
 
         card_magnetometor.setOnClickListener(new View.OnClickListener() {

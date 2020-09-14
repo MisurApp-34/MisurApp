@@ -1,43 +1,53 @@
 package it.uniba.di.misurapp;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
-import java.text.BreakIterator;
 import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
 public class ToolSave extends AppCompatActivity {
 
+    // Nome salvataggio
     public static EditText editable_name;
+    // context
     static Context context;
+    // Lista salvataggi
     public static ListView listView;
+    // Flag per decidere se stampare tutti i dati o solo quelli relativi a uno strumento
     public static int flag;
+    // Id strumento di cui ricavare salvataggi
     public static int id_tool;
+    // Titolo salvataggio
     static String[] mTitle;
+    // Data salvataggio
     static String[] mDate;
+    // Nome strumento del salvataggio
     static String[] mToolname;
+    // Valore rilevato salvataggio
     static String[] mvalue;
+    // Icona salvataggio relativa allo strumento
     static int[] images;
+    // Id salvatagigo
     static int[] mId;
+    // Immagine cestino
     static ImageView trash;
+    // Image modifica
     static ImageView upload;
+    // Adapter per la
     static ToolSaveAdapter adapter;
+    // TV mancanza salvataggi
     static TextView nosave;
+    // Db
     static DatabaseManager db;
 
     @Override
@@ -117,12 +127,14 @@ public class ToolSave extends AppCompatActivity {
 
         String[][] text;
 
+        // Tutti i dati o i dati di strumento specifico
         if (flag == 0) {
             text = dbmanager.getData();
         } else {
             text = dbmanager.getToolData(id_tool);
         }
 
+        // Controlli sui dati presi dal db
         int flag = DatabaseManager.rows;
         if (flag==0) {
             nosave.setVisibility(TextView.VISIBLE);
@@ -132,6 +144,7 @@ public class ToolSave extends AppCompatActivity {
 
         dbmanager.close();
 
+        // Setup textview
         mTitle = new String[DatabaseManager.rows];
         mDate = new String[DatabaseManager.rows];
         mToolname = new String[DatabaseManager.rows];
