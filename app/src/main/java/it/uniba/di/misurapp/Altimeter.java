@@ -49,25 +49,37 @@ public class Altimeter extends AppCompatActivity {
     static boolean status;
     // servizio LocationService
     LocationService myService;
+    // String utilizzata per la stampa
     private static String append;
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
+    // Valore dell'altitudine
     String value1;
+    // Servizi posizione
     LocationManager locationManager;
+    // inizio e fine del bind
     static long startTime, endTime;
+    // Flag per comunicare al servizio LocationManager quale dato considerare
     static int p=1;
+    // Button preferiti
     Button addpreferenceButton,removepreferenceButton;
+    // Flag di controllo presenza preferiti
     int favourite;
+    // Boolean di controllo sulla presenza o meno di segnale gps
     private static boolean gps_off;
+    // Timerizzazione stampa e fetch daati
     Timer timer;
+    // Grafico per UI
     private LineChart mChart;
+    // Runnable per il main thread per gestire le chiamate ed evitare errori di permesso
     private Thread thread;
+    // Valore altitudine ottenuto da LocationPreference
     static double altitudevalue;
+    // Helper database
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;
-
-
+    // TextView dove verrà indicata la misura effettuata
     @SuppressLint("StaticFieldLeak")
     static TextView measure;
 
@@ -76,6 +88,7 @@ public class Altimeter extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_tool);
         mContext = this;
+        // set flag per LocationService
         p=0;
 
         // Toolbar
@@ -88,11 +101,18 @@ public class Altimeter extends AppCompatActivity {
         // oggetto helper database
         helper = new DatabaseManager(this);
 
+        // Button per salvataggio
         buttonAdd = findViewById(R.id.add);
+
+        // Sensore utilizzato
         TextView details = findViewById(R.id.details);
+
         details.setText(R.string.gps);
+        // Misurazione effettuata
         measure = findViewById(R.id.measure);
         mChart = (LineChart) findViewById(R.id.chart1);
+
+        // Bottone per storico salvataggi
         Button buttonHistory = (Button) findViewById(R.id.history);
 
         // pulsante salva nei preferiti
@@ -101,18 +121,16 @@ public class Altimeter extends AppCompatActivity {
 
         // verifico l'entità dell'id nel database
         favourite = helper.getFavoriteTool(7);
-        if (favourite == 1) {
 
+        // Stampa bottone corretto in base al preferito
+        if (favourite == 1) {
             addpreferenceButton.setVisibility(View.GONE);
             removepreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.getBackground().setColorFilter(Color.parseColor("#ff3333"), PorterDuff.Mode.SRC_IN);
-
         } else {
-
             addpreferenceButton.setVisibility(View.VISIBLE);
             removepreferenceButton.setVisibility(View.GONE);
             addpreferenceButton.getBackground().setColorFilter(Color.parseColor("#80d10f"), PorterDuff.Mode.SRC_IN);
-
         }
 
         // Listener per aggiungere il tool all'insieme di tool preferiti
@@ -139,17 +157,22 @@ public class Altimeter extends AppCompatActivity {
             }
         });
 
+        // flag di riferimento per recuperare i salvataggi di uno strumento specifico
         ToolSave.flag = 1;
+
+        // Bottone visualizzazione salvataggi relativi allo strumento
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolSave.id_tool=7;
+                // Id strumento sul db
+                ToolSave.id_tool = 7;
                 Intent saves;
                 saves = new Intent(getApplicationContext(),ToolSave.class);
                 startActivity(saves);
             }
         });
 
+        // Bottone salvataggio misura
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
