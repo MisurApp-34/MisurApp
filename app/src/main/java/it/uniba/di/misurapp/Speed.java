@@ -46,25 +46,41 @@ import java.util.TimerTask;
 
 public class Speed extends AppCompatActivity {
 
+    // flag di controllo activity
     static boolean status;
+    // Unità di misura
     private static String unitofmeasurement;
+    // Variabile gestione posizione ottenuta da servizio
     LocationManager locationManager;
+    // Valore velocità
     static double speed;
+    // Inizio, fine onbind
     static long startTime, endTime;
+    // Riferimento a locationservice
     static int p = 1;
+    // String stampa valore
     String value1;
+    // Boolean per indicare se il gps è acceso o spento
     private static boolean gps_off;
+    // Context
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
+    // Bottoni aggiungi/rimuovi preferiti
     Button addpreferenceButton,removepreferenceButton;
+    // flag per controllare se preferito o meno
     int favourite;
+    // Timer
     Timer timer;
+    // Thread di run per stampa grafico
     private Thread thread;
+    // Servizi posizione
     LocationService myService;
+    // Grafico
     private LineChart mChart;
-
+    // TextView misura rilevata
     @SuppressLint("StaticFieldLeak")
     static TextView measure;
+    // Helper db
     DatabaseManager helper;
     //pulsante aggiunta dati database
     private Button buttonAdd;

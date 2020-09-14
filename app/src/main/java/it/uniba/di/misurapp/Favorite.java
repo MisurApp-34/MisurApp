@@ -15,10 +15,15 @@ import java.util.Objects;
 
 public class Favorite extends AppCompatActivity {
 
+    // Layout di riferimento su xml
     LinearLayout compass,magneticfield,photometer,soundintensity,pressure,temperature,altitude,gpscoords,spiritlevel,proximity,gravity,speed,acceleration,mainlayout;
+    // TextView in caso non vi siano preferiti sul db
     TextView alertnofav;
+    // CardView di riferimento su xml
     CardView ambientcard,locationcard,motioncard;
+    // flag di supporto alla stampa
     int ambient = 0,location = 0,motion = 0;
+    // flag generico di supporto stampa
     int flag = 0;
 
     @Override
@@ -186,12 +191,13 @@ public class Favorite extends AppCompatActivity {
      */
     public void checkFavorite(){
 
-        // Inizializzazione
+        // Inizializzazione variabili
         flag = 0;
         ambient = 0;
         location = 0;
         motion = 0;
 
+        // Helper db
         DatabaseManager helper;
         helper = new DatabaseManager(this);
 

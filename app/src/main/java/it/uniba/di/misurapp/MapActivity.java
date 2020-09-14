@@ -39,17 +39,29 @@ import java.util.TimerTask;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    // Mappa ottenuta da google
     public GoogleMap mMap;
+    // flag di controllo activity
     static boolean status;
+    // Timer stampa
     Timer timer;
+    // Valori latitudine e longitudine
     static Double latitude,longitude;
+    // Servizii posizione
     LocationManager locationManager;
+    // Servizi posizione
     LocationService myService;
+    // Inizio e fine bind
     static long startTime, endTime;
+    // Flag per il LocationService per capire la richiesta effettuata
     static int p = 1;
+    // Helper database
     DatabaseManager helper;
+    // Valore latitudine e longitudine concatenati per la stampa
     String value1;
+    // Bottoni aggiungi/rimmuovi preferito
     Button addpreferenceButton,removepreferenceButton;
+    // Flag controllo preferito
     int favourite;
     //pulsante aggiunta dati database
     private Button buttonAdd;
@@ -165,7 +177,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         final Runnable changeLocationRunnable = (new Runnable() {
             @Override
             public void run() {
-                // TODO: Permettere l'interruzione del runnable in caso si sia spostato il focus dalla propria posizione, riprenderlo con un bottone o simili
                 changeLocation();
                 mainHandler.postDelayed(this,5000);
                 if (latitude!=null && longitude!=null) {
@@ -250,8 +261,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mMap.clear();
             MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title(getResources().getString(R.string.currentlocation));
             mMap.addMarker(marker);
-            // TODO: Se viene spento il GPS ma è stata individuata una posizione in precedenza essa verrà segnata come posizione attuale,
-            //  gestire la situazione o trovare un'alternativa
         }
     }
 
