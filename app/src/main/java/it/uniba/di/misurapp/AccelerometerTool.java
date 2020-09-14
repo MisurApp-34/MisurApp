@@ -44,8 +44,11 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     private Button buttonAdd;
     Button addpreferenceButton,removepreferenceButton;
     int favourite;
+    //variabile per memorizzare i valori sui tre assi, quando si salva la misurazione nello storico generale
     String value1;
+    //variabili per memorizzare l'evento del sensore
     private float x,y,z;
+    //textview per la visualizzazione dei valori sui tre assi
     private TextView xText, yText, zText;
 
     @Override

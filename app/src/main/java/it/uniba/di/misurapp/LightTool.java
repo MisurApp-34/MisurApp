@@ -25,10 +25,12 @@ import com.github.mikephil.charting.charts.LineChart;
 
 public class LightTool extends AppCompatActivity {
 
-    private int  first =1;
     Handler mHandler = new Handler();
     Runnable run;
+    //variabile per memorizzare i valori sui tre assi, quando si salva la misurazione nello storico generale
     String value1;
+    //controllo su variabile globale per procedere all'avvio dell'activity subito con la stampa del valore senza attendere 2 secondi
+    private int  first =1;
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private SensorEventListener lightEventListener;
@@ -36,7 +38,9 @@ public class LightTool extends AppCompatActivity {
     private TextView val;
     Button addpreferenceButton,removepreferenceButton;
     int favourite;
+    //variabile per memorizzare il risultato dell'evento del sensore
     float value;
+    //variabile per memorizzare il valore numerico per il colore dello sfondo della vista
     int newValue;
     private LineChart mChart;
     View root;
