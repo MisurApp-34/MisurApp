@@ -72,7 +72,7 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 //id elemento visualizzato sulla lista  da passare a metodo di eliminazione
-                int id = ToolSave.mId[position];
+                int id = ToolSave.mId[position]; //posizione id strumento
                 DatabaseManager myDbOBJ = new DatabaseManager(getContext());
                 myDbOBJ.deleteItem(id);
                 if(myDbOBJ.deleteItem(id)) {
@@ -85,7 +85,7 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
             }
         });
 
-
+  //listener modifica salvataggio
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +110,7 @@ public class ToolSaveAdapter extends ArrayAdapter<String> {
                         });
                         alertbox.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        // Do nothing.
+                        //non fare niente
                     }
                 }).show();
             }

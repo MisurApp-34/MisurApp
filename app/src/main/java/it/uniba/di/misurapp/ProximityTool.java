@@ -43,7 +43,8 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
     private LineChart mChart;
     private Thread thread;
     private boolean plotData = true;
-    DatabaseManager helper;  String value1;
+    DatabaseManager helper;
+    String value1;
     Button addpreferenceButton,removepreferenceButton;
     int favourite;
     //pulsante aggiunta dati database
@@ -73,6 +74,7 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
         buttonAdd = findViewById(R.id.add);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
+        //toolbar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -214,60 +216,13 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
 
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
             distanza=event.values[0];
-
+    //la variabile restituisce due valori 0 o 1 a seconda della distanza
             if (distanza == 0) {
                 data.setText((Double.toString(distanza))+"cm");
-                // data.setText(R.string.near);
             } else {
-                // data.setText(R.string.far);
                 data.setText((Double.toString(distanza))+"cm");
 
             }
-
-            // TODO: Capire dove inserire codice riguardante i bottoni dei preferiti
-            /*
-            // pulsante salva preferenze
-            preferenceButton = (Button) findViewById(R.id.add_fav);
-            //verifico la preferenza
-
-            favourite = helper.getFavoriteTool(10);
-            if(favourite==0)
-            {
-
-                preferenceButton.setText(R.string.addPreference);
-
-            }
-            else
-            {
-                preferenceButton.setText(R.string.removePreference);
-
-            }
-
-            preferenceButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(favourite ==0){
-
-                        helper.favoriteTool(10, 1);
-                        preferenceButton.setText(R.string.addPreference);
-                        finish();
-                        overridePendingTransition( 0, 0);
-                        startActivity(getIntent());
-                        overridePendingTransition( 0, 0);
-
-                    }
-                    if(favourite==1)
-                    {
-                        helper.favoriteTool(10, 0);
-                        preferenceButton.setText(R.string.removePreference);
-                        finish();
-                        overridePendingTransition( 0, 0);
-                        startActivity(getIntent());
-                        overridePendingTransition( 0, 0);
-                    }
-                }
-            });
-            */
 
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -326,6 +281,7 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
     @Override
     protected void onPause() {
         super.onPause();
+        //interruzione thread
         if (thread != null) {
             thread.interrupt();
         }
@@ -337,7 +293,9 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
         Toast.makeText(this,message, Toast.LENGTH_LONG).show();
     }
 
+    //gestisco thread per la stampa sul grafico
     private void feedMultiple() {
+        //interruzione thread
 
         if (thread != null) {
             thread.interrupt();
@@ -404,6 +362,7 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
 
     @Override
     public boolean onSupportNavigateUp() {
+        //tasto indietro
         onBackPressed();
         return true;
     }

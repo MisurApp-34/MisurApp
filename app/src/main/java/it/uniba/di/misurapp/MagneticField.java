@@ -47,7 +47,7 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
     private boolean plotData = true;
     private SensorManager sensorManager;
     public static DecimalFormat DECIMAL_FORMATTER;
-    int first = 1;
+    int first = 1; //controllo su variabile globale per procedere all'avvio dell'activity subito con la stampa del valore senza attendere 2 secondi
     Button addpreferenceButton,removepreferenceButton;
     int favourite;
     DatabaseManager helper;

@@ -52,6 +52,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //titolo toolbar
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.level);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -113,7 +114,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         // Storico misurazioni specifico dello strumento selezionato
         Button buttonHistory = (Button) findViewById(R.id.history);
         ToolSave.flag = 1;
-
+            //prendo l'id dello strumento
         buttonHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,12 +143,14 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
 
     @Override
     protected void onPause() {
+        //pausa del sensor manager
         mSensorManager.unregisterListener(this);
         super.onPause();
     }
 
     @Override
     protected void onStop() {
+        //pausa del sensor manager
         mSensorManager.unregisterListener(this);
         super.onStop();
     }
@@ -163,7 +166,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
             float[] values = event.values;
             yAngle = values[2]; // ASSE X
             zAngle = values[1]; // ASSE Z
-            DECIMAL_FORMATTER = new DecimalFormat("#.#");
+            DECIMAL_FORMATTER = new DecimalFormat("#.#"); //formattazione alla prima cifra dopo la virgola
 
             sqrt= (float) Math.sqrt((xAngle*xAngle) + (yAngle*yAngle));
             String append =(DECIMAL_FORMATTER.format(sqrt) + "°");
@@ -196,7 +199,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
 
                                     //aggiungo al db
                                     if (value1.length() != 0) {
-
+                                        //inserisco nel db
                                         boolean insertData = helper.addData( saving_name, name_tool, value1);
 
                                         if (insertData) {
@@ -208,7 +211,7 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                                 }
                             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    // Do nothing.
+                                    // non fare niente
                                 }
                             }).show();
                 }
@@ -224,11 +227,13 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
 
     @Override
     public void onBackPressed() {
+        //indietro
         super.onBackPressed();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+        //pulsante indietro
         onBackPressed();
         return super.onSupportNavigateUp();
     }

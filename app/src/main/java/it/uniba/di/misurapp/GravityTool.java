@@ -34,11 +34,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.DecimalFormat;
 
-/**
- * This class implements the SensorEventListener interface. When the application creates the MQTT
- * connection, it registers listeners for the accelerometer and magnetometer sensors.
- * Output from these sensors is used to publish accel event messages.
- */
+
 public class GravityTool extends AppCompatActivity implements SensorEventListener {
     private TextView value;
     private LineChart mChart;
@@ -192,6 +188,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
         value.setText(R.string.gravity_details);
 
+        //controllo sulla presenza del sensore di gravità
         if (sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) != null) {
             feedMultiple();
         } else {
@@ -215,12 +212,14 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
     @Override
     protected void onResume() {
         super.onResume();
+        //richiamo al sensorManager
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        //stop dei thread
         if (thread != null) {
             thread.interrupt();
         }
@@ -229,7 +228,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
     // temporizzo la stampa
     Handler mHandler = new Handler();
-    double gravity;// intialize it
+    double gravity;// inizializza gravity
     Runnable run = new Runnable() {
 
         @Override
@@ -242,11 +241,11 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
     @Override
     public void onSensorChanged(final SensorEvent event) {
 
-        // se l'evento generato è di tipo  MAGNETIC_FIELD
+        // se l'evento generato è di tipo  tipo gravity
         if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
-
+            //formattazione seconda cifra dopo la virgola
             DECIMAL_FORMATTER = new DecimalFormat("#.00");
-            acceleration = magnitude(event.values);
+            acceleration = magnitude(event.values); //valore accelerazione
             value.setText(DECIMAL_FORMATTER.format(acceleration) +"m/s2\n");
 
             TextView details = findViewById(R.id.details);
@@ -282,6 +281,7 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                                     //aggiungo al db
                                     if (value1.length() != 0) {
 
+                                        //inserisco nel db
                                         boolean insertData = helper.addData( saving_name, name_tool, value1);
 
                                         if (insertData) {
@@ -312,11 +312,13 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
 
     @Override
     public boolean onSupportNavigateUp() {
+        //pulsante indietro
         onBackPressed();
         return true;
     }
-
+ //gestisco thread per la stampa sul grafico
     private void feedMultiple() {
+        //interruzione thread
 
         if (thread != null) {
             thread.interrupt();
