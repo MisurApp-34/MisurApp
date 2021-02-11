@@ -146,6 +146,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         contentValues.put(NAME_TOOL, name_tool);
         contentValues.put(VALUE, value);
 
+        Log.e("sono qui", formattedDate+name_tool+value);
+
         //inserisco nel db le informazioni
         long result = db.insert(DETECTION_TABLE1, null, contentValues);
         db.close();

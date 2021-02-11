@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 public class ProximityTool extends AppCompatActivity implements  SensorEventListener{
 
     double distanza;
+    String valoredistanza;
     TextView ProximitySensor, data;
     SensorManager mySensorManager;
     Sensor myProximitySensor;
@@ -218,17 +220,22 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
             distanza=event.values[0];
     //la variabile restituisce due valori 0 o 1 a seconda della distanza
             if (distanza == 0) {
-                data.setText((Double.toString(distanza))+"cm");
+                valoredistanza=getResources().getString(R.string.distance_n);
+                data.setText(R.string.distance_n);
             } else {
-                data.setText((Double.toString(distanza))+"cm");
+                valoredistanza=getResources().getString(R.string.distance_f);
+                data.setText(R.string.distance_f);
 
             }
 
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     //salvo valore in variabile
-                     value1 = String.valueOf((distanza)) + " cm";
+                    // value1 = String.valueOf((distanza)) + " cm";
+
+                     value1 = valoredistanza;
                     //dialog text acquisizione nome salvataggio
                     final EditText input = new EditText(ProximityTool.this);
 
@@ -244,7 +251,7 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
                                     Editable nome = input.getText();
 
                                     //imposto nome tool
-                                    String name_tool ="Sensore Prossimità";
+                                    String name_tool = "Sensore Prossimità";
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
@@ -253,6 +260,7 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
                                     if (value1.length() != 0) {
 
                                         boolean insertData = helper.addData( saving_name, name_tool, value1);
+                                        Log.e("sono qui", Boolean.toString(insertData));
 
                                         if (insertData) {
                                             toastMessage(getResources().getString(R.string.uploaddata_message_ok));

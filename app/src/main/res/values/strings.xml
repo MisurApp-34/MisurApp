@@ -65,6 +65,8 @@
     <string name="attention">Attention! \n Abnormal temperature level</string>
     <string name="accelerometer">Accelerometer</string>
     <string name="light">Photometer</string>
+    <string name="distance_n">Near</string>
+    <string name="distance_f">Far</string>
     <string name="alert_gps_off">GPS not active!</string>
     <string name="getting_location">Getting Location</string>
     <string name="meters">Meters</string>
@@ -81,6 +83,7 @@
     <string name="trash">Trash</string>
     <string name="eliminato">successfully deleted</string>
     <string name="errore">error</string>
+    <string name="sensore_prossimita">Proximity Sensor</string>
     <string name="modificato">"successfully edited "</string>
     <string name="search">Search</string>
     <string name="addPreference">Add to Favorites</string>

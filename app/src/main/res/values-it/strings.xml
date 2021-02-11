@@ -74,7 +74,11 @@
 <string name="getting_location">Ricerca posizione</string>
 <string name="meters">Metri</string>
 <string name="feet">Piedi</string>
-<string name="title_activity_map">Mappa</string>
+    <string name="distance_n">Vicino</string>
+    <string name="distance_f">Lontano</string>
+    <string name="sensore_prossimita">Sensore di Prossimità</string>
+
+    <string name="title_activity_map">Mappa</string>
 <string name="currentlocation">Posizione Attuale</string>
 <string name="gyroscope">Giroscopio</string>
 <string name="save">Salvataggi</string>
