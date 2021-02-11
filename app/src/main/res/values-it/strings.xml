@@ -1,0 +1,100 @@
+
+<resources>
+<string name="altitude">Altimetro</string>
+<string name="level">Livella</string>
+<string name="pressure">Barometro</string>
+<string name="photometer">Fotometro</string>
+<string name="phonometer">Fonometro</string>
+<string name="compass">Bussola</string>
+<string name="settings">Impostazioni</string>
+<string name="magneticfield">Magnetometro</string>
+<string name="distance">Distanziometro</string>
+<string name="gravity">Accelerometro gravitazionale</string>
+<string name="speed">Tachimetro</string>
+<string name="movimenttools">STRUMENTI DI MOVIMENTO</string>
+<string name="ambientaltools">STRUMENTI AMBIENTALI</string>
+<string name="positiontools">STRUMENTI DI POSIZIONE</string>
+<string name="temperature">Termometro</string>
+<string name="temperature_setting">Unità misura temperatura</string>
+<string name="search">Ricerca</string>
+<string name="pressuresetting">Pressione</string>
+<string name="pressure_setting">Unità misura pressione</string>
+<string name="name_saving">Nome salvataggio</string>
+<string name="insert_name">Inserisci nome salvataggio misura</string>
+<string name="uploaddata_message_ok">Caricamento avvenuto con successo</string>
+<string name="uploaddata_message_error">Errore nel caricamento, riprova</string>
+<string name="speed_setting">Unità misura velocità</string>
+<string name="language_setting">Imposta lingua</string>
+<string name="language">Lingua</string>
+<string name="impostazioni">Impostazioni</string>
+<string name="favorite">Preferiti</string>
+<string name="storicogenerale">Storico Generale</string>
+<string name="drawer_open">Apri Menu Navigazione</string>
+<string name="drawer_close">Chiudi Menu Navigazione</string>
+<string name="about">Chi Siamo</string>
+<string name="add">Aggiungi</string>
+<string name="add_favorite_mid">Non hai impostato strumenti preferiti, aggiungine uno ora</string>
+<string name="position_tools">Strumenti di Posizione</string>
+<string name="ambient_tools">Strumenti Ambientali</string>
+<string name="movement_tools">Strumenti di Movimento</string>
+<string name="magneticfield_details">Magnetometro</string>
+<string name="proximity_details">Prossimità</string>
+<string name="acceleration_details">Accelerazione di gravità</string>
+<string name="gravity_details">Accelerazione gravitazionale</string>
+<string name="level_details">Angolazione</string>
+<string name="compass_instrument">Magnetometro</string>
+<string name="pressure_details">Barometro</string>
+<string name="decibel_details">Microfono</string>
+<string name="sound_intensity">Fonometro</string>
+<string name="initialization">Inizializzazione</string>
+<string name="near">Vicino</string>
+<string name="far">Lontano</string>
+<string name="nosensor">Nessun sensore </string>
+<string name="centimeter">cm</string>
+<string name="degrees">Gradi</string>
+<string name="compass_details">Bussola</string>
+<string name="add_favour">Aggiungi ai preferiti</string>
+<string name="details_instrument">Dettagli stumento:</string>
+<string name="unit_of_measure">Unità di misura:</string>
+<string name="instrument_det">Sensore:</string>
+<string name="save_measure">Salva Misurazione</string>
+<string name="historical_measure">Storico Misurazioni</string>
+<string name="measure">Misura:</string>
+<string name="decibel_level_1">Calma, silenzio</string>
+<string name="decibel_level_2">Possibile deconcentrazione</string>
+<string name="decibel_level_3">Interferenza nelle conversazioni, fastidio</string>
+<string name="decibel_level_4">Molto fastidio</string>
+<string name="decibel_level_5">Dolore</string>
+<string name="thermometer">Termometro interno</string>
+<string name="attention">Attenzione! \n Livello di temperatura anomalo</string>
+<string name="missing_sensor">Attenzione! \n Sensore non presente</string>
+<string name="accelerometer"> Accelerometro</string>
+<string name="light">Fotometro</string>
+<string name="alert_gps_off">GPS non attivo!</string>
+<string name="getting_location">Ricerca posizione</string>
+<string name="meters">Metri</string>
+<string name="feet">Piedi</string>
+<string name="title_activity_map">Mappa</string>
+<string name="currentlocation">Posizione Attuale</string>
+<string name="gyroscope">Giroscopio</string>
+<string name="save">Salvataggi</string>
+<string name="trash">Cestino</string>
+<string name="tool_icon">Icona Tool</string>
+<string name="eliminato">eliminato con successo</string>
+<string name="errore">errore</string>
+<string name="modificato">modificato con successo</string>
+<string name="addPreference">Aggiungi ai preferiti</string>
+<string name="removePreference">Rimuovi dai preferiti</string>
+<string name="edit_favorites">Modifica Preferiti</string>
+<string name="nessun_salvataggio_disponibile">Nessun salvataggio disponibile
+    </string>
+<string name="textview">Questa applicazione è stata realizzata da:\n
+        -Palladino Fabio\n
+        -Pesce Arianna\n
+        -Spagnolo Marco\n
+        -Valente Emanuele\ncome caso di studio per l\'esame di laurea \ndi Sviluppo Mobile Software.
+        \n\nL\'applicazione si occupa di fornire una collezione di strumenti basati sui sensori del dispositivo.\n\nOgni strumento è rappresentato secondo tre categorie: Ambientale, di Posizione e di Movimento.
+    </string>
+<string name="alert_no_favorites">Non hai aggiunto preferiti! \nPuoi aggiungere preferiti dalla pagina dello strumento!</string>
+
+</resources>
