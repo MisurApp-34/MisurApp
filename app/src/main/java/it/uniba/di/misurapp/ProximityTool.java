@@ -251,7 +251,8 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
                                     Editable nome = input.getText();
 
                                     //imposto nome tool
-                                    String name_tool = "Sensore Prossimità";
+                                    //String name_tool = "Sensore Prossimità";
+                                    String name_tool = getResources().getString(R.string.sensore_prossimita);
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
@@ -379,5 +380,10 @@ public class ProximityTool extends AppCompatActivity implements  SensorEventList
     protected void onResume() {
         super.onResume();
         mySensorManager.registerListener(this, mySensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

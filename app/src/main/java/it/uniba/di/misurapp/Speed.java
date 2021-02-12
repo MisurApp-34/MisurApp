@@ -246,7 +246,8 @@ public class Speed extends AppCompatActivity {
                                 Editable nome = input.getText();
 
                                 //imposto nome tool
-                                String name_tool ="Velocità";
+                                //String name_tool ="Velocità";
+                                String name_tool = getResources().getString(R.string.speed);
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
@@ -491,6 +492,11 @@ public class Speed extends AppCompatActivity {
     //funzione per l'arrontondamento delle cifre decimali definite in scale
     public static double round(double value, int scale) {
         return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }

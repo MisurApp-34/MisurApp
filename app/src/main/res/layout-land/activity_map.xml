@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="5"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <GridLayout
+                    android:id="@+id/grafic_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="1"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:rowCount="3"
+                    android:textAlignment="center"
+                    android:weightSum="2"
+                    tools:ignore="UselessParent">
+
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="300dp"
+                        android:layout_height="200dp"
+                        android:layout_rowWeight="7"
+                        tools:context=".location_tools.MapActivity" />
+
+                    <TextView
+                        android:id="@+id/measure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_rowWeight="0.5"
+                        android:text="@string/measure"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/instrument_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_rowWeight="0.5"
+                        android:orientation="horizontal"
+                        tools:ignore="NestedWeights">
+
+                        <TextView
+                            android:id="@+id/unit_measu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="2"
+                            android:maxLines="1"
+                            android:text="@string/instrument_det"
+                            tools:ignore="NestedWeights" />
+
+                        <TextView
+                            android:id="@+id/details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:maxLines="1"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black" />
+
+                    </LinearLayout>
+                </GridLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:id="@+id/horiz_botton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:alignmentMode="alignMargins"
+                android:columnCount="1"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:rowCount="2"
+                android:textAlignment="center"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/historical"
+                    android:padding="14dp"
+                    android:maxLines="2"
+                    android:text="@string/save_measure"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:id="@+id/history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:background="@drawable/historical"
+                    android:maxLines="2"
+                    android:padding="14dp"
+                    android:text="@string/historical_measure"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
+            </GridLayout>
+
+            <Button
+                android:id="@+id/add_fav"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
+                android:text="@string/add_favour"
+                android:background="@drawable/historical"/>
+
+            <Button
+                android:id="@+id/remove_fav"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/historical"
+                android:text="@string/removePreference"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </GridLayout>
+</LinearLayout>

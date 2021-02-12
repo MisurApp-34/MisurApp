@@ -193,7 +193,8 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
                                     Editable nome = input.getText();
 
                                     //imposto nome tool
-                                    String name_tool ="Livella";
+                                    //String name_tool ="Livella";
+                                    String name_tool = getResources().getString(R.string.level);
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
@@ -237,5 +238,10 @@ public class SpiritLevel extends AppCompatActivity implements SensorEventListene
         //pulsante indietro
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

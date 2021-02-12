@@ -219,7 +219,8 @@ public class CompassTool extends AppCompatActivity implements SensorEventListene
                                 Editable nome = input.getText();
 
                                 //imposto nome tool
-                                String name_tool ="Bussola";
+                                // String name_tool ="Bussola";
+                                String name_tool = getResources().getString(R.string.compass);
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
@@ -309,5 +310,10 @@ public class CompassTool extends AppCompatActivity implements SensorEventListene
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

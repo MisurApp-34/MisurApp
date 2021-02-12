@@ -172,7 +172,8 @@ public class LightTool extends AppCompatActivity {
                                         Editable nome = input.getText();
 
                                         //imposto nome tool
-                                        String name_tool ="Intensità Luminosa";
+                                        // String name_tool ="Intensità Luminosa";
+                                        String name_tool = getResources().getString(R.string.photometer);
 
                                         //converto editable in stringa
                                         String saving_name= nome.toString();
@@ -254,6 +255,11 @@ public class LightTool extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }

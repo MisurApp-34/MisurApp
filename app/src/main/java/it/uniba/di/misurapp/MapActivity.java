@@ -217,7 +217,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 Editable nome = input.getText();
 
                                 //imposto nome tool
-                                String name_tool ="Gps";
+                                // String name_tool ="Gps";
+                                String name_tool = getResources().getString(R.string.gps);
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
@@ -359,5 +360,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         onBackPressed();
         status = false;
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

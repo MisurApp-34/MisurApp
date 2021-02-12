@@ -287,7 +287,8 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
                                     Editable nome = input.getText();
 
                                     //imposto nome tool
-                                    String name_tool ="Campo Magnetico";
+                                    // String name_tool ="Campo Magnetico";
+                                    String name_tool = getResources().getString(R.string.magneticfield);
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
@@ -396,5 +397,10 @@ public class MagneticField extends AppCompatActivity implements SensorEventListe
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.2f);
         return set;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

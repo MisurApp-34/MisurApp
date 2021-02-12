@@ -217,7 +217,8 @@ public class SoundIntensity extends AppCompatActivity {
                                     //salvo valore in variabile
 
                                     //imposto nome tool
-                                    String name_tool ="Intensità sonora";
+                                    //String name_tool ="Intensità sonora";
+                                    String name_tool = getResources().getString(R.string.phonometer);
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
@@ -351,5 +352,10 @@ public class SoundIntensity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

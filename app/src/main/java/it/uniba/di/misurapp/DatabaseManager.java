@@ -116,19 +116,31 @@ public class DatabaseManager extends SQLiteOpenHelper {
         switch(name_tool)
         {
 
+            case "Compass" :
             case "Bussola": id_tool="1"; break;
-            case "Campo Magnetico": id_tool="2"; break;
-            case "Intensità Luminosa": id_tool="3"; break;
-            case "Intensità sonora": id_tool="4"; break;
-            case "Pressione": id_tool="5"; break;
-            case "Temperatura": id_tool="6"; break;
-            case "Altitudine": id_tool="7"; break;
-            case "Gps": id_tool="8"; break;
+            case "Magnetometer" :
+            case "Magnetometro": id_tool="2"; break;
+            case "Photometer" :
+            case "Fotometro": id_tool="3"; break;
+            case "Phonometer" :
+            case "Fonometro": id_tool="4"; break;
+            case "Barometer" :
+            case "Barometro": id_tool="5"; break;
+            case "Thermometer" :
+            case "Termometro": id_tool="6"; break;
+            case "Altimeter" :
+            case "Altimetro": id_tool="7"; break;
+            case "GPS": id_tool="8"; break;
+            case "Spirit Level" :
             case "Livella": id_tool="9"; break;
-            case "Sensore Prossimità": id_tool="10"; break;
-            case "Gravità": id_tool="11"; break;
-            case "Velocità": id_tool="12"; break;
-            case "Accelerazione": id_tool="13"; break;
+            case "Proximity Sensor" :
+            case "Sensore di Prossimità": id_tool="10"; break;
+            case "Gravity acceleration" :
+            case "Accelerazione gravitazionale": id_tool="11"; break;
+            case "Speedometer" :
+            case "Tachimetro": id_tool="12"; break;
+            case "Accelerometer" :
+            case "Accelerometro": id_tool="13"; break;
         }
 
         contentValues.put(ID_TOOL, id_tool);

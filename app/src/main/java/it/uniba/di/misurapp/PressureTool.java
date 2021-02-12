@@ -326,7 +326,8 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
                                 Editable nome = input.getText();
 
                                 //imposto nome tool
-                                String name_tool ="Pressione";
+                                //String name_tool ="Pressione";
+                                String name_tool = getResources().getString(R.string.pressure);
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
@@ -452,5 +453,10 @@ public class PressureTool extends AppCompatActivity implements SensorEventListen
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

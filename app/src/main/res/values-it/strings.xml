@@ -68,7 +68,7 @@
 <string name="thermometer">Termometro interno</string>
 <string name="attention">Attenzione! \n Livello di temperatura anomalo</string>
 <string name="missing_sensor">Attenzione! \n Sensore non presente</string>
-<string name="accelerometer"> Accelerometro</string>
+<string name="accelerometer">Accelerometro</string>
 <string name="light">Fotometro</string>
 <string name="alert_gps_off">GPS non attivo!</string>
 <string name="getting_location">Ricerca posizione</string>

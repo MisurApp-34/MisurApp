@@ -195,7 +195,8 @@ public class Altimeter extends AppCompatActivity {
                                 Editable nome = input.getText();
 
                                 //imposto nome tool
-                                String name_tool ="Altitudine";
+                                //String name_tool ="Altitudine";
+                                String name_tool = getResources().getString(R.string.altitude);
 
                                 //converto editable in stringa
                                 String saving_name= nome.toString();
@@ -468,5 +469,10 @@ public class Altimeter extends AppCompatActivity {
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.2f);
         return set;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

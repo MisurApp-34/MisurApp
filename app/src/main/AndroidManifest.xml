@@ -24,33 +24,33 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".CompassTool" android:screenOrientation="portrait" />
-        <activity android:name=".PressureTool" android:screenOrientation="portrait"/>
-        <activity android:name=".MagneticField" android:screenOrientation="portrait"/>
-        <activity android:name=".PositionTools" android:screenOrientation="portrait"/>
-        <activity android:name=".ProximityTool" android:screenOrientation="portrait"/>
-        <activity android:name=".SoundIntensity" android:screenOrientation="portrait"/>
-        <activity android:name=".TemperatureTool" android:screenOrientation="portrait"/>
-        <activity android:name=".Settings" android:screenOrientation="portrait"/>
-        <activity android:name=".Speed" android:screenOrientation="portrait"/>
-        <activity android:name=".Altimeter" android:screenOrientation="portrait"/>
-        <activity android:name=".MapActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Favorite" android:screenOrientation="portrait"/>
-        <activity android:name=".AmbientalTools" android:screenOrientation="portrait"/>
-        <activity android:name=".MovimentTools" android:screenOrientation="portrait"/>
-        <activity android:name=".AccelerometerTool" android:screenOrientation="portrait"/>
-        <activity android:name=".LightTool" android:screenOrientation="portrait"/>
-        <activity android:name=".GravityTool" android:screenOrientation="portrait"/>
-        <activity android:name=".ToolSave" android:screenOrientation="portrait"/>
-        <activity android:name=".SpiritLevel" android:screenOrientation="portrait"/>
-        <activity android:name=".AboutUs" android:screenOrientation="portrait"/>
+        <activity android:name=".CompassTool" />
+        <activity android:name=".PressureTool" />
+        <activity android:name=".MagneticField" />
+        <activity android:name=".PositionTools" />
+        <activity android:name=".ProximityTool" />
+        <activity android:name=".SoundIntensity" />
+        <activity android:name=".TemperatureTool" />
+        <activity android:name=".Settings" />
+        <activity android:name=".Speed" />
+        <activity android:name=".Altimeter" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".Favorite" />
+        <activity android:name=".AmbientalTools" />
+        <activity android:name=".MovimentTools" />
+        <activity android:name=".AccelerometerTool" />
+        <activity android:name=".LightTool" />
+        <activity android:name=".GravityTool" />
+        <activity android:name=".ToolSave" />
+        <activity android:name=".SpiritLevel" />
+        <activity android:name=".AboutUs" />
 
         <service android:name=".LocationService"/>
 

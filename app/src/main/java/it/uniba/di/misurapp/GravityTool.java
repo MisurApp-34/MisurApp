@@ -273,7 +273,8 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
                                     Editable nome = input.getText();
 
                                     //imposto nome tool
-                                    String name_tool ="Gravità";
+                                    // String name_tool ="Gravità";
+                                    String name_tool = getResources().getString(R.string.gravity_details);
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
@@ -390,5 +391,10 @@ public class GravityTool extends AppCompatActivity implements SensorEventListene
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCubicIntensity(0.2f);
         return set;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }

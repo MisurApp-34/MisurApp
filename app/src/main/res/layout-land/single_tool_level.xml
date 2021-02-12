@@ -5,25 +5,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:weightSum="10">
+    android:background="@drawable/bg">
+    
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
-
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:padding="20dp">
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:rowCount="1">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
             android:visibility="visible"
             app:cardCornerRadius="18dp"
             app:cardElevation="5dp">
@@ -32,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <GridLayout
                     android:id="@+id/grafic_text"
@@ -44,13 +46,14 @@
                     android:padding="10dp"
                     android:rowCount="3"
                     android:textAlignment="center"
+                    android:weightSum="2"
+                    android:layout_rowWeight="1"
                     tools:ignore="UselessParent">
 
                     <it.uniba.di.misurapp.LevelView
                         android:id="@+id/Direction_View"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        android:layout_rowWeight="0" />
+                        android:layout_width="300dp"
+                        android:layout_height="200dp" />
 
                     <TextView
                         android:id="@+id/measure"
@@ -92,89 +95,89 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
+                                android:textSize="14sp"
                                 android:maxLines="1"
                                 android:textAlignment="center"
-                                android:textColor="@android:color/black"
-                                android:textSize="14sp" />
+                                android:textColor="@android:color/black" />
 
                         </LinearLayout>
                     </LinearLayout>
                 </GridLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <GridLayout
-            android:id="@+id/horiz_botton"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:rowCount="1"
-            android:textAlignment="center"
-            android:weightSum="2">
+            android:orientation="vertical"
+            android:layout_rowWeight="1">
+
+            <GridLayout
+                android:id="@+id/horiz_botton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:alignmentMode="alignMargins"
+                android:columnCount="1"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:rowCount="2"
+                android:textAlignment="center"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/historical"
+                    android:padding="14dp"
+                    android:maxLines="2"
+                    android:text="@string/save_measure"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:id="@+id/history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:background="@drawable/historical"
+                    android:maxLines="2"
+                    android:padding="14dp"
+                    android:text="@string/historical_measure"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black" />
+
+            </GridLayout>
 
             <Button
-                android:id="@+id/add"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/historical"
-                android:padding="14dp"
-                android:maxLines="2"
-                android:text="@string/save_measure"
-                android:textAlignment="center"
-                android:textColor="@android:color/black" />
+                android:id="@+id/add_fav"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
+                android:text="@string/add_favour"
+                android:background="@drawable/historical"/>
 
             <Button
-                android:id="@+id/history"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
+                android:id="@+id/remove_fav"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
                 android:background="@drawable/historical"
-                android:maxLines="2"
-                android:padding="14dp"
-                android:text="@string/historical_measure"
-                android:textAlignment="center"
-                android:textColor="@android:color/black" />
+                android:text="@string/removePreference"
+                android:visibility="gone" />
 
-        </GridLayout>
-
-        <Button
-            android:id="@+id/add_fav"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="40dp"
-            android:text="@string/add_favour"
-            android:background="@drawable/historical"/>
-
-        <Button
-            android:id="@+id/remove_fav"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/historical"
-            android:text="@string/removePreference"
-            android:visibility="gone" />
-
-    </LinearLayout>
+        </LinearLayout>
+    </GridLayout>
 </LinearLayout>
