@@ -268,13 +268,12 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
                                     //acquisisco nome
                                     Editable nome = input.getText();
 
-
                                     //imposto nome tool
-                                    String name_tool ="Accelerazione";
+                                    //String name_tool ="Accelerazione";
+                                    String name_tool = getResources().getString(R.string.accelerometer);
 
                                     //converto editable in stringa
                                     String saving_name= nome.toString();
-
 
                                     //aggiungo al db
                                     if (value1.length() != 0) {
@@ -427,5 +426,10 @@ public class AccelerometerTool extends AppCompatActivity implements SensorEventL
     //funzione per l'arrontondamento delle cifre decimali definite in scale
     public static double round(double value, int scale) {
         return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
     }
 }
